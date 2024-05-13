@@ -16,12 +16,6 @@ export interface Props {
     index: number
 }
 
-/**
- * @title Product Image Slider
- * @description Creates a three columned grid on destkop, one for the dots preview, one for the image slider and the other for product info
- * On mobile, there's one single column with 3 rows. Note that the orders are different from desktop to mobile, that's why
- * we rearrange each cell with col-start- directives
- */
 export default function ProductItemPDP({alt,url,index,actionOnClick="zoom",onMouseOver=false,height,width}: Props) {
     const aspectRatio = `${width} / ${height}`;
 
@@ -39,7 +33,6 @@ export default function ProductItemPDP({alt,url,index,actionOnClick="zoom",onMou
         }`}
         onClick={(e) => (actionOnClick == "zoom" && addID(e.target.id))}
         >
-        {/* Tentar fazer uma logica de clique ao clicar na imagem adiciona algo ao id dela e do box podendo fazer com que ambos sejam os unicos a mexer */}
         <div class=" items-center justify-center m-0 lg:min-h-[820px]  overflow-hidden relative ">
             <Image
             class={`bg-base-100 col-span-full row-span-full rounded w-full h-full opacity-100 lg:group-hover:opacity-0`}
@@ -49,7 +42,6 @@ export default function ProductItemPDP({alt,url,index,actionOnClick="zoom",onMou
             alt={alt}
             width={width}
             height={height}
-            // Preload LCP image for better web vitals
             preload={index === 0}
             loading={index === 0 ? "eager" : "lazy"}
             id={index}
