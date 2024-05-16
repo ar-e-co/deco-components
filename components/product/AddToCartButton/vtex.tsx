@@ -1,5 +1,5 @@
 import { useCart } from "apps/vtex/hooks/useCart.ts";
-import Button, { Props as BtnProps } from "./common.tsx";
+import Button, { Props as BtnProps } from "./AddToCartButton.tsx";
 import { AnatomyClasses, handleClasses } from "../../../sdk/styles.ts";
 
 
@@ -17,7 +17,7 @@ export interface Props extends Omit<BtnProps, "onAddItem"> {
 
 function AddToCartButton({ seller, productID, eventParams,classes,textCart }: Props) {
   const { addItems } = useCart();
-  const onAddItem = () =>
+  function onAddItem() {
     addItems({
       orderItems: [{
         id: productID,
@@ -25,6 +25,7 @@ function AddToCartButton({ seller, productID, eventParams,classes,textCart }: Pr
         quantity: 1,
       }],
     });
+  }
 
   return <Button classes={classes} textCart={textCart} onAddItem={onAddItem} eventParams={eventParams} />;
 }

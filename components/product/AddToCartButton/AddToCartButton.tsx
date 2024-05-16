@@ -1,9 +1,9 @@
 import { AddToCartParams } from "apps/commerce/types.ts";
 import { useState } from "preact/hooks";
-import Button from "../../../../simples/components/ui/Button.tsx";
-import { sendEvent } from "../../../../simples/sdk/analytics.tsx";
-import { useUI } from "../../../../simples/sdk/useUI.ts";
-import { AnatomyClasses, handleClasses } from "../../../sdk/styles.ts";
+import Button from "site/components/ui/Button.tsx";
+import { sendEvent } from "site/sdk/analytics.tsx";
+import { useUI } from "site/sdk/useUI.ts";
+import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
 
 const anatomy = [
   "container",
