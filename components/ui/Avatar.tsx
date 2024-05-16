@@ -1,27 +1,37 @@
-/**
- * This component renders the filter and selectors for skus.
- * TODO: Figure out a better name for this component.
- */
+import { AnatomyClasses, handleClasses } from "../../sdk/styles.ts";
 
-interface Props {
+const anatomy = [
+  "active",
+  "disabled",
+  "default",
+  "container",
+  "text",
+];
+
+export type AvatarStyles = AnatomyClasses<typeof anatomy[number]>;
+
+export interface Props {
   variant?: "active" | "disabled" | "default";
   content: string;
+  classes?: AvatarStyles;
 }
 
-const variants = {
-  active: "text-base-200 bg-primary ring-1 ring-primary rounded-full",
-  disabled:
-    `text-base-content ring-1 ring-base-300 relative rounded-full after:absolute after:top-1/2 after:h-[2px] after:-left-[5%] after:bg-primary after:w-[110%] after:block after:rotate-[20deg] after:content-[""]`,
-  default: "text-base-content bg-base-200 ring-1 ring-base-300 rounded-full",
-};
+function Avatar({ content, variant = "default", classes }: Props) {
+  const variants = {
+    active: handleClasses(classes?.active) ||
+      "text-base-200 bg-primary ring-1 ring-primary rounded-full px-5 py-1",
+    disabled: handleClasses(classes?.disabled) ||
+      `text-base-content ring-1 ring-base-300 relative rounded-full after:absolute after:top-1/2 after:h-[2px] after:-left-[5%] after:bg-primary after:w-[110%] after:block after:rotate-[20deg] after:content-[""] px-5 py-1`,
+    default: handleClasses(classes?.default) ||
+      "text-base-content bg-base-200 ring-1 ring-base-300 rounded-full px-5 py-1",
+  };
 
-function Avatar({ content, variant = "default" }: Props) {
   return (
-    <div class="placeholder text-sm font-light max-h-6 min-w-9">
+    <div class={handleClasses("placeholder", classes?.container)}>
       <div
-        class={`${variants[variant]} px-5 py-1 hover:ring-base-content`}
+        class={`${variants[variant]}  hover:ring-base-content`}
       >
-        <span class="uppercase ">
+        <span class={classes?.text || ""}>
           {content.substring(0, 3)}
         </span>
       </div>

@@ -1,5 +1,6 @@
 {
   "imports": {
+    "deco-components/": "./",
     "$fresh/": "https://denopkg.com/denoland/fresh@1.5.2/",
     "preact": "https://esm.sh/preact@10.15.1",
     "preact/": "https://esm.sh/preact@10.15.1/",
