@@ -1,22 +1,19 @@
-import { ProductDetailsPage } from "apps/commerce/types.ts";
 import Image from "apps/website/components/Image.tsx";
 import ProductImageZoom from "../../../simples/islands/ProductImageZoom.tsx";
-import { useId } from "../../../simples/sdk/useId.ts";
-import { usePDP } from "deco-components/sdk/usePDP.ts";
 import imgZoom from "deco-components/components/product/ImgZoom.tsx";
 import Slider from "../../../simples/components/ui/Slider.tsx";
 
 export interface Props {
     url:string;
     alt:string;
-    actionOnClick?: "zoom" | "modal" | "null";
+    actionOnClick?: "zoom" | "modal";
     onMouseOver?: boolean;
     width: number;
     height:  number;
     index: number
 }
 
-export default function ProductItemPDP({alt,url,index,actionOnClick="zoom",onMouseOver=false,height,width}: Props) {
+export default function ProductMedia({alt,url,index,actionOnClick="zoom",onMouseOver=false,height,width}: Props) {
     const aspectRatio = `${width} / ${height}`;
 
   function addID(id) {
