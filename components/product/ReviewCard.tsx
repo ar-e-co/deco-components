@@ -20,8 +20,17 @@ export interface Props {
 
 
 function ReviewCard({ ratingValue,reviewBody,classes,datePublished,author }: Props) {
+    const dataFormatada = (data) => {
+        const regex = /(\d{4})-(\d{2})-(\d{2})/;
+        const match = regex.exec(data);
+      
+        if (match) {
+          return `${match[3]}/${match[2]}/${match[1]}`;
+        }
+      };
+      
   return (
-        <div class="flex flex-col w-1/5 max-w-[290px] border-t border-black py-5 px-3 h-44 text-14 font-body ">
+        <div class="flex flex-col w-full lg:w-1/5 lg:max-w-[290px] border-t border-black py-5 px-3 lg:h-44 text-14 font-body ">
             <div class="rating  rating-sm">
                 {ratingValue == 1
                     ? (
@@ -74,10 +83,10 @@ function ReviewCard({ ratingValue,reviewBody,classes,datePublished,author }: Pro
                     )
                     : <input type="radio" name="rating-5" class="mask mask-star" />}
             </div>
-                <span class="mt-1 min-h-24">{reviewBody}</span>
-            <div class="flex flex-col w-full text-12 font-body">
+                <span class="mt-1 lg:min-h-24 ">{reviewBody}</span>
+            <div class="flex flex-col w-full text-12 mt-3 font-body">
                 <span>{author}</span>
-                <span>{datePublished}</span>
+                <span>Compra feita {dataFormatada(datePublished)}</span>
             </div>
         </div>
   );
