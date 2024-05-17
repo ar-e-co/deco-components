@@ -1,11 +1,11 @@
 import type { Product } from "apps/commerce/types.ts";
 import type { AnatomyClasses } from "deco-components/sdk/styles.ts";
 import { handleClasses } from "deco-components/sdk/styles.ts";
-import { mapProductToSku } from "deco-components/sdk/useVariantPossibilitiesClientSide.ts";
 import { useProduct } from "deco-components/sdk/useProduct.ts";
 
 import { COLOR_FALLBACK_IMG } from "../../../sdk/getSimilarProducts.ts";
 import type { ProductWithColorProperties } from "./Types.ts";
+import { relative } from "deco-components/sdk/url.ts";
 
 const anatomy = [
   "container",
@@ -30,18 +30,17 @@ function ColorSelector(
     options = [],
   }: Props,
 ) {
-  const { productSignal, skuSelectedSignal } = useProduct();
+  const { productSignal } = useProduct();
   const product = productSignal.value;
 
   if (options.length === 0) {
     return null;
   }
 
-  function onSelectProduct(product: Product) {
-    productSignal.value = product;
-    const obj = { Title: product?.name!, Url: product?.url };
+  function onSelectProduct(newProduct: Product) {
+    productSignal.value = newProduct;
+    const obj = { Title: newProduct?.name!, Url: newProduct.isVariantOf?.url };
     history.pushState(obj, obj.Title, obj.Url);
-    skuSelectedSignal.value = mapProductToSku(product);
   }
 
   return (
@@ -55,7 +54,7 @@ function ColorSelector(
         return (
           <li>
             <a
-              href={similar.url}
+              href={relative(similar.isVariantOf?.url)}
               class={handleClasses(
                 "flex justify-center items-center cursor-pointer tooltip tooltip-primary transition-colors ease-in-out duration-125",
                 classes?.option,

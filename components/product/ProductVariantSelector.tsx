@@ -1,103 +1,86 @@
-import type { Product } from "apps/commerce/types.ts";
+import { JSX } from "preact/jsx-runtime";
 import { useProduct } from "deco-components/sdk/useProduct.ts";
-
-import { SpecificationsDictionary } from "../../loaders/ArCo/getListOfSpecifications.tsx";
-import { relative } from "../../sdk/url.ts";
-import {
-  useVariantPossibilities,
-} from "../../sdk/useVariantPossibilities.ts";
-import Avatar, { Props as AvatarProps } from "../ui/Avatar.tsx";
-import { AnatomyClasses, handleClasses } from "../../sdk/styles.ts";
-import { omit } from "../../sdk/utils.ts";
+import { relative } from "deco-components/sdk/url.ts";
+import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
+import type { VariantPossibility } from "deco-components/sdk/useVariantPossibilities.ts";
 
 const anatomy = [
-  "variationsList",
-  "variationListItem",
-  "variationTitle",
-  "variationOptionsList",
-  "variationOptionListItem",
-  "variationOptionLink",
-  "variationOptionAvatar",
+  'container',
+  'item',
+  'link',
 ] as const;
 
 export type VariantSelectorStyles = AnatomyClasses<typeof anatomy[number]>;
 
+export type { VariantPossibility }
+
+export type ChildrenProps = { skuID: string, isActive: boolean } & VariantPossibility;
+
 export interface Props {
-  product: Product;
-  listOfSizes?: SpecificationsDictionary;
   classes?: VariantSelectorStyles;
-  avatarProps?: Partial<AvatarProps>
+  variants: [string, VariantPossibility][]
+  children: (props: ChildrenProps) => JSX.Element;
 }
 
 function VariantSelector({ 
   classes,
-  avatarProps,
+  variants,
+  children,
 }: Props) {
-  const { productSignal, skuSelectedSignal } = useProduct();
-
+  const { productSignal, skuSelectedIDSignal } = useProduct();
   const product = productSignal.value;
-  const sku = skuSelectedSignal.value;
+  const skuSelectedID = skuSelectedIDSignal.value;
 
-  const { url, isVariantOf } = product;
+  function handleVariationSelect({
+    e,
+    link,
+    skuID,
+    isAvailable,
+  }: {
+    e: Event;
+    link: string;
+    isAvailable: boolean;
+    skuID: string;
+  }) {
+    e.preventDefault();
 
-  const hasVariant = isVariantOf?.hasVariant ?? [];
-  const possibilities = useVariantPossibilities(hasVariant, product);
+    if(!isAvailable) { 
+      return; 
+    }
 
-  // function handleVariationSelect(e: Event, sku: Product) {
-  //   e.preventDefault();
-  //   skuSelectedSignal.value = sku;
-  //   const obj = { Title: sku.name ?? "", Url: sku.url };
-  //   history.pushState(obj, obj.Title, obj.Url);
-  // }
+    skuSelectedIDSignal.value = skuID;
 
-  // console.log({
-  //   possibilities,
-  //   hasVariant
-  // })
+    if (link) {
+      const obj = { Title: product.name ?? "", Url: link };
+      history.replaceState(obj, obj.Title, obj.Url);
+    }
+  }
 
   return (
-    <ul class={handleClasses("flex flex-col gap-4", classes?.variationsList)}>
-      {Object.keys(possibilities).map((name) => (
-        <li class={handleClasses("flex flex-col gap-2", classes?.variationListItem)}>
-          <span class={classes?.variationTitle}>
-            {name}
-          </span>
+    <ul class={handleClasses("flex flex-row", classes?.container)}>
+      {variants.map(([skuID, { url: link, value, isAvailable }]) => {
+        const relativeLink = relative(link);
+        const isActive = skuID === skuSelectedID;
 
-          <ul class={handleClasses("flex flex-row", classes?.variationOptionsList)}>
-            {Object.entries(possibilities[name]).map(([value, skuVal]) => {
-              const relativeUrl = relative(sku?.url ?? url);
-              const relativeLink = relative(sku?.url ?? url);
-
-              return (
-                <li class={classes?.variationOptionListItem}>
-                  <a
-                    class={classes?.variationOptionLink}
-                    href={relativeLink}
-                  >
-                    <Avatar
-                      content={value}
-                      variant={relativeLink === relativeUrl
-                        ? "active"
-                        : relativeLink &&
-                          sku?.availability === "https://schema.org/InStock"
-                          ? "default"
-                          : "disabled"}
-                      classes={{
-                        container: "text-sm font-light max-h-6 min-w-9",
-                        text: "uppercase",
-                        ...avatarProps?.classes,
-                      }}
-                      {...omit(['classes'], avatarProps)}
-                    />
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </li>
-      ))}
-  </ul>
-);
+        return (
+          <li class={classes?.item}>
+            <a
+              class={classes?.link}
+              href={relativeLink}
+              onClick={(e) => handleVariationSelect({
+                e,
+                link: link ?? "",
+                skuID,
+                isAvailable,
+              })}
+            >
+              {children({ isActive, skuID, value, isAvailable, url: link })}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  )
 }
 
 export default VariantSelector;

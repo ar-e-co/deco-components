@@ -10,8 +10,10 @@ const anatomy = [
 
 export type AvatarStyles = AnatomyClasses<typeof anatomy[number]>;
 
+export type AvatarVariants = "active" | "disabled" | "default";
+
 export interface Props {
-  variant?: "active" | "disabled" | "default";
+  variant?: AvatarVariants; 
   content: string;
   classes?: AvatarStyles;
 }
