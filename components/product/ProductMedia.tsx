@@ -19,6 +19,7 @@ export default function ProductMedia({alt,url,index,actionOnClick="zoom",onMouse
   function addID(id) {
     imgZoom(id);
   }
+  
 
   return (
     <>
@@ -45,12 +46,6 @@ export default function ProductMedia({alt,url,index,actionOnClick="zoom",onMouse
             name={index}
             />
         </div>
-
-        <script
-            dangerouslySetInnerHTML={{
-            __html: `(${imgZoom.toString()})()`,
-            }}
-        />
         </Slider.Item>
 
         {actionOnClick == "modal" &&
