@@ -23,15 +23,12 @@ export default function ProductMedia({alt,url,index,actionOnClick="zoom",onMouse
 
   return (
     <>
-        <Slider.Item
+        <div
         index={index}
         id={`box${index}`}
-        class={`carousel-item w-full max-w-[550px] pr-5 pb-5 h-full max-h-[820px] ${
-            actionOnClick == "zoom" && "cursor-zoom-in"
-        }`}
+        class={`items-center justify-center m-0 lg:min-h-[820px]  overflow-hidden relative  ${actionOnClick == "zoom" && "cursor-zoom-in"}`}
         onClick={(e) => (actionOnClick == "zoom" && addID(e.target.id))}
         >
-        <div class=" items-center justify-center m-0 lg:min-h-[820px]  overflow-hidden relative ">
             <Image
             class={`bg-base-100 col-span-full row-span-full rounded w-full h-full opacity-100 lg:group-hover:opacity-0`}
             sizes="(max-width: 640px) 100vw, 40vw"
@@ -45,8 +42,8 @@ export default function ProductMedia({alt,url,index,actionOnClick="zoom",onMouse
             id={index}
             name={index}
             />
+      
         </div>
-        </Slider.Item>
 
         {actionOnClick == "modal" &&
         (
