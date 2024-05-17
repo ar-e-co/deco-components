@@ -1,30 +1,42 @@
 // ISLAND
-import { useSignal, Signal } from "@preact/signals";
+import { useSignal, Signal, useComputed } from "@preact/signals";
 import { createContext, ComponentChildren } from 'preact'
-import { Product } from "apps/commerce/types.ts";
-import { Sku } from "../../sdk/useVariantPossibilitiesClientSide.ts";
+import { Product, ProductLeaf } from "apps/commerce/types.ts";
 
 export type ProductContextState = {
   productSignal: Signal<Product>;
-  skuSelectedSignal: Signal<Sku | null>;
+  skuSelectedIDSignal: Signal<string | null>;
+  skuSelectedSignal: Signal<ProductLeaf | null>
 }
 
 export const ProductContext = createContext<ProductContextState>({} as never)
 
 export type ProductContextProps = {
   product: Product;
-  skuSelected?: unknown | null | undefined;
+  skuSelectedID?: string | number | null | undefined
   children: ComponentChildren
 }
 
-function ProductProvider({ product: productProp, children }: ProductContextProps) {
+function ProductProvider({ 
+  skuSelectedID: skuSelectedIDProp, 
+  product: productProp, 
+  children 
+}: ProductContextProps) {
   const productSignal = useSignal(productProp);
-  const skuSelectedSignal = useSignal(null);
+
+  const skuSelectedIDSignal = useSignal(skuSelectedIDProp ? String(skuSelectedIDProp) : null);
+
+  const skuSelectedSignal = useComputed(() => {
+    const skuSelectedID = skuSelectedIDSignal.value;
+    const product = productSignal.value;
+    return product?.isVariantOf?.hasVariant?.find(variant => variant.sku === skuSelectedID) ?? null
+  });
 
   return (
     <ProductContext.Provider value={{
       productSignal,
-      skuSelectedSignal,
+      skuSelectedIDSignal,
+      skuSelectedSignal
     }}>
       {children}
     </ProductContext.Provider>
