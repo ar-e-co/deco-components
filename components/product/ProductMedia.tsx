@@ -1,8 +1,7 @@
 import Image from "apps/website/components/Image.tsx";
 import ProductImageZoom from "../../../simples/islands/ProductImageZoom.tsx";
 import imgZoom from "deco-components/components/product/ImgZoom.tsx";
-import Slider from "../../../simples/components/ui/Slider.tsx";
-
+import ProductVideoMedia from "./ProductVideoMedia.tsx";
 export interface Props {
     url:string;
     alt:string;
@@ -29,20 +28,37 @@ export default function ProductMedia({alt,url,index,actionOnClick="zoom",onMouse
         class={`items-center justify-center m-0 lg:min-h-[820px]  overflow-hidden relative  ${actionOnClick == "zoom" && "cursor-zoom-in"}`}
         onClick={(e) => (actionOnClick == "zoom" && addID(e.target.id))}
         >
+          {(() => {
+          const extension = url.split('.').pop();
+          if (extension === 'mp4' || extension === 'mp3') {
+            return (
+              <ProductVideoMedia 
+                  alt={alt}
+                  width={width}
+                  height={height}
+                  index={index}                  
+                  url={url}/>
+            );
+          } else {
+            return ( 
             <Image
-            class={`bg-base-100 col-span-full row-span-full rounded w-full h-full opacity-100 lg:group-hover:opacity-0`}
-            sizes="(max-width: 640px) 100vw, 40vw"
-            style={{aspectRatio}}
-            src={url}
-            alt={alt}
-            width={width}
-            height={height}
-            preload={index === 0}
-            loading={index === 0 ? "eager" : "lazy"}
-            id={index}
-            name={index}
-            />
-      
+              class={`bg-base-100 col-span-full row-span-full rounded w-full h-full opacity-100 lg:group-hover:opacity-0`}
+              sizes="(max-width: 640px) 100vw, 40vw"
+              style={{aspectRatio}}
+              src={url}
+              alt={alt}
+              width={width}
+              height={height}
+              preload={index === 0}
+              loading={index === 0 ? "eager" : "lazy"}
+              id={index}
+              name={index}
+              />
+             );
+          }
+        })()}
+
+            
         </div>
 
         {actionOnClick == "modal" &&
