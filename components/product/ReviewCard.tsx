@@ -1,5 +1,5 @@
 
-import { AnatomyClasses, handleClasses } from "../../sdk/styles.ts";
+import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
 
 const anatomy = [
   "container",
@@ -21,7 +21,7 @@ export interface Props {
 
 
 function ReviewCard({ ratingValue,reviewBody,classes,datePublished,author }: Props) {
-    const dataFormatada = (data) => {
+    const dataFormatada = (data: string) => {
         const regex = /(\d{4})-(\d{2})-(\d{2})/;
         const match = regex.exec(data);
       
@@ -87,7 +87,7 @@ function ReviewCard({ ratingValue,reviewBody,classes,datePublished,author }: Pro
                 <span class={handleClasses(classes?.opinionText) || "mt-1 lg:min-h-24 "}>{reviewBody}</span>
             <div class="flex flex-col w-full text-12 mt-3 font-body">
                 <span class={handleClasses(classes?.author)}>{author}</span>
-                <span class={handleClasses(classes?.date)}>Compra feita {dataFormatada(datePublished)}</span>
+                <span class={handleClasses(classes?.date)}>Compra feita {dataFormatada(datePublished ?? "")}</span>
             </div>
         </div>
   );
