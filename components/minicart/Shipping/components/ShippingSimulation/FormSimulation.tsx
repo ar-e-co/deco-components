@@ -1,8 +1,9 @@
 import { useCart } from "apps/vtex/hooks/useCart.ts";
-import { useSignal,SKU } from "@preact/signals";
+import { useSignal } from "@preact/signals";
 import { useCallback } from "preact/hooks";
 import { useShippingCalculator } from "../../sdk/useShippingCalculator.ts";
 import { AnatomyClasses, handleClasses } from "../../../../../sdk/styles.ts";
+import { SKU } from "apps/vtex/utils/types.ts";
 
   const anatomy = [
     "container",
@@ -12,7 +13,7 @@ import { AnatomyClasses, handleClasses } from "../../../../../sdk/styles.ts";
   
   type Styles = AnatomyClasses<typeof anatomy[number]>;
   
-  export type ClearSelectedShippingButtonProps = {
+  export interface Props {
     classes?: Styles;
     items: Array<SKU>;
     textButton?: string
@@ -23,7 +24,7 @@ function FormSimulation({ items,classes, textButton }: Props) {
     const loading = useSignal(false);
     const { simulate, cart } = useCart();
     const handleSimulation = useCallback(async () => {
-      if (postalCode.value.length !== 8) {
+      if (postalCode.value?.length !== 8) {
         return;
       }
       try {
@@ -51,7 +52,7 @@ function FormSimulation({ items,classes, textButton }: Props) {
             type="text"
             class={handleClasses( classes?.input) || " bg-gray-100 rounded-full px-4  join-item w-full border border-transparent outline-none"}
             placeholder="Seu cep aqui"
-            value={postalCode.value}
+            value={postalCode.value ?? ""}
             maxLength={8}
             size={8}
             onChange={(e: { currentTarget: { value: string } }) => {
