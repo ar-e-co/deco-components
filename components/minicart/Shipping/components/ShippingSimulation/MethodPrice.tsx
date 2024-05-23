@@ -16,7 +16,7 @@ export type ShippingOptionEstimateProps = {
 
  export default function MethodPrice({ price,currencyCode,locale, classes }: ShippingOptionEstimateProps) {
     return (
-      <span class=" font-semibold ">
+      <span class={handleClasses(classes?.container)}>
         {price === 0 ? "Grátis" : (
           formatPrice(price / 100, currencyCode, locale)
         )}
