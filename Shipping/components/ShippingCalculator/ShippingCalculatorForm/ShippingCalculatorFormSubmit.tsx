@@ -1,22 +1,8 @@
-import { ComponentChildren, JSX } from "preact";
-
-import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
-import Spinner from "deco-components/components/ui/Spinner.tsx";
+import FormSubmit, { FormSubmitProps } from "deco-components/components/ui/FormSubmit.tsx";
 
 import useShippingCalculator from "../../../sdk/useShippingCalculator.ts";
 
-const anatomy = ["button", "button-disabled"] as const;
-
-export type ShippingCalculatorFormSubmitStyles = AnatomyClasses<
-  typeof anatomy[number]
->;
-
-export type ShippingCalculatorFormSubmitProps =
-  & Partial<JSX.HTMLAttributes<HTMLButtonElement>>
-  & {
-    children?: ComponentChildren;
-    classes?: ShippingCalculatorFormSubmitStyles;
-  };
+export type ShippingCalculatorFormSubmitProps = FormSubmitProps
 
 function ShippingCalculatorFormSubmit({
   children = "Enviar",
@@ -27,17 +13,12 @@ function ShippingCalculatorFormSubmit({
   const loading = loadingSignal.value;
 
   return (
-    <button
+    <FormSubmit
       {...props}
-      type="submit"
-      class={handleClasses(
-        "inline-block h-fit py-2 px-6 bg-primary disabled:bg-gray-300",
-        classes?.button,
-      )}
+      isLoading={loading}
+      class={classes?.button}
       disabled={loading}
-    >
-      {loading ? <Spinner size={16} /> : children}
-    </button>
+    />
   );
 }
 

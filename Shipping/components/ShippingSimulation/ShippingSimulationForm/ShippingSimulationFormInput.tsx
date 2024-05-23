@@ -1,33 +1,28 @@
 import { ChangeEvent } from "preact/compat";
-import { useCart } from "apps/vtex/hooks/useCart.ts";
 
-import { clx } from "deco-components/sdk/clx.ts";
 import FormInput, { FormInputProps } from 'deco-components/components/ui/FormInput.tsx'
 
 import {
   maskPostalCode,
   stripNonNumericCharacters,
 } from "../../../sdk/helpers.tsx";
-import useShippingCalculator from "../../../sdk/useShippingCalculator.ts";
+import useShippingSimulation from "../../../sdk/useShippingSimulation.ts";
 import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
 
 const anatomy = ['container']
 
-export type ShippingCalculatorFormInputProps = Omit<FormInputProps, 'classes'> & {
+export type ShippingSimulationFormInputProps = Omit<FormInputProps, 'classes'> & {
   classes?: FormInputProps['classes'] & AnatomyClasses<typeof anatomy[number]>
 }
 
-function ShippingCalculatorFormInput({
+function ShippingSimulationFormInput({
   classes,
   ...props
-}: ShippingCalculatorFormInputProps) {
-  const { cart } = useCart();
-  const { errorSignal, postalCodeSignal } = useShippingCalculator();
-
-  const currentPostalCode = cart.value?.shippingData?.address?.postalCode;
+}: ShippingSimulationFormInputProps) {
+  const { errorSignal, postalCodeSignal } = useShippingSimulation();
 
   const error = errorSignal.value;
-  const postalCode = postalCodeSignal.value ?? currentPostalCode ?? "";
+  const postalCode = postalCodeSignal.value ?? "";
 
   // blocks non numeric keys
   function handleKeypress(event: KeyboardEvent) {
@@ -48,11 +43,10 @@ function ShippingCalculatorFormInput({
     <div class={handleClasses("inline-block", classes?.container)}>
       <FormInput
         {...props}
-        class={handleClasses(
-          "border border-transparent outline-none py-[calc(0.5rem-1px)] px-4",
-          classes?.input,
-          error ? clx("[&&]:border-red-500", classes?.["input--error"]) : "",
-        )}
+        classes={{ 
+          ...classes,
+          input: handleClasses("bg-gray-100 rounded-full px-4 join-item w-full border border-transparent outline-none", classes?.input),
+         }}
         name="postalCode"
         value={maskPostalCode(postalCode)}
         onChange={handleOnChange}
@@ -65,4 +59,4 @@ function ShippingCalculatorFormInput({
   );
 }
 
-export default ShippingCalculatorFormInput;
+export default ShippingSimulationFormInput;

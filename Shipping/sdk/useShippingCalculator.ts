@@ -1,6 +1,5 @@
 import { computed, Signal, signal } from "@preact/signals";
 import { state as storeState } from "apps/vtex/hooks/context.ts";
-import type { SimulationOrderForm } from "apps/vtex/utils/types.ts";
 
 import calculatePickupOptions from "./pickupOptions.ts";
 import calculateCheapestAndFastestDeliveryOptions from "./deliveryOptions.ts";
@@ -36,17 +35,12 @@ export type ShippingCalculatorContextState = {
   postalCodeSignal: Signal<PostalCode | null>;
   errorSignal: Signal<string | null>;
   loadingSignal: Signal<boolean>;
-  postalCode: Signal<PostalCode | null>
-  simulateResult: Signal<SimulationOrderForm | null>
 };
 
 // Mutable signals must be declared outside the hook
 const postalCodeSignal = signal<PostalCode | null>(null);
 const errorSignal = signal<string | null>(null);
 const loadingSignal = signal<boolean>(false);
-const postalCode = signal<PostalCode | null>('');
-const simulateResult = signal<SimulationOrderForm | null>(null);
-
 
 const { cart } = storeState;
 
@@ -112,8 +106,6 @@ const state: ShippingCalculatorContextState = {
   postalCodeSignal,
   errorSignal,
   loadingSignal,
-  postalCode,
-  simulateResult,
 };
 
 export function useShippingCalculator() {
