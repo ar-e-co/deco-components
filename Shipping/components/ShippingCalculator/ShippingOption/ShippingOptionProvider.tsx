@@ -1,8 +1,9 @@
 import { createContext, JSX } from "preact";
 import { useContext } from "preact/hooks";
-import { AnatomyClasses, handleClasses } from "../../../../../sdk/styles.ts";
-import { DeliverySla, PickupSla } from "../../sdk/Types.ts";
-import useShippingCalculator from "../../sdk/useShippingCalculator.ts";
+import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
+
+import { DeliverySla, PickupSla } from "../../../sdk/Types.ts";
+import useShippingCalculator from "../../../sdk/useShippingCalculator.ts";
 
 type ShippingOptionContextState = PickupSla | DeliverySla;
 

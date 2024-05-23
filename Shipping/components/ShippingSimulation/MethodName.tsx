@@ -1,4 +1,4 @@
-import { AnatomyClasses, handleClasses } from "../../../../../sdk/styles.ts";
+import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
 
 const anatomy = [
   "container",

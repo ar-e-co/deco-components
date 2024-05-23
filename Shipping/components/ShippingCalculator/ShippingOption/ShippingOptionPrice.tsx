@@ -1,5 +1,6 @@
-import { formatPrice } from "../../../../../sdk/format.ts";
-import { AnatomyClasses, handleClasses } from "../../../../../sdk/styles.ts";
+import { formatPrice } from "deco-components/sdk/format.ts";
+import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
+
 import { useShippingOption } from "./ShippingOptionProvider.tsx";
 
 const anatomy = [

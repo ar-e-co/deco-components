@@ -1,5 +1,6 @@
-import { calculateShippingEstimateDate} from "../../sdk/helpers.tsx";
-import { AnatomyClasses, handleClasses } from "../../../../../sdk/styles.ts";
+import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
+
+import { calculateShippingEstimateDate } from "../../sdk/helpers.tsx";
 
 type DisplaySla = {
   name: string;

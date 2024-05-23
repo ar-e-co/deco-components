@@ -1,9 +1,11 @@
-import { useCart } from "apps/vtex/hooks/useCart.ts";
 import { useSignal } from "@preact/signals";
 import { useCallback } from "preact/hooks";
-import { useShippingCalculator } from "../../sdk/useShippingCalculator.ts";
-import { AnatomyClasses, handleClasses } from "../../../../../sdk/styles.ts";
 import { SKU } from "apps/vtex/utils/types.ts";
+import { useCart } from "apps/vtex/hooks/useCart.ts";
+
+import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts"
+
+import { useShippingCalculator } from "../../sdk/useShippingCalculator.ts"
 
   const anatomy = [
     "container",
@@ -21,6 +23,7 @@ import { SKU } from "apps/vtex/utils/types.ts";
 
 function FormSimulation({ items,classes, textButton }: Props) {
     const { postalCode , simulateResult } = useShippingCalculator();
+
     const loading = useSignal(false);
     const { simulate, cart } = useCart();
     const handleSimulation = useCallback(async () => {

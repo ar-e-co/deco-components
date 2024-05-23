@@ -1,14 +1,16 @@
-import { useCart } from "apps/vtex/hooks/useCart.ts";
 import { JSX } from "preact";
 import { ChangeEvent } from "preact/compat";
 import { useEffect } from "preact/hooks";
-import { clx } from "../../../../../sdk/clx.ts";
-import { AnatomyClasses, handleClasses } from "../../../../../sdk/styles.ts";
+import { useCart } from "apps/vtex/hooks/useCart.ts";
+
+import { clx } from "deco-components/sdk/clx.ts";
+import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
+
 import {
   maskPostalCode,
   stripNonNumericCharacters,
-} from "../../sdk/helpers.tsx";
-import useShippingCalculator from "../../sdk/useShippingCalculator.ts";
+} from "../../../sdk/helpers.tsx";
+import useShippingCalculator from "../../../sdk/useShippingCalculator.ts";
 
 const anatomy = [
   "container",

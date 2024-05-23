@@ -1,5 +1,6 @@
-import { AnatomyClasses, handleClasses } from "../../../../../sdk/styles.ts";
-import { formatMessage } from "../../sdk/helpers.tsx";
+import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
+
+import { formatMessage } from "../../../sdk/helpers.tsx";
 import { useShippingOption } from "./ShippingOptionProvider.tsx";
 
 const anatomy = [
