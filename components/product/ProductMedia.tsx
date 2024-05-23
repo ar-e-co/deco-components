@@ -39,7 +39,7 @@ export default function ProductMedia({alt,url,index,actionOnClick="zoom",onMouse
       <div
       index={index}
       id={`box${index}`}
-      class={handleClasses(classes?.container) + `${actionOnClick == "zoom" && "cursor-zoom-in"} `}
+      class={handleClasses(classes?.container)}
       onClick={(e) => (actionOnClick == "zoom" && addID(e.target.id))}
       >
         {(() => {
