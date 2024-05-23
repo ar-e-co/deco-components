@@ -57,7 +57,7 @@ export default function ProductMedia({alt,url,index,actionOnClick="zoom",onMouse
           );
         } else {
           return ( 
-          <><Image
+         <Image
             class={handleClasses(classes?.image)}
             sizes="(max-width: 640px) 100vw, 40vw"
             style={{aspectRatio}}
@@ -70,15 +70,7 @@ export default function ProductMedia({alt,url,index,actionOnClick="zoom",onMouse
             id={index}
             name={index}
             />
-             <ProductVideoMedia 
-                alt={alt}
-                width={width}
-                height={height}
-                index={index}                  
-                url={url}
-                classes={{video: classes?.video}}
-                />
-            </>
+         
             );
         }
       })()}
