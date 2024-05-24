@@ -1,10 +1,12 @@
 import { ComponentChildren } from "preact";
+
 import { SKU } from "apps/vtex/utils/types.ts";
 import { useCart } from "apps/vtex/hooks/useCart.ts";
 
+import { invoke } from "deco-components/runtime.ts";
 import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts"
 
-import { useShippingSimulation } from "../../../sdk/useShippingSimulation.ts"
+import { useShippingSimulation } from "../../sdk/useShippingSimulation.ts"
 
 const anatomy = ["container"] as const;
 
@@ -40,7 +42,7 @@ function FormSimulation({
     try {
       loadingSignal.value = true;
 
-      simulationResultSignal.value = await simulate({
+      simulationResultSignal.value = await invoke["deco-components"].actions.simulateShipping({
         items: items,
         postalCode: postalCodeSignal.value,
         country: cart.value?.storePreferencesData.countryCode || "BRA",
@@ -53,8 +55,6 @@ function FormSimulation({
       loadingSignal.value = false;
     }
   }
-
-  console.log(simulationResultSignal.value)
 
   return (
     <form

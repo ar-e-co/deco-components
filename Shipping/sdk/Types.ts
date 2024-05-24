@@ -59,3 +59,9 @@ export type PickupSla = PickupStoreInfo & {
 export type SelectedSla = DeliverySla | PickupSla;
 
 export type PostalCode = string;
+
+export type SimulationSla = Partial<Omit<ShippingSla, 'id'>> & {
+  id: string,
+  friendlyName: string;
+  locations?: ShippingSla['pickupStoreInfo'][]
+}

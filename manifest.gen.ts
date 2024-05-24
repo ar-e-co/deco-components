@@ -3,6 +3,7 @@
 // This file is automatically updated during development when running `dev.ts`.
 
 import * as $$$$$$$$$0 from "./actions/getAddressFromPostalCode.ts";
+import * as $$$$$$$$$1 from "./actions/simulateShipping.ts";
 import * as $$$0 from "./loaders/ArCo/getListOfSpecifications.tsx";
 import * as $$$1 from "./loaders/storeConfig.ts";
 
@@ -13,6 +14,7 @@ const manifest = {
   },
   "actions": {
     "deco-components/actions/getAddressFromPostalCode.ts": $$$$$$$$$0,
+    "deco-components/actions/simulateShipping.ts": $$$$$$$$$1,
   },
   "name": "deco-components",
   "baseUrl": import.meta.url,

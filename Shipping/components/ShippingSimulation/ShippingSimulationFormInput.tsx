@@ -5,8 +5,8 @@ import FormInput, { FormInputProps } from 'deco-components/components/ui/FormInp
 import {
   maskPostalCode,
   stripNonNumericCharacters,
-} from "../../../sdk/helpers.tsx";
-import useShippingSimulation from "../../../sdk/useShippingSimulation.ts";
+} from "../../sdk/helpers.tsx";
+import useShippingSimulation from "../../sdk/useShippingSimulation.ts";
 import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
 
 const anatomy = ['container']
