@@ -44,7 +44,7 @@ function ColorSelector(
   }
 
   return (
-    <ul class={handleClasses("flex gap-1 items-center", classes?.container)}>
+    <ul class={handleClasses("flex gap-1 z", classes?.container)}>
       {options.map((similar) => {
         const { specificColor, thumbnail } = similar;
 
