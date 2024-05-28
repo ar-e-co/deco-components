@@ -8,7 +8,7 @@ export type ShippingCalculatorContextState = {
   postalCodeSignal: Signal<PostalCode | null>;
   errorSignal: Signal<string | null>;
   loadingSignal: Signal<boolean>;
-  simulationResultSignal: Signal<ShippingSimulationSLA[]>
+  simulationResultSignal: Signal<ShippingSimulationSLA[]>;
 };
 
 const postalCodeSignal = signal<PostalCode | null>(null);

@@ -1,6 +1,6 @@
 import type { Product } from "apps/commerce/types.ts";
 import type { Specification } from "deco-components/loaders/storeConfig.ts";
-import type { ProductWithColorProperties } from '../components/product/ColorSelector/Types.ts'
+import type { ProductWithColorProperties } from "../components/product/ColorSelector/Types.ts";
 
 export const COLOR_FALLBACK_IMG = "/image/thumbnail-error.png";
 
@@ -38,52 +38,51 @@ function getSimilarProducts({
   }
 
   // Extract required properties to object root
-  const allSimilarProducts: ProductWithColorProperties[] =
-    [product, ...product.isSimilarTo ?? []]
-      .map((similar) => {
-        const properties = similar.isVariantOf?.additionalProperty ?? [];
-        let color = "";
-        let specificColor = ""
+  const allSimilarProducts: ProductWithColorProperties[] = [
+    product,
+    ...product.isSimilarTo ?? [],
+  ]
+    .map((similar) => {
+      const properties = similar.isVariantOf?.additionalProperty ?? [];
+      let color = "";
+      let specificColor = "";
 
-        // Imperative, but just one iteration
-        properties.forEach((prop) => {
-          if (prop.name === colorsSpecification.fieldName) {
-            color = prop.value ?? "";
-          } else if (prop.name === specificColorFieldName) {
-            specificColor = prop.value ?? "";
-          }
-        });
-
-        const thumbnail = similar.image?.find((img) =>
-          img.name === colorThumbnailKey
-        )?.url ?? COLOR_FALLBACK_IMG;
-
-        const position =
-          colorsSpecification.values?.[color]?.Position ??
-          999;
-
-        const offer = similar.offers?.offers.find((of) =>
-          of.seller === seller
-        );
-        const isAvailable = (offer?.inventoryLevel.value ?? 0) > 0;
-
-        return {
-          ...similar,
-          color,
-          specificColor,
-          isAvailable,
-          thumbnail,
-          position,
-        };
+      // Imperative, but just one iteration
+      properties.forEach((prop) => {
+        if (prop.name === colorsSpecification.fieldName) {
+          color = prop.value ?? "";
+        } else if (prop.name === specificColorFieldName) {
+          specificColor = prop.value ?? "";
+        }
       });
+
+      const thumbnail = similar.image?.find((img) =>
+        img.name === colorThumbnailKey
+      )?.url ?? COLOR_FALLBACK_IMG;
+
+      const position = colorsSpecification.values?.[color]?.Position ??
+        999;
+
+      const offer = similar.offers?.offers.find((of) => of.seller === seller);
+      const isAvailable = (offer?.inventoryLevel.value ?? 0) > 0;
+
+      return {
+        ...similar,
+        color,
+        specificColor,
+        isAvailable,
+        thumbnail,
+        position,
+      };
+    });
 
   let similarProducts = allSimilarProducts;
   const extendedProduct = allSimilarProducts[0];
 
   if (!showUnavailable) {
     similarProducts = [
-      extendedProduct, 
-      ...similarProducts.slice(1).filter(({ isAvailable }) => isAvailable)
+      extendedProduct,
+      ...similarProducts.slice(1).filter(({ isAvailable }) => isAvailable),
     ];
   }
 
@@ -104,8 +103,10 @@ function getSimilarProducts({
 
   if (bringCurrentColorToFront) {
     similarProducts = [
-      extendedProduct, 
-      ...similarProducts.filter(({ productID }) => productID !== product.productID)
+      extendedProduct,
+      ...similarProducts.filter(({ productID }) =>
+        productID !== product.productID
+      ),
     ];
   }
 

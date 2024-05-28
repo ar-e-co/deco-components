@@ -18,7 +18,7 @@
     "start": "deno eval 'import \"deco/scripts/apps/bundle.ts\"'",
     "release": "deno eval 'import \"deco/scripts/release.ts\"'",
     "update": "deno run -Ar https://deco.cx/update",
-    "check": "deno check **/*.ts"
+    "check": "deno fmt && deno lint"
   },
   "githooks": {
     "pre-commit": "check"

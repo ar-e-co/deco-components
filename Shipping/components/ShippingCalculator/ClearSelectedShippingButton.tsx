@@ -1,7 +1,9 @@
 import { ComponentChildren } from "preact";
 
 import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
-import Icon, { Props as IconProps } from "deco-components/components/ui/Icon.tsx";
+import Icon, {
+  Props as IconProps,
+} from "deco-components/components/ui/Icon.tsx";
 import Spinner from "deco-components/components/ui/Spinner.tsx";
 
 import { clearShippingOptions } from "../../sdk/chooseShippingOption.ts";

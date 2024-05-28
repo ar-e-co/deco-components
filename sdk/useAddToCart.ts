@@ -22,16 +22,14 @@ export function useAddToCart({ eventParams, onAddItem }: Props) {
         name: "add_to_cart",
         params: eventParams,
       });
-
-    }
-    finally {
+    } finally {
       setLoading(false);
     }
-  };
+  }
 
-  return { 
-    onClick, 
+  return {
+    onClick,
     loading,
-    "data-deco": "add-to-cart", 
+    "data-deco": "add-to-cart",
   };
-};
+}

@@ -5,24 +5,26 @@ import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
 import type { VariantPossibility } from "deco-components/sdk/useVariantPossibilities.ts";
 
 const anatomy = [
-  'container',
-  'item',
-  'link',
+  "container",
+  "item",
+  "link",
 ] as const;
 
 export type VariantSelectorStyles = AnatomyClasses<typeof anatomy[number]>;
 
-export type { VariantPossibility }
+export type { VariantPossibility };
 
-export type ChildrenProps = { skuID: string, isActive: boolean } & VariantPossibility;
+export type ChildrenProps =
+  & { skuID: string; isActive: boolean }
+  & VariantPossibility;
 
 export interface Props {
   classes?: VariantSelectorStyles;
-  variants: [string, VariantPossibility][]
+  variants: [string, VariantPossibility][];
   children: (props: ChildrenProps) => JSX.Element;
 }
 
-function VariantSelector({ 
+function VariantSelector({
   classes,
   variants,
   children,
@@ -44,8 +46,8 @@ function VariantSelector({
   }) {
     e.preventDefault();
 
-    if(!isAvailable) { 
-      return; 
+    if (!isAvailable) {
+      return;
     }
 
     skuSelectedIDSignal.value = skuID;
@@ -67,12 +69,13 @@ function VariantSelector({
             <a
               class={classes?.link}
               href={relativeLink}
-              onClick={(e) => handleVariationSelect({
-                e,
-                link: link ?? "",
-                skuID,
-                isAvailable,
-              })}
+              onClick={(e) =>
+                handleVariationSelect({
+                  e,
+                  link: link ?? "",
+                  skuID,
+                  isAvailable,
+                })}
             >
               {children({ isActive, skuID, value, isAvailable, url: link })}
             </a>
@@ -80,7 +83,7 @@ function VariantSelector({
         );
       })}
     </ul>
-  )
+  );
 }
 
 export default VariantSelector;

@@ -2,7 +2,9 @@ import { ChangeEvent } from "preact/compat";
 import { useCart } from "apps/vtex/hooks/useCart.ts";
 
 import { clx } from "deco-components/sdk/clx.ts";
-import FormInput, { FormInputProps } from 'deco-components/components/ui/FormInput.tsx'
+import FormInput, {
+  FormInputProps,
+} from "deco-components/components/ui/FormInput.tsx";
 
 import {
   maskPostalCode,
@@ -11,11 +13,15 @@ import {
 import useShippingCalculator from "../../../sdk/useShippingCalculator.ts";
 import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
 
-const anatomy = ['container']
+const anatomy = ["container"];
 
-export type ShippingCalculatorFormInputProps = Omit<FormInputProps, 'classes'> & {
-  classes?: FormInputProps['classes'] & AnatomyClasses<typeof anatomy[number]>
-}
+export type ShippingCalculatorFormInputProps =
+  & Omit<FormInputProps, "classes">
+  & {
+    classes?:
+      & FormInputProps["classes"]
+      & AnatomyClasses<typeof anatomy[number]>;
+  };
 
 function ShippingCalculatorFormInput({
   classes,
