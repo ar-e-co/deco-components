@@ -1,6 +1,8 @@
 import { useCart } from "apps/vtex/hooks/useCart.ts";
 import { OrderFormItem } from "apps/vtex/utils/types.ts";
-import { invoke } from "../../../../runtime.ts";
+
+import { invoke } from "deco-components/runtime.ts";
+
 import { SelectedDeliveryChannel } from "./Types.ts";
 import {
   CHEAPEST_DELIVERY_ID,

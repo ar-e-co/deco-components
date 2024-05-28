@@ -1,7 +1,9 @@
 import { ComponentChildren } from "preact";
-import { AnatomyClasses, handleClasses } from "../../../../../sdk/styles.ts";
-import sendPostalCodeAttachment from "../../sdk/getAddressFromPostalCode.ts";
-import useShippingCalculator from "../../sdk/useShippingCalculator.ts";
+
+import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
+
+import sendPostalCodeAttachment from "../../../sdk/getAddressFromPostalCode.ts";
+import useShippingCalculator from "../../../sdk/useShippingCalculator.ts";
 
 const anatomy = [
   "container",

@@ -1,13 +1,15 @@
 import { useCart } from "apps/vtex/hooks/useCart.ts";
-import { AnatomyClasses, handleClasses } from "../../../../sdk/styles.ts";
-import { DeliverySla } from "../sdk/Types.ts";
+
+import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
+
+import { DeliverySla } from "../../sdk/Types.ts";
 import {
   calculateShippingEstimateDate,
   formatMessage,
   maskPostalCode,
   shippingEstimateToString,
-} from "../sdk/helpers.tsx";
-import useShippingCalculator from "../sdk/useShippingCalculator.ts";
+} from "../../sdk/helpers.tsx";
+import useShippingCalculator from "../../sdk/useShippingCalculator.ts";
 
 const anatomy = [
   "message",

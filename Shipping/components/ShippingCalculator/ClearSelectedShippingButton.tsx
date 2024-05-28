@@ -1,9 +1,11 @@
 import { ComponentChildren } from "preact";
-import { AnatomyClasses, handleClasses } from "../../../../sdk/styles.ts";
-import Icon, { Props as IconProps } from "../../../ui/Icon.tsx";
-import Spinner from "../../../ui/Spinner.tsx";
-import { clearShippingOptions } from "../sdk/chooseShippingOption.ts";
-import { useShippingCalculator } from "../sdk/useShippingCalculator.ts";
+
+import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
+import Icon, { Props as IconProps } from "deco-components/components/ui/Icon.tsx";
+import Spinner from "deco-components/components/ui/Spinner.tsx";
+
+import { clearShippingOptions } from "../../sdk/chooseShippingOption.ts";
+import { useShippingCalculator } from "../../sdk/useShippingCalculator.ts";
 
 const anatomy = [
   "container",

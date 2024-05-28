@@ -1,31 +1,21 @@
-import { useCart } from "apps/vtex/hooks/useCart.ts";
-import { JSX } from "preact";
 import { ChangeEvent } from "preact/compat";
-import { useEffect } from "preact/hooks";
-import { clx } from "../../../../../sdk/clx.ts";
-import { AnatomyClasses, handleClasses } from "../../../../../sdk/styles.ts";
+import { useCart } from "apps/vtex/hooks/useCart.ts";
+
+import { clx } from "deco-components/sdk/clx.ts";
+import FormInput, { FormInputProps } from 'deco-components/components/ui/FormInput.tsx'
+
 import {
   maskPostalCode,
   stripNonNumericCharacters,
-} from "../../sdk/helpers.tsx";
-import useShippingCalculator from "../../sdk/useShippingCalculator.ts";
+} from "../../../sdk/helpers.tsx";
+import useShippingCalculator from "../../../sdk/useShippingCalculator.ts";
+import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
 
-const anatomy = [
-  "container",
-  "input",
-  "input--error",
-  "errorMessage",
-] as const;
+const anatomy = ['container']
 
-export type ShippingCalculatorFormInputStyles = AnatomyClasses<
-  typeof anatomy[number]
->;
-
-export type ShippingCalculatorFormInputProps =
-  & JSX.HTMLAttributes<HTMLInputElement>
-  & {
-    classes?: ShippingCalculatorFormInputStyles;
-  };
+export type ShippingCalculatorFormInputProps = Omit<FormInputProps, 'classes'> & {
+  classes?: FormInputProps['classes'] & AnatomyClasses<typeof anatomy[number]>
+}
 
 function ShippingCalculatorFormInput({
   classes,
@@ -54,12 +44,9 @@ function ShippingCalculatorFormInput({
         "";
   }
 
-  useEffect(() => {
-  }, []);
-
   return (
     <div class={handleClasses("inline-block", classes?.container)}>
-      <input
+      <FormInput
         {...props}
         class={handleClasses(
           "border border-transparent outline-none py-[calc(0.5rem-1px)] px-4",
@@ -72,18 +59,8 @@ function ShippingCalculatorFormInput({
         onFocus={() => errorSignal.value = null}
         onKeyPress={handleKeypress}
         maxLength={9}
+        error={error}
       />
-
-      {!!error && (
-        <span
-          class={handleClasses(
-            "block mt-0.5 text-sm text-red-500",
-            classes?.errorMessage,
-          )}
-        >
-          {error}
-        </span>
-      )}
     </div>
   );
 }

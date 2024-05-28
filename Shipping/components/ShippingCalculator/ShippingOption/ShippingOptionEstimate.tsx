@@ -1,9 +1,10 @@
-import { AnatomyClasses, handleClasses } from "../../../../../sdk/styles.ts";
+import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
+
 import {
   calculateShippingEstimateDate,
   formatMessage,
   shippingEstimateToString,
-} from "../../sdk/helpers.tsx";
+} from "../../../sdk/helpers.tsx";
 
 import { useShippingOption } from "./ShippingOptionProvider.tsx";
 
