@@ -43,10 +43,6 @@ function useZoomInPlace<T extends HTMLDivElement>() {
     setZoomEnabled(false);
   });
 
-  if (ref.current?.tagName === "DIV") {
-    console.log({ zoomEnabled });
-  }
-
   return {
     ref,
     toggleZoom,
