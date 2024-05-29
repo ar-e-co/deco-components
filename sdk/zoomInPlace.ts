@@ -1,4 +1,4 @@
-function onMouseMove(e: MouseEvent) {
+export function moveZoom(e: MouseEvent) {
   const target = e.target as HTMLElement;
 
   const x = e.offsetX;
@@ -8,14 +8,9 @@ function onMouseMove(e: MouseEvent) {
   target.style.transform = "scale(2)";
 }
 
-function onMouseLeave(e: MouseEvent) {
+export function disableZoom(e: MouseEvent) {
   const target = e.target as HTMLElement;
 
   target.style.transformOrigin = "center center";
   target.style.transform = "scale(1)";
 }
-
-export default {
-  onMouseMove,
-  onMouseLeave,
-};

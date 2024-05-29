@@ -1,4 +1,5 @@
 import { ForwardedRef, forwardRef } from "preact/compat";
+import { ComponentChildren } from "preact";
 import {
   useCallback,
   useEffect,
@@ -24,11 +25,13 @@ const anatomy = [
 
 export type VideoClasses = AnatomyClasses<typeof anatomy[number]>;
 
-export interface Props extends DecoVideoProps {
+export interface Props extends Omit<DecoVideoProps, "children"> {
   poster: string;
   description: string;
   uploadDate?: string;
   classes?: VideoClasses;
+  children?: ComponentChildren;
+  videoChildren?: DecoVideoProps["children"];
 }
 
 function Video({
@@ -38,6 +41,8 @@ function Video({
   description,
   poster,
   type,
+  children,
+  videoChildren,
   ...props
 }: Props, forwardedRef: ForwardedRef<HTMLVideoElement>) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -114,10 +119,17 @@ function Video({
         type={type ? `video/${type}` : undefined}
         {...props}
       >
+        {videoChildren}
         {renderPoster()}
       </DecoVideo>
 
       {!showVideo && renderPoster("z-100 bg-white")}
+
+      {!!children && (
+        <div class="absolute top-0 left-0 w-full h-full object-cover z-2 pointer-events-none">
+          {children}
+        </div>
+      )}
     </div>
   );
 }
