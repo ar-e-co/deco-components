@@ -1,4 +1,5 @@
 import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
+import Icon from "../../components/ui/Icon.tsx";
 
 const anatomy = [
   "container",
@@ -17,27 +18,174 @@ export interface Props {
 }
 
 function ReviewStar({ 
-  ratingValue, 
+  ratingValue = 0, 
   reviewCount, 
   classes,
   title = "Avaliações", 
 }: Props) {
+
+  let parteFracionaria = (ratingValue - Math.floor(ratingValue));
+  let widthPercentage = 16 * parteFracionaria
   return (
-    <div class={handleClasses(classes?.container) || "flex flex-col"}>
-      <span class={handleClasses(classes?.title) || "text-14 font-body mt-5 mb-4"}>{title}</span>
+    <div class={handleClasses("flex flex-col",classes?.container)}>
+      <span class={handleClasses( "text-14 font-body mt-5 mb-4",classes?.title)}>{title}</span>
 
-      <div class="flex flex-row">
-        <div class="rating">
-          {ratingValue == 1 ? (<input type="radio" name="rating-5" class={handleClasses(classes?.stars) || "mask mask-star"} checked />) : (<input type="radio" name="rating-5" class="mask mask-star" />)}
-          {ratingValue == 2 ? (<input type="radio" name="rating-5" class={handleClasses(classes?.stars) || "mask mask-star"} checked />) : (<input type="radio" name="rating-5" class="mask mask-star" />)}
-          {ratingValue == 3 ? (<input type="radio" name="rating-5" class={handleClasses(classes?.stars) || "mask mask-star"} checked />) : (<input type="radio" name="rating-5" class="mask mask-star" />)}
-          {ratingValue == 4 ? (<input type="radio" name="rating-5" class={handleClasses(classes?.stars) || "mask mask-star"} checked />) : (<input type="radio" name="rating-5" class="mask mask-star" />)}
-          {ratingValue == 5 ? (<input type="radio" name="rating-5" class={handleClasses(classes?.stars) || "mask mask-star"} checked />) : (<input type="radio" name="rating-5" class="mask mask-star" />)}
-        </div>
+    <div class="flex flex-row gap-[6px]">
 
-        <span class={handleClasses(classes?.opinionsText) || "text-12 font-body ml-3"}>{reviewCount} opiniões</span>
+      <div class="relative">
+      {ratingValue >= 1 ?
+      (
+      <Icon
+          id={"starsBlack"}
+          width={16}
+          height={16}
+          strokeWidth={1}
+          class="object-contain bg-cover"/>
+      ):(
+      <>
+          <Icon
+              id={"starsWhite"}
+              width={16}
+              height={16}
+              strokeWidth={1}/>
+
+          <div class="absolute top-0 left-0">  
+              <Icon
+              id={"starsBlack"}
+              width={widthPercentage}
+              height={16}
+              strokeWidth={1}
+              class="object-contain bg-cover"
+              />
+          </div>
+      </>
+      )
+      }  
       </div>
-    </div>
+      <div class="relative">
+      {ratingValue >= 2 ?
+      (
+      <Icon
+          id={"starsBlack"}
+          width={16}
+          height={16}
+          strokeWidth={1}
+          class="object-contain bg-cover"/>
+      ):(
+      <>
+          <Icon
+              id={"starsWhite"}
+              width={16}
+              height={16}
+              strokeWidth={1}/>
+
+          <div class="absolute top-0 left-0">  
+              <Icon
+              id={"starsBlack"}
+              width={widthPercentage}
+              height={16}
+              strokeWidth={1}
+              class="object-contain bg-cover"
+              />
+          </div>
+      </>
+      )
+      }  
+        
+      </div>
+      <div class="relative">
+      {ratingValue >= 3 ?
+      (
+      <Icon
+          id={"starsBlack"}
+          width={16}
+          height={16}
+          strokeWidth={1}
+          class="object-contain bg-cover"/>
+      ):(
+      <>
+          <Icon
+              id={"starsWhite"}
+              width={16}
+              height={16}
+              strokeWidth={1}/>
+
+          <div class="absolute top-0 left-0">  
+              <Icon
+              id={"starsBlack"}
+              width={widthPercentage}
+              height={16}
+              strokeWidth={1}
+              class="object-contain bg-cover"
+              />
+          </div>
+      </>
+      )
+      }  
+      </div>
+      <div class="relative">
+      {ratingValue >= 4 ?
+      (
+      <Icon
+          id={"starsBlack"}
+          width={16}
+          height={16}
+          strokeWidth={1}
+          class="object-contain bg-cover"/>
+      ):(
+      <>
+          <Icon
+              id={"starsWhite"}
+              width={16}
+              height={16}
+              strokeWidth={1}/>
+
+          <div class="absolute top-0 left-0">  
+              <Icon
+              id={"starsBlack"}
+              width={widthPercentage}
+              height={16}
+              strokeWidth={1}
+              class="object-contain bg-cover"
+              />
+          </div>
+      </>)}
+
+      </div>
+      <div class="relative">
+      {ratingValue >= 5 ?
+      (
+      <Icon
+          id={"starsBlack"}
+          width={16}
+          height={16}
+          strokeWidth={1}
+          class="object-contain bg-cover"/>
+      ):(
+      <>
+          <Icon
+              id={"starsWhite"}
+              width={16}
+              height={16}
+              strokeWidth={1}/>
+
+          <div class="absolute top-0 left-0">  
+              <Icon
+              id={"starsBlack"}
+              width={widthPercentage}
+              height={16}
+              strokeWidth={1}
+              class="object-contain bg-cover"
+              />
+          </div>
+      </>
+      )
+      }  
+        
+      </div>
+          <span class={handleClasses(classes?.opinionsText) || "text-12 font-body ml-3"}>{reviewCount} opiniões</span>
+      </div>
+      </div>
   );
 }
 
