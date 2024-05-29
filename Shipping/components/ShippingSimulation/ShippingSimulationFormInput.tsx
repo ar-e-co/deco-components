@@ -1,6 +1,8 @@
 import { ChangeEvent } from "preact/compat";
 
-import FormInput, { FormInputProps } from 'deco-components/components/ui/FormInput.tsx'
+import FormInput, {
+  FormInputProps,
+} from "deco-components/components/ui/FormInput.tsx";
 
 import {
   maskPostalCode,
@@ -9,11 +11,15 @@ import {
 import useShippingSimulation from "../../sdk/useShippingSimulation.ts";
 import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
 
-const anatomy = ['container']
+const anatomy = ["container"];
 
-export type ShippingSimulationFormInputProps = Omit<FormInputProps, 'classes'> & {
-  classes?: FormInputProps['classes'] & AnatomyClasses<typeof anatomy[number]>
-}
+export type ShippingSimulationFormInputProps =
+  & Omit<FormInputProps, "classes">
+  & {
+    classes?:
+      & FormInputProps["classes"]
+      & AnatomyClasses<typeof anatomy[number]>;
+  };
 
 function ShippingSimulationFormInput({
   classes,
@@ -43,10 +49,13 @@ function ShippingSimulationFormInput({
     <div class={handleClasses("inline-block", classes?.container)}>
       <FormInput
         {...props}
-        classes={{ 
+        classes={{
           ...classes,
-          input: handleClasses("bg-gray-100 rounded-full px-4 join-item w-full border border-transparent outline-none", classes?.input),
-         }}
+          input: handleClasses(
+            "bg-gray-100 rounded-full px-4 join-item w-full border border-transparent outline-none",
+            classes?.input,
+          ),
+        }}
         name="postalCode"
         value={maskPostalCode(postalCode)}
         onChange={handleOnChange}

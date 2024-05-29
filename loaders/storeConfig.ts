@@ -49,17 +49,20 @@ export interface Specification {
   fieldId: SpecificationFieldId;
   fieldName: SpecificationFieldValue;
   values: Record<string, NativeSpecificationValue>;
-};
+}
 
-export interface BaseStoreConfig<S extends string = string, C extends string = string> {
+export interface BaseStoreConfig<
+  S extends string = string,
+  C extends string = string,
+> {
   accountName: string;
   storeURL: string;
   specifications?: {
     [key in S]: Specification;
-  }
+  };
   constants?: {
     [key in C]: string;
-  }
+  };
 }
 
 /** @title {{key}} - {{value}} */
@@ -79,11 +82,11 @@ export interface Props {
 }
 
 async function storeConfig(
-  { 
-    constants: constantsList, 
-    specifications: specificationsList, 
-    accountName, 
-    storeURL 
+  {
+    constants: constantsList,
+    specifications: specificationsList,
+    accountName,
+    storeURL,
   }: Props,
   _req: Request,
 ): Promise<BaseStoreConfig> {
@@ -107,32 +110,44 @@ async function storeConfig(
             fieldId: specification.fieldId,
             fieldName: specification.fieldName,
             values: {},
-
-          }
+          },
         };
       }
     });
 
-    const specsValues = await Promise.all(specificationsToFetch.map(async (specification) => {
-      const data: NativeSpecificationValue[] = await fetchAPI(`https://${accountName}.vtexcommercestable.com.br/api/catalog_system/pub/specification/fieldvalue/${specification.fieldId}`);
+    const specsValues = await Promise.all(
+      specificationsToFetch.map(async (specification) => {
+        const data: NativeSpecificationValue[] = await fetchAPI(
+          `https://${accountName}.vtexcommercestable.com.br/api/catalog_system/pub/specification/fieldvalue/${specification.fieldId}`,
+        );
 
-      const values = data.reduce((acc: Record<string, NativeSpecificationValue>, spec: NativeSpecificationValue) => {
-        acc[spec.Value] = spec;
+        const values = data.reduce(
+          (
+            acc: Record<string, NativeSpecificationValue>,
+            spec: NativeSpecificationValue,
+          ) => {
+            acc[spec.Value] = spec;
+            return acc;
+          },
+          {} as Record<string, NativeSpecificationValue>,
+        );
+
+        return {
+          id: specification.id,
+          fieldId: specification.fieldId,
+          fieldName: specification.fieldName,
+          values,
+        };
+      }),
+    );
+
+    const reducedSpecs = specsValues.reduce(
+      (acc: Record<string, Specification>, spec) => {
+        acc[spec.id] = spec;
         return acc;
-      }, {} as Record<string, NativeSpecificationValue>);
-
-      return {
-        id: specification.id,
-        fieldId: specification.fieldId,
-        fieldName: specification.fieldName,
-        values,
-      }
-    }))
-
-    const reducedSpecs = specsValues.reduce((acc: Record<string, Specification>, spec) => {
-      acc[spec.id] = spec;
-      return acc;
-    }, {} as Record<string, Specification>);
+      },
+      {} as Record<string, Specification>,
+    );
 
     return {
       constants,
@@ -146,6 +161,6 @@ async function storeConfig(
   } catch (e) {
     return e;
   }
-};
+}
 
 export default storeConfig;

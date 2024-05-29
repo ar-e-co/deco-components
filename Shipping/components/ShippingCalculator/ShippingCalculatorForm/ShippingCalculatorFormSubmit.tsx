@@ -1,8 +1,10 @@
-import FormSubmit, { FormSubmitProps } from "deco-components/components/ui/FormSubmit.tsx";
+import FormSubmit, {
+  FormSubmitProps,
+} from "deco-components/components/ui/FormSubmit.tsx";
 
 import useShippingCalculator from "../../../sdk/useShippingCalculator.ts";
 
-export type ShippingCalculatorFormSubmitProps = FormSubmitProps
+export type ShippingCalculatorFormSubmitProps = FormSubmitProps;
 
 function ShippingCalculatorFormSubmit({
   children = "Enviar",

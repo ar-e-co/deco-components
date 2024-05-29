@@ -4,13 +4,13 @@ export type VariantPossibility = {
   value: string;
   isAvailable: boolean;
   url: string;
-}
+};
 
 export type Possibilities = {
   [variantName: string]: {
     [productID: string]: VariantPossibility;
-  }
-}
+  };
+};
 
 const hash = ({ name, value }: PropertyValue) => `${name}::${value}`;
 
@@ -29,7 +29,9 @@ export const useVariantPossibilities = (
     const specs = additionalProperty.filter(({ name }) => !omit.has(name!));
     const isAvailable = variant.offers
       ?.offers
-      ?.some(({ availability }) => availability === "https://schema.org/InStock") ?? false
+      ?.some(({ availability }) =>
+        availability === "https://schema.org/InStock"
+      ) ?? false;
 
     for (let it = 0; it < specs.length; it++) {
       const name = specs[it].name!;
@@ -51,9 +53,9 @@ export const useVariantPossibilities = (
         url: (isSelected
           ? url
           : isSelectable
-            ? possibilities[name][productID]?.url || url
-            : possibilities[name][productID]?.url) ?? ""
-      }
+          ? possibilities[name][productID]?.url || url
+          : possibilities[name][productID]?.url) ?? "",
+      };
     }
   }
 

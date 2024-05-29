@@ -11,9 +11,9 @@ function CurrentColor({ specificColorPropertyLabel }: Props) {
 
   const color = product?.isVariantOf
     ?.additionalProperty
-    ?.find(prop => prop.name === specificColorPropertyLabel)?.value
+    ?.find((prop) => prop.name === specificColorPropertyLabel)?.value;
 
-  return (<>{color}</>)
+  return <>{color}</>;
 }
 
-export default CurrentColor
+export default CurrentColor;

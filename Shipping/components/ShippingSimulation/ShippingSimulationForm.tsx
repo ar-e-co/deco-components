@@ -4,9 +4,9 @@ import { SKU } from "apps/vtex/utils/types.ts";
 import { useCart } from "apps/vtex/hooks/useCart.ts";
 
 import { invoke } from "deco-components/runtime.ts";
-import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts"
+import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
 
-import { useShippingSimulation } from "../../sdk/useShippingSimulation.ts"
+import { useShippingSimulation } from "../../sdk/useShippingSimulation.ts";
 
 const anatomy = ["container"] as const;
 
@@ -15,12 +15,12 @@ type Styles = AnatomyClasses<typeof anatomy[number]>;
 export interface Props {
   classes?: Styles;
   items: Array<SKU>;
-  children: ComponentChildren
-};
+  children: ComponentChildren;
+}
 
-function FormSimulation({ 
-  items, 
-  classes, 
+function FormSimulation({
+  items,
+  classes,
   children,
 }: Props) {
   const { simulate, cart } = useCart();
@@ -42,16 +42,15 @@ function FormSimulation({
     try {
       loadingSignal.value = true;
 
-      simulationResultSignal.value = await invoke["deco-components"].actions.simulateShipping({
-        items: items,
-        postalCode: postalCodeSignal.value,
-        country: cart.value?.storePreferencesData.countryCode || "BRA",
-      });
-
+      simulationResultSignal.value = await invoke["deco-components"].actions
+        .simulateShipping({
+          items: items,
+          postalCode: postalCodeSignal.value,
+          country: cart.value?.storePreferencesData.countryCode || "BRA",
+        });
     } catch (err) {
       errorSignal.value = err;
-    }
-    finally {
+    } finally {
       loadingSignal.value = false;
     }
   }

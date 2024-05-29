@@ -13,7 +13,7 @@ export type AvatarStyles = AnatomyClasses<typeof anatomy[number]>;
 export type AvatarVariants = "active" | "disabled" | "default";
 
 export interface Props {
-  variant?: AvatarVariants; 
+  variant?: AvatarVariants;
   content: string;
   classes?: AvatarStyles;
 }

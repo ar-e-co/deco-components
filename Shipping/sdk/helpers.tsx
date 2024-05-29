@@ -1,8 +1,11 @@
 import { SimulationSla } from "deco-components/Shipping/sdk/Types.ts";
 import { LogisticsInfo, ShippingSla } from "./Types.ts";
 import { SelectedDeliveryChannel } from "apps/vtex/utils/types.ts";
-import { getFastestSla, getCheapestSla } from "@vtex/estimate-calculator";
-import { CHEAPEST_DELIVERY_NAME, FASTEST_DELIVERY_NAME } from "deco-components/Shipping/sdk/constants.ts";
+import { getCheapestSla, getFastestSla } from "@vtex/estimate-calculator";
+import {
+  CHEAPEST_DELIVERY_NAME,
+  FASTEST_DELIVERY_NAME,
+} from "deco-components/Shipping/sdk/constants.ts";
 
 const TIME_UNITS_MAP = {
   h: ["hora", "hora"],
@@ -168,31 +171,34 @@ function groupStoresByShippingEstimate(pickupSlas: ShippingSla[]) {
       ...sla,
       shippingEstimate: shippingEstimateToBD(sla.shippingEstimate),
     };
-  })
+  });
 
   const uniqPickupSlas = Object.values(uniqPickupSlasObj);
 
   const uniqShippingEstimates = uniqPickupSlas
     .map((sla) => sla.shippingEstimate)
-    .filter((d, i, v) => !!d && v.indexOf(d) === i)
+    .filter((d, i, v) => !!d && v.indexOf(d) === i);
 
   // For each shipping estimate, we group the stores that have the same
-  const groupedPickupLocations = uniqShippingEstimates.reduce((acc: SimulationSla[], cur) => {
-    const slasWithThisShippingEstimate = uniqPickupSlas
-      .filter((sla) => sla.shippingEstimate === cur);
+  const groupedPickupLocations = uniqShippingEstimates.reduce(
+    (acc: SimulationSla[], cur) => {
+      const slasWithThisShippingEstimate = uniqPickupSlas
+        .filter((sla) => sla.shippingEstimate === cur);
 
-    return [
-      ...acc,
-      {
-        id: cur,
-        friendlyName: "Retirada em Loja",
-        price: slasWithThisShippingEstimate[0].price,
-        shippingEstimate: cur,
-        deliveryChannel: SelectedDeliveryChannel.PickupInPoint,
-        locations: slasWithThisShippingEstimate.map(d => d.pickupStoreInfo),
-      },
-    ];
-  }, []);
+      return [
+        ...acc,
+        {
+          id: cur,
+          friendlyName: "Retirada em Loja",
+          price: slasWithThisShippingEstimate[0].price,
+          shippingEstimate: cur,
+          deliveryChannel: SelectedDeliveryChannel.PickupInPoint,
+          locations: slasWithThisShippingEstimate.map((d) => d.pickupStoreInfo),
+        },
+      ];
+    },
+    [],
+  );
 
   return groupedPickupLocations;
 }
@@ -205,7 +211,9 @@ export function aggregateSimulationResults(logisticsInfo: LogisticsInfo[]) {
   }
 
   const pickupSlas = slas
-    .filter((sla) => sla.deliveryChannel === SelectedDeliveryChannel.PickupInPoint);
+    .filter((sla) =>
+      sla.deliveryChannel === SelectedDeliveryChannel.PickupInPoint
+    );
 
   const deliverySlas = slas
     .filter((sla) => sla.deliveryChannel === SelectedDeliveryChannel.Delivery);
@@ -216,30 +224,34 @@ export function aggregateSimulationResults(logisticsInfo: LogisticsInfo[]) {
   cheapestOption = {
     ...cheapestOption,
     id: cheapestOption?.id ?? "cheapest",
-    shippingEstimate: shippingEstimateToBD(cheapestOption?.shippingEstimate ?? ""),
+    shippingEstimate: shippingEstimateToBD(
+      cheapestOption?.shippingEstimate ?? "",
+    ),
     friendlyName: CHEAPEST_DELIVERY_NAME,
     deliveryChannel: SelectedDeliveryChannel.Delivery,
-  }
+  };
 
   let fastestOption: SimulationSla | null = getFastestSla(deliverySlas ?? []);
   fastestOption = {
     ...fastestOption,
     id: fastestOption?.id ?? "fastest",
-    shippingEstimate: shippingEstimateToBD(fastestOption?.shippingEstimate ?? ""),
+    shippingEstimate: shippingEstimateToBD(
+      fastestOption?.shippingEstimate ?? "",
+    ),
     friendlyName: FASTEST_DELIVERY_NAME,
     deliveryChannel: SelectedDeliveryChannel.Delivery,
-  }
+  };
 
-  const cheapestIsFastest = cheapestOption?.id === fastestOption?.id 
-    || cheapestOption?.price === fastestOption?.price
-    || cheapestOption?.shippingEstimate === fastestOption?.shippingEstimate;
+  const cheapestIsFastest = cheapestOption?.id === fastestOption?.id ||
+    cheapestOption?.price === fastestOption?.price ||
+    cheapestOption?.shippingEstimate === fastestOption?.shippingEstimate;
 
-  if(cheapestIsFastest) {
+  if (cheapestIsFastest) {
     cheapestOption = {
       ...fastestOption,
       id: cheapestOption.id,
       friendlyName: cheapestOption.friendlyName,
-    }
+    };
 
     fastestOption = null;
   }
@@ -248,6 +260,5 @@ export function aggregateSimulationResults(logisticsInfo: LogisticsInfo[]) {
     cheapestOption,
     fastestOption,
     pickupOptions: groupedPickup,
-  }
+  };
 }
-

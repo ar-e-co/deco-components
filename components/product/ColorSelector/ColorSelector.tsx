@@ -48,8 +48,7 @@ function ColorSelector(
       {options.map((similar) => {
         const { specificColor, thumbnail } = similar;
 
-        const isActive =
-          similar.productID === product?.productID;
+        const isActive = similar.productID === product?.productID;
 
         return (
           <li>
