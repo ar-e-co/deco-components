@@ -2,12 +2,17 @@ import { asset } from "$fresh/runtime.ts";
 import type { JSX } from "preact";
 
 export type AvailableIcons =
+  | "Alert"
+  | "AlertError"
+  | "AlertInfo"
+  | "AlertSuccess"
+  | "AlertWarning"
   | "ArrowsPointingOut"
   | "Bars3"
+  | "ChevronDown"
   | "ChevronLeft"
   | "ChevronRight"
   | "ChevronUp"
-  | "ChevronDown"
   | "CreditCard"
   | "Deco"
   | "Diners"
@@ -19,11 +24,11 @@ export type AvailableIcons =
   | "Heart"
   | "Instagram"
   | "Linkedin"
-  | "Minus"
-  | "MapPin"
   | "MagnifyingGlass"
+  | "MapPin"
   | "Mastercard"
   | "Message"
+  | "Minus"
   | "Phone"
   | "Pix"
   | "Plus"
@@ -32,6 +37,8 @@ export type AvailableIcons =
   | "Ruler"
   | "ShoppingCart"
   | "Star"
+  | "StarOutline"
+  | "StarSolid"
   | "Tiktok"
   | "Trash"
   | "Truck"
@@ -41,11 +48,6 @@ export type AvailableIcons =
   | "WhatsApp"
   | "XMark"
   | "Zoom"
-  | "Alert"
-  | "AlertInfo"
-  | "AlertSuccess"
-  | "AlertWarning"
-  | "AlertError"
   | "share";
 
 export interface Props extends JSX.SVGAttributes<SVGSVGElement> {
