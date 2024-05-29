@@ -1,4 +1,4 @@
-import { useState } from "preact/hooks";
+import { memo } from "preact/compat";
 import { ComponentChildren } from "preact";
 import DecoImage, {
   Props as DecoImageProps,
@@ -6,9 +6,7 @@ import DecoImage, {
 
 import type { AnatomyClasses } from "deco-components/sdk/styles.ts";
 import { clx } from "deco-components/sdk/clx.ts";
-import { disableZoom, moveZoom } from "deco-components/sdk/zoomInPlace.ts";
-import useOutsideClick from "deco-components/sdk/useOutsideClick.ts";
-import action from "apps/vtex/actions/notifyme.ts";
+import useZoomInPlace from "deco-components/sdk/useZoomInPlace.ts";
 
 const anatomy = [
   "container",
@@ -41,23 +39,17 @@ function Image({
   children,
   ...props
 }: Props) {
-  const [zoomInPlace, setZoomInPlace] = useState(false);
   const aspectRatio = parseFloat((width / height).toFixed(2));
   const paddingTop = `${parseFloat((1 / aspectRatio).toFixed(2)) * 100}%`;
+  const { ref, toggleZoom, moveZoom, zoomEnabled } = useZoomInPlace<
+    HTMLImageElement
+  >();
 
   function handleImageClick(e: MouseEvent) {
-    if (!actionOnClick) {
-      return;
-    }
+    if (!actionOnClick) return;
 
     if (actionOnClick === "zoom-in-place") {
-      if (zoomInPlace) {
-        disableZoom(e);
-      } else {
-        moveZoom(e);
-      }
-
-      setZoomInPlace((prev) => !prev);
+      toggleZoom(e);
     } else if (actionOnClick === "modal") {
       // open modal
     } else {
@@ -65,14 +57,6 @@ function Image({
       onClick?.(e as any); // I couldn't type this :(
     }
   }
-
-  // Disables zoom when clicking outside the image
-  const ref = useOutsideClick<HTMLImageElement>((e: MouseEvent) => {
-    if (actionOnClick === "zoom-in-place") {
-      disableZoom({ target: ref.current } as unknown as MouseEvent);
-      setZoomInPlace(false);
-    }
-  });
 
   return (
     <div
@@ -93,7 +77,7 @@ function Image({
         height={height}
         onClick={handleImageClick}
         {...props}
-        {...zoomInPlace && {
+        {...zoomEnabled && {
           onMouseMove: moveZoom,
         }}
       />
@@ -119,4 +103,4 @@ function Image({
   );
 }
 
-export default Image;
+export default memo(Image);

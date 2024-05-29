@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef } from "preact/compat";
+import { ForwardedRef, forwardRef, memo } from "preact/compat";
 import { ComponentChildren } from "preact";
 import {
   useCallback,
@@ -16,6 +16,7 @@ import Image from "apps/website/components/Image.tsx";
 import type { AnatomyClasses } from "deco-components/sdk/styles.ts";
 import { clx } from "deco-components/sdk/clx.ts";
 import { useVideo } from "deco-components/sdk/useVideo.ts";
+import useZoomInPlace from "deco-components/sdk/useZoomInPlace.ts";
 
 const anatomy = [
   "container",
@@ -32,8 +33,13 @@ export interface Props extends Omit<DecoVideoProps, "children"> {
   classes?: VideoClasses;
   children?: ComponentChildren;
   videoChildren?: DecoVideoProps["children"];
+  actionOnClick?: "zoom-in-place" | "custom";
 }
 
+/**
+ * Wrapper around Deco optimized Video component with padding-top aspect ratio hack.
+ * @description Import as an **island** if you want actions on click. Import directly otherwise
+ */
 function Video({
   classes,
   width,
@@ -43,6 +49,8 @@ function Video({
   type,
   children,
   videoChildren,
+  actionOnClick,
+  onClick,
   ...props
 }: Props, forwardedRef: ForwardedRef<HTMLVideoElement>) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -55,8 +63,21 @@ function Video({
 
   // Allow us to use the video player both inside and outside of the component
   useImperativeHandle(forwardedRef, () => playerRef.current!, []);
+  const { ref: zoomableRef, toggleZoom, moveZoom, zoomEnabled } =
+    useZoomInPlace();
 
   const { networkStatus } = useVideo(playerRef, containerRef);
+
+  function handleVideoClick(e: MouseEvent) {
+    if (!actionOnClick) return;
+
+    if (actionOnClick === "zoom-in-place") {
+      toggleZoom(e);
+    } else {
+      // deno-lint-ignore no-explicit-any
+      onClick?.(e as any); // I couldn't type this :(
+    }
+  }
 
   const handleVideoPlayEvent = useCallback(() => {
     setShowVideo(true);
@@ -105,33 +126,45 @@ function Video({
   return (
     <div
       ref={containerRef}
-      class={clx("relative", classes?.container)}
-      style={{ paddingTop }}
+      class={clx("relative overflow-hidden", classes?.container)}
     >
-      <DecoVideo
-        ref={playerRef}
-        height={height}
-        width={width}
+      <div
+        ref={zoomableRef}
         class={clx(
-          "absolute top-0 left-0 block w-full h-full object-cover",
-          classes?.video,
+          "relative w-full h-full",
+          actionOnClick === "zoom-in-place" && "cursor-zoom",
         )}
-        type={type ? `video/${type}` : undefined}
-        {...props}
+        onClick={handleVideoClick}
+        style={{ paddingTop }}
+        {...zoomEnabled && {
+          onMouseMove: moveZoom,
+        }}
       >
-        {videoChildren}
-        {renderPoster()}
-      </DecoVideo>
+        <DecoVideo
+          ref={playerRef}
+          height={height}
+          width={width}
+          class={clx(
+            "absolute top-0 left-0 block w-full h-full object-cover",
+            classes?.video,
+          )}
+          type={type ? `video/${type}` : undefined}
+          {...props}
+        >
+          {videoChildren}
+          {renderPoster()}
+        </DecoVideo>
 
-      {!showVideo && renderPoster("z-100 bg-white")}
+        {!showVideo && renderPoster("z-100 bg-white")}
 
-      {!!children && (
-        <div class="absolute top-0 left-0 w-full h-full object-cover z-2 pointer-events-none">
-          {children}
-        </div>
-      )}
+        {!!children && (
+          <div class="absolute top-0 left-0 w-full h-full object-cover z-2 pointer-events-none">
+            {children}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
 
-export default forwardRef(Video);
+export default memo(forwardRef(Video));

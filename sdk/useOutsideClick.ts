@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from "preact/hooks";
 
 type SupportedEvents = MouseEvent;
 
-export function useOutsideClick<T extends HTMLDivElement>(
+export function useOutsideClick<T extends HTMLElement>(
   callback: (event: SupportedEvents) => void,
 ) {
   const ref = useRef<T>(null);
