@@ -14,12 +14,16 @@ export type ImageClasses = AnatomyClasses<typeof anatomy[number]>;
 export interface Props extends DecoImageProps {
   height: number;
   classes?: ImageClasses;
+  secondaryImage?: string;
+  actionOnHover?: "show-secondary" | "custom";
 }
 
 function Image({
   width,
   height,
   classes,
+  secondaryImage,
+  actionOnHover,
   ...props
 }: Props) {
   const aspectRatio = parseFloat((width / height).toFixed(2));
@@ -27,7 +31,11 @@ function Image({
 
   return (
     <div
-      class={clx("relative", classes?.container)}
+      class={clx(
+        "relative group",
+        actionOnHover && "cursor-pointer",
+        classes?.container,
+      )}
       style={{ paddingTop }}
     >
       <DecoImage
@@ -39,6 +47,18 @@ function Image({
         height={height}
         {...props}
       />
+
+      {actionOnHover === "show-secondary" && !!secondaryImage && (
+        <DecoImage
+          class={clx(
+            "absolute top-0 left-0 w-full h-full object-cover z-1 hidden group-hover:block",
+            classes?.image,
+          )}
+          width={width}
+          height={height}
+          src={secondaryImage ?? ""}
+        />
+      )}
     </div>
   );
 }
