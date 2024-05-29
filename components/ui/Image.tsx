@@ -8,6 +8,7 @@ import type { AnatomyClasses } from "deco-components/sdk/styles.ts";
 import { clx } from "deco-components/sdk/clx.ts";
 import { disableZoom, moveZoom } from "deco-components/sdk/zoomInPlace.ts";
 import useOutsideClick from "deco-components/sdk/useOutsideClick.ts";
+import action from "apps/vtex/actions/notifyme.ts";
 
 const anatomy = [
   "container",
@@ -77,7 +78,7 @@ function Image({
     <div
       class={clx(
         "relative group overflow-hidden",
-        (actionOnHover || actionOnClick) && "cursor-pointer",
+        actionOnClick === "zoom-in-place" && "cursor-zoom",
         classes?.container,
       )}
       style={{ paddingTop }}
