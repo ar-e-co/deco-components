@@ -52,7 +52,7 @@ function ReviewStar({
           <div class="absolute top-0 left-0">  
               <Icon
               id={"starsBlack"}
-              width={widthPercentage}
+              width={ratingValue <= 0 ? ("0"):(widthPercentage)}
               height={16}
               strokeWidth={1}
               class="object-contain bg-cover"
@@ -82,7 +82,7 @@ function ReviewStar({
           <div class="absolute top-0 left-0">  
               <Icon
               id={"starsBlack"}
-              width={widthPercentage}
+              width={ratingValue <= 1 ? ("0"):(widthPercentage)}
               height={16}
               strokeWidth={1}
               class="object-contain bg-cover"
@@ -113,7 +113,7 @@ function ReviewStar({
           <div class="absolute top-0 left-0">  
               <Icon
               id={"starsBlack"}
-              width={widthPercentage}
+              width={ratingValue <= 2 ? ("0"):(widthPercentage)}
               height={16}
               strokeWidth={1}
               class="object-contain bg-cover"
@@ -143,7 +143,7 @@ function ReviewStar({
           <div class="absolute top-0 left-0">  
               <Icon
               id={"starsBlack"}
-              width={widthPercentage}
+              width={ratingValue <= 3 ? ("0"):(widthPercentage)}
               height={16}
               strokeWidth={1}
               class="object-contain bg-cover"
@@ -153,7 +153,7 @@ function ReviewStar({
 
       </div>
       <div class="relative">
-      {ratingValue >= 5 ?
+      {ratingValue == 5 ?
       (
       <Icon
           id={"starsBlack"}
@@ -172,7 +172,7 @@ function ReviewStar({
           <div class="absolute top-0 left-0">  
               <Icon
               id={"starsBlack"}
-              width={widthPercentage}
+              width={ratingValue <= 4 ? ("0"):(widthPercentage)}
               height={16}
               strokeWidth={1}
               class="object-contain bg-cover"

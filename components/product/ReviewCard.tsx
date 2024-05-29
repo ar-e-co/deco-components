@@ -17,10 +17,11 @@ export interface Props {
     classes?:Styles;
     author?: string;
     datePublished?:string;
+    reviewCount?:string;
 }
 
 
-function ReviewCard({ ratingValue,reviewBody,classes,datePublished,author }: Props) {
+function ReviewCard({ ratingValue = 0 ,reviewCount =0 ,reviewBody,classes,datePublished,author }: Props) {
     const dataFormatada = (data: string) => {
         const regex = /(\d{4})-(\d{2})-(\d{2})/;
         const match = regex.exec(data);
@@ -38,159 +39,159 @@ function ReviewCard({ ratingValue,reviewBody,classes,datePublished,author }: Pro
    
    <div class="flex flex-row gap-[6px]">
 
-    <div class="relative">
-    {ratingValue >= 1 ?
-    (
-    <Icon
-        id={"starsBlack"}
-        width={16}
-        height={16}
-        strokeWidth={1}
-        class="object-contain bg-cover"/>
-    ):(
-    <>
-        <Icon
-            id={"starsWhite"}
-            width={16}
-            height={16}
-            strokeWidth={1}/>
+      <div class="relative">
+      {ratingValue >= 1 ?
+      (
+      <Icon
+          id={"starsBlack"}
+          width={16}
+          height={16}
+          strokeWidth={1}
+          class="object-contain bg-cover"/>
+      ):(
+      <>
+          <Icon
+              id={"starsWhite"}
+              width={16}
+              height={16}
+              strokeWidth={1}/>
 
-        <div class="absolute top-0 left-0">  
-            <Icon
-            id={"starsBlack"}
-            width={widthPercentage}
-            height={16}
-            strokeWidth={1}
-            class="object-contain bg-cover"
-            />
-        </div>
-    </>
-    )
-    }  
-    </div>
-    <div class="relative">
-    {ratingValue >= 2 ?
-    (
-    <Icon
-        id={"starsBlack"}
-        width={16}
-        height={16}
-        strokeWidth={1}
-        class="object-contain bg-cover"/>
-    ):(
-    <>
-        <Icon
-            id={"starsWhite"}
-            width={16}
-            height={16}
-            strokeWidth={1}/>
+          <div class="absolute top-0 left-0">  
+              <Icon
+              id={"starsBlack"}
+              width={ratingValue <= 0 ? ("0"):(widthPercentage)}
+              height={16}
+              strokeWidth={1}
+              class="object-contain bg-cover"
+              />
+          </div>
+      </>
+      )
+      }  
+      </div>
+      <div class="relative">
+      {ratingValue >= 2 ?
+      (
+      <Icon
+          id={"starsBlack"}
+          width={16}
+          height={16}
+          strokeWidth={1}
+          class="object-contain bg-cover"/>
+      ):(
+      <>
+          <Icon
+              id={"starsWhite"}
+              width={16}
+              height={16}
+              strokeWidth={1}/>
 
-        <div class="absolute top-0 left-0">  
-            <Icon
-            id={"starsBlack"}
-            width={widthPercentage}
-            height={16}
-            strokeWidth={1}
-            class="object-contain bg-cover"
-            />
-        </div>
-    </>
-    )
-    }  
-      
-    </div>
-    <div class="relative">
-    {ratingValue >= 3 ?
-    (
-    <Icon
-        id={"starsBlack"}
-        width={16}
-        height={16}
-        strokeWidth={1}
-        class="object-contain bg-cover"/>
-    ):(
-    <>
-        <Icon
-            id={"starsWhite"}
-            width={16}
-            height={16}
-            strokeWidth={1}/>
+          <div class="absolute top-0 left-0">  
+              <Icon
+              id={"starsBlack"}
+              width={ratingValue <= 1 ? ("0"):(widthPercentage)}
+              height={16}
+              strokeWidth={1}
+              class="object-contain bg-cover"
+              />
+          </div>
+      </>
+      )
+      }  
+        
+      </div>
+      <div class="relative">
+      {ratingValue >= 3 ?
+      (
+      <Icon
+          id={"starsBlack"}
+          width={16}
+          height={16}
+          strokeWidth={1}
+          class="object-contain bg-cover"/>
+      ):(
+      <>
+          <Icon
+              id={"starsWhite"}
+              width={16}
+              height={16}
+              strokeWidth={1}/>
 
-        <div class="absolute top-0 left-0">  
-            <Icon
-            id={"starsBlack"}
-            width={widthPercentage}
-            height={16}
-            strokeWidth={1}
-            class="object-contain bg-cover"
-            />
-        </div>
-    </>
-    )
-    }  
-    </div>
-    <div class="relative">
-    {ratingValue >= 4 ?
-    (
-    <Icon
-        id={"starsBlack"}
-        width={16}
-        height={16}
-        strokeWidth={1}
-        class="object-contain bg-cover"/>
-    ):(
-    <>
-        <Icon
-            id={"starsWhite"}
-            width={16}
-            height={16}
-            strokeWidth={1}/>
+          <div class="absolute top-0 left-0">  
+              <Icon
+              id={"starsBlack"}
+              width={ratingValue <= 2 ? ("0"):(widthPercentage)}
+              height={16}
+              strokeWidth={1}
+              class="object-contain bg-cover"
+              />
+          </div>
+      </>
+      )
+      }  
+      </div>
+      <div class="relative">
+      {ratingValue >= 4 ?
+      (
+      <Icon
+          id={"starsBlack"}
+          width={16}
+          height={16}
+          strokeWidth={1}
+          class="object-contain bg-cover"/>
+      ):(
+      <>
+          <Icon
+              id={"starsWhite"}
+              width={16}
+              height={16}
+              strokeWidth={1}/>
 
-        <div class="absolute top-0 left-0">  
-            <Icon
-            id={"starsBlack"}
-            width={widthPercentage}
-            height={16}
-            strokeWidth={1}
-            class="object-contain bg-cover"
-            />
-        </div>
-    </>)}
+          <div class="absolute top-0 left-0">  
+              <Icon
+              id={"starsBlack"}
+              width={ratingValue <= 3 ? ("0"):(widthPercentage)}
+              height={16}
+              strokeWidth={1}
+              class="object-contain bg-cover"
+              />
+          </div>
+      </>)}
 
-    </div>
-    <div class="relative">
-    {ratingValue >= 5 ?
-    (
-    <Icon
-        id={"starsBlack"}
-        width={16}
-        height={16}
-        strokeWidth={1}
-        class="object-contain bg-cover"/>
-    ):(
-    <>
-        <Icon
-            id={"starsWhite"}
-            width={16}
-            height={16}
-            strokeWidth={1}/>
+      </div>
+      <div class="relative">
+      {ratingValue == 5 ?
+      (
+      <Icon
+          id={"starsBlack"}
+          width={16}
+          height={16}
+          strokeWidth={1}
+          class="object-contain bg-cover"/>
+      ):(
+      <>
+          <Icon
+              id={"starsWhite"}
+              width={16}
+              height={16}
+              strokeWidth={1}/>
 
-        <div class="absolute top-0 left-0">  
-            <Icon
-            id={"starsBlack"}
-            width={widthPercentage}
-            height={16}
-            strokeWidth={1}
-            class="object-contain bg-cover"
-            />
-        </div>
-    </>
-    )
-    }  
-      
-    </div>
-    </div>
-
+          <div class="absolute top-0 left-0">  
+              <Icon
+              id={"starsBlack"}
+              width={ratingValue <= 4 ? ("0"):(widthPercentage)}
+              height={16}
+              strokeWidth={1}
+              class="object-contain bg-cover"
+              />
+          </div>
+      </>
+      )
+      }  
+        
+      </div>
+          <span class={handleClasses(classes?.opinionsText) || "text-12 font-body ml-3"}>{reviewCount} opiniões</span>
+      </div>
         <span class={handleClasses("mt-1 lg:min-h-24", classes?.opinionText)}>{reviewBody}</span>
     
         <div class="flex flex-col w-full text-12 lg:mt-3 font-body">
