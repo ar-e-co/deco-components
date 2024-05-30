@@ -1,3 +1,4 @@
+import { clx } from "deco-components/sdk/clx.ts";
 import { AnatomyClasses, handleClasses } from "../../sdk/styles.ts";
 
 const anatomy = [
@@ -20,23 +21,17 @@ export interface Props {
 
 function Avatar({ content, variant = "default", classes }: Props) {
   const variants = {
-    active: handleClasses(classes?.active) ||
-      "text-base-200 bg-primary ring-1 ring-primary rounded-full px-5 py-1",
-    disabled: handleClasses(classes?.disabled) ||
-      `text-base-content ring-1 ring-base-300 relative rounded-full after:absolute after:top-1/2 after:h-[2px] after:-left-[5%] after:bg-primary after:w-[110%] after:block after:rotate-[20deg] after:content-[""] px-5 py-1`,
-    default: handleClasses(classes?.default) ||
-      "text-base-content bg-base-200 ring-1 ring-base-300 rounded-full px-5 py-1",
+    active: handleClasses("text-base-200 bg-primary ring-1 ring-primary rounded-full text-center flex justify-center", classes?.active),
+    disabled: handleClasses("text-base-content ring-1 ring-base-200 relative rounded-full text-center flex justify-center after:absolute after:top-1/2 after:h-[0.5px] after:-left-[5%] after:bg-primary after:w-[110%] after:block after:rotate-[30deg] after:content-[]", classes?.disabled),
+    default: handleClasses("text-base-content ring-1 ring-base-200 rounded-full text-center flex justify-center", classes?.default),
+    none: ""
   };
 
   return (
-    <div class={handleClasses("placeholder", classes?.container)}>
-      <div
-        class={`${variants[variant]}  hover:ring-base-content`}
-      >
-        <span class={classes?.text || ""}>
-          {content.substring(0, 3)}
-        </span>
-      </div>
+    <div class={clx('hover:ring-base-content', variants[variant], classes?.container)}>
+      <span class={classes?.text || ""}>
+        {content.substring(0, 3)}
+      </span>
     </div>
   );
 }
