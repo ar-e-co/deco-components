@@ -21,11 +21,11 @@ export interface Props {
 function Avatar({ content, variant = "default", classes }: Props) {
   const variants = {
     active: handleClasses(classes?.active) ||
-      "text-base-200 bg-primary ring-1 ring-primary rounded-full lg:w-12 h-7 w-[52px] lg:h-[32px] text-12 text-center  flex justify-center ",
+      "text-base-200 bg-primary ring-1 ring-primary rounded-full lg:w-12 h-7 w-[52px] lg:h-[28px] text-12 text-center  flex justify-center ",
     disabled: handleClasses(classes?.disabled) ||
-      `text-base-content ring-1 ring-base-300 relative rounded-full text-center text-12 flex justify-center  after:absolute after:top-1/2 after:h-[2px] after:-left-[5%] after:bg-primary after:w-[110%] after:block after:rotate-[20deg] after:content-[""] lg:w-12 h-7 w-[52px] lg:h-[32px] `,
+      `text-base-content ring-1 ring-base-200 relative rounded-full text-center text-12 flex justify-center  after:absolute after:top-1/2 after:h-[0.5px] after:-left-[5%] after:bg-primary after:w-[110%] after:block after:rotate-[30deg] after:content-[""] lg:w-12 h-7 w-[52px] lg:h-[28px] `,
     default: handleClasses(classes?.default) ||
-      "text-base-content  ring-1 ring-base-300 rounded-full lg:w-12 h-7 w-[52px] lg:h-[32px] text-center  text-12  flex justify-center",
+      "text-base-content  ring-1 ring-base-200 rounded-full lg:w-12 h-7 w-[52px] lg:h-[28px] text-center  text-12  flex justify-center",
   };
 
   return (
