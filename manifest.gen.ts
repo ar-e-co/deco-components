@@ -5,10 +5,14 @@
 import * as $$$$$$$$$0 from "./actions/getAddressFromPostalCode.ts";
 import * as $$$$$$$$$1 from "./actions/simulateShipping.ts";
 import * as $$$0 from "./loaders/storeConfig.ts";
+import * as $$$1 from "./loaders/verifiedReviews.ts";
+import * as $$$2 from "./loaders/verifiedReviewsPDP.ts";
 
 const manifest = {
   "loaders": {
     "deco-components/loaders/storeConfig.ts": $$$0,
+    "deco-components/loaders/verifiedReviews.ts": $$$1,
+    "deco-components/loaders/verifiedReviewsPDP.ts": $$$2,
   },
   "actions": {
     "deco-components/actions/getAddressFromPostalCode.ts": $$$$$$$$$0,
