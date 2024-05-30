@@ -29,7 +29,7 @@ function Avatar({ content, variant = "default", classes }: Props) {
 
   return (
     <div class={clx('hover:ring-base-content', variants[variant], classes?.container)}>
-      <span class={classes?.text || ""}>
+      <span class={handleClasses("my-auto", classes?.text)}>
         {content.substring(0, 3)}
       </span>
     </div>
