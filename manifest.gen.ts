@@ -4,13 +4,11 @@
 
 import * as $$$$$$$$$0 from "./actions/getAddressFromPostalCode.ts";
 import * as $$$$$$$$$1 from "./actions/simulateShipping.ts";
-import * as $$$0 from "./loaders/ArCo/getListOfSpecifications.tsx";
-import * as $$$1 from "./loaders/storeConfig.ts";
+import * as $$$0 from "./loaders/storeConfig.ts";
 
 const manifest = {
   "loaders": {
-    "deco-components/loaders/ArCo/getListOfSpecifications.tsx": $$$0,
-    "deco-components/loaders/storeConfig.ts": $$$1,
+    "deco-components/loaders/storeConfig.ts": $$$0,
   },
   "actions": {
     "deco-components/actions/getAddressFromPostalCode.ts": $$$$$$$$$0,
