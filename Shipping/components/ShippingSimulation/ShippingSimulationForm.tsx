@@ -23,7 +23,7 @@ function FormSimulation({
   classes,
   children,
 }: Props) {
-  const { simulate, cart } = useCart();
+  const { cart } = useCart();
 
   const {
     postalCodeSignal,

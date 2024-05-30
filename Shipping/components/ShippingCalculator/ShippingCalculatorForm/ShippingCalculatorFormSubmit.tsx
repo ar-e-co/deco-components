@@ -20,7 +20,9 @@ function ShippingCalculatorFormSubmit({
       isLoading={loading}
       class={classes?.button}
       disabled={loading}
-    />
+    >
+      {children}
+    </FormSubmit>
   );
 }
 

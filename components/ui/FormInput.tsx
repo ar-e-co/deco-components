@@ -1,5 +1,4 @@
 import { JSX } from "preact";
-import { useEffect } from "preact/hooks";
 
 import { clx } from "deco-components/sdk/clx.ts";
 import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
@@ -18,19 +17,14 @@ export type FormInputProps =
   & JSX.HTMLAttributes<HTMLInputElement>
   & {
     classes?: FormInputStyles;
-    value?: string;
     error?: string | null;
   };
 
 function FormInput({
   classes,
-  value,
   error,
   ...props
 }: FormInputProps) {
-  useEffect(() => {
-  }, []);
-
   return (
     <>
       <input

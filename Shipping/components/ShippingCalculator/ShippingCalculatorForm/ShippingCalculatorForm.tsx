@@ -34,7 +34,7 @@ function ShippingCalculatorForm({
     try {
       const postalCode = postalCodeSignal.value ?? "";
       await sendPostalCodeAttachment(postalCode);
-    } catch (error) {
+    } catch {
       errorSignal.value = errorMessage;
     } finally {
       loadingSignal.value = false;

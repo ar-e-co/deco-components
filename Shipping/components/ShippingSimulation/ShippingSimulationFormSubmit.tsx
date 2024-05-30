@@ -20,7 +20,9 @@ function ShippingSimulationFormSubmit({
       isLoading={loading}
       classes={classes}
       disabled={loading}
-    />
+    >
+      {children}
+    </FormSubmit>
   );
 }
 

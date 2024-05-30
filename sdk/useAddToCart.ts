@@ -8,7 +8,7 @@ export interface Props {
 }
 
 export function useAddToCart({ eventParams, onAddItem }: Props) {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   async function onClick(e: MouseEvent) {
     e.preventDefault();
@@ -29,7 +29,7 @@ export function useAddToCart({ eventParams, onAddItem }: Props) {
 
   return {
     onClick,
-    loading,
+    isLoading,
     "data-deco": "add-to-cart",
   };
 }
