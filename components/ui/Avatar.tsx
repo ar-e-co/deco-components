@@ -1,4 +1,7 @@
-import { AnatomyClasses, handleClasses } from "../../sdk/styles.ts";
+import { ComponentChildren } from "preact";
+import { clx } from "deco-components/sdk/clx.ts";
+
+import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
 
 const anatomy = [
   "active",
@@ -10,33 +13,38 @@ const anatomy = [
 
 export type AvatarStyles = AnatomyClasses<typeof anatomy[number]>;
 
-export type AvatarVariants = "active" | "disabled" | "default";
+export type AvatarVariants = "active" | "disabled" | "default" | "none";
 
 export interface Props {
   variant?: AvatarVariants;
-  content: string;
   classes?: AvatarStyles;
+  children: ComponentChildren;
 }
 
-function Avatar({ content, variant = "default", classes }: Props) {
+function Avatar({ variant = "none", classes, children }: Props) {
   const variants = {
-    active: handleClasses(classes?.active) ||
-      "text-base-200 bg-primary ring-1 ring-primary rounded-full px-5 py-1",
-    disabled: handleClasses(classes?.disabled) ||
-      `text-base-content ring-1 ring-base-300 relative rounded-full after:absolute after:top-1/2 after:h-[2px] after:-left-[5%] after:bg-primary after:w-[110%] after:block after:rotate-[20deg] after:content-[""] px-5 py-1`,
-    default: handleClasses(classes?.default) ||
-      "text-base-content bg-base-200 ring-1 ring-base-300 rounded-full px-5 py-1",
+    active: handleClasses(
+      "bg-primary [&]:text-base-200 [&]:ring-primary",
+      classes?.active,
+    ),
+    disabled: handleClasses(
+      "[&]:hover:ring-base-200 cursor-default after:absolute after:top-1/2 after:h-0.5 after:-left-[5%] after:bg-primary after:w-[110%] after:block after:rotate-[30deg] after:opacity-30 after:content-['']",
+      classes?.disabled,
+    ),
+    none: "",
   };
 
+  const containerClasses = handleClasses(
+    "relative transition-all text-base-content ring-1 ring-base-200 hover:ring-base-content  rounded-full flex items-center justify-center w-13 lg:w-12 h-8 lg:h-7",
+    classes?.container,
+  );
+  const variantClasses = variants[variant as keyof typeof variants];
+
   return (
-    <div class={handleClasses("placeholder", classes?.container)}>
-      <div
-        class={`${variants[variant]}  hover:ring-base-content`}
-      >
-        <span class={classes?.text || ""}>
-          {content.substring(0, 3)}
-        </span>
-      </div>
+    <div class={clx(containerClasses, variantClasses)}>
+      <span class={classes?.text}>
+        {children}
+      </span>
     </div>
   );
 }
