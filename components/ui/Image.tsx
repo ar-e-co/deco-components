@@ -1,4 +1,4 @@
-import { memo } from "preact/compat";
+import { ForwardedRef, forwardRef, memo } from "preact/compat";
 import { ComponentChildren } from "preact";
 import DecoImage, {
   Props as DecoImageProps,
@@ -28,35 +28,18 @@ export interface Props extends DecoImageProps {
  * Wrapper around Deco optimized Image component with padding-top aspect ratio hack.
  * @description Import as an **island** if you want actions on click. Import directly otherwise
  */
-function Image({
+const Image = forwardRef(function Image({
   width,
   height,
   classes,
   secondaryImage,
   actionOnHover,
   actionOnClick,
-  onClick,
   children,
   ...props
-}: Props) {
+}: Props, ref: ForwardedRef<HTMLImageElement>) {
   const aspectRatio = parseFloat((width / height).toFixed(2));
   const paddingTop = `${parseFloat((1 / aspectRatio).toFixed(2)) * 100}%`;
-  const { ref, toggleZoom, moveZoom, zoomEnabled } = useZoomInPlace<
-    HTMLImageElement
-  >();
-
-  function handleImageClick(e: MouseEvent) {
-    if (!actionOnClick) return;
-
-    if (actionOnClick === "zoom-in-place") {
-      toggleZoom(e);
-    } else if (actionOnClick === "modal") {
-      // open modal
-    } else {
-      // deno-lint-ignore no-explicit-any
-      onClick?.(e as any); // I couldn't type this :(
-    }
-  }
 
   return (
     <div
@@ -75,11 +58,7 @@ function Image({
         )}
         width={width}
         height={height}
-        onClick={handleImageClick}
         {...props}
-        {...zoomEnabled && {
-          onMouseMove: moveZoom,
-        }}
       />
 
       {actionOnHover === "show-secondary" && !!secondaryImage && (
@@ -100,6 +79,37 @@ function Image({
         </div>
       )}
     </div>
+  );
+});
+
+export function ImageIsland({ actionOnClick, onClick, ...rest }: Props) {
+  const { ref, toggleZoom, moveZoom, zoomEnabled } = useZoomInPlace<
+    HTMLImageElement
+  >();
+
+  function handleImageClick(e: MouseEvent) {
+    if (!actionOnClick) return;
+
+    if (actionOnClick === "zoom-in-place") {
+      toggleZoom(e);
+    } else if (actionOnClick === "modal") {
+      // open modal
+    } else {
+      // deno-lint-ignore no-explicit-any
+      onClick?.(e as any); // I couldn't type this :(
+    }
+  }
+
+  return (
+    <Image
+      ref={ref}
+      onClick={handleImageClick}
+      actionOnClick={actionOnClick}
+      {...rest}
+      {...zoomEnabled && {
+        onMouseMove: moveZoom,
+      }}
+    />
   );
 }
 
