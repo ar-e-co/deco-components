@@ -3,36 +3,67 @@ import { ComponentChildren } from "preact";
 import { AnatomyClasses, handleClasses } from "../../sdk/styles.ts";
 
 const anatomy = [
-  "breadcrumbStyle",
+  "container",
+  "separator",
+  "link",
+  "item",
 ] as const;
 
 type BreadcrumbStyle = AnatomyClasses<typeof anatomy[number]>;
 
 interface BreadcrumbProps {
-  itemListElement: BreadcrumbList["itemListElement"];
+  separator?: ComponentChildren;
   classes?: BreadcrumbStyle;
-  children?: ComponentChildren;
+  items: BreadcrumbList["itemListElement"];
 }
 
-function Breadcrumb(
-  { itemListElement = [], classes, children }: BreadcrumbProps,
-) {
-  const items = [...itemListElement];
+function Breadcrumb({
+  classes,
+  separator = "/",
+  items = [],
+}: BreadcrumbProps) {
+  if (!items?.length) {
+    return null;
+  }
+
   return (
-    <div>
-      <ul class={handleClasses(classes?.breadcrumbStyle)}>
-        {items
-          .filter(({ name, item }) => name && item)
-          .map(({ name, item }, i) => (
-            <>
-              {i > 0 ? children : null}
-              <li>
-                <a href={item}>{name}</a>
-              </li>
-            </>
-          ))}
-      </ul>
-    </div>
+    <ul class={handleClasses("flex items-center gap-1", classes?.container)}>
+      {items
+        .filter(({ name, item }) =>
+          name && item
+        )
+        .map(({ name, item }, i) => (
+          <>
+            {i > 0 && (
+              <p
+                class={handleClasses(
+                  "text-inherit leading-inherit",
+                  classes?.separator,
+                )}
+              >
+                {separator}
+              </p>
+            )}
+
+            <li
+              class={handleClasses(
+                "text-inherit leading-inherit",
+                classes?.item,
+              )}
+            >
+              <a
+                class={handleClasses(
+                  "text-inherit leading-inherit",
+                  classes?.link,
+                )}
+                href={item}
+              >
+                {name}
+              </a>
+            </li>
+          </>
+        ))}
+    </ul>
   );
 }
 

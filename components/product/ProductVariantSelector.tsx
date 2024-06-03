@@ -22,12 +22,14 @@ export interface Props {
   classes?: VariantSelectorStyles;
   variants: [string, VariantPossibility][];
   children: (props: ChildrenProps) => JSX.Element;
+  onVariantSelect?: (skuID: string) => void;
 }
 
 function VariantSelector({
   classes,
   variants,
   children,
+  onVariantSelect,
 }: Props) {
   const { productSignal, skuSelectedIDSignal } = useProduct();
   const product = productSignal.value;
@@ -51,6 +53,7 @@ function VariantSelector({
     }
 
     skuSelectedIDSignal.value = skuID;
+    onVariantSelect?.(skuID);
 
     if (link) {
       const obj = { Title: product.name ?? "", Url: link };
