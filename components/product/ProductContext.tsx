@@ -3,24 +3,24 @@ import { Signal, useComputed, useSignal } from "@preact/signals";
 import { ComponentChildren, createContext } from "preact";
 import { Product, ProductLeaf } from "apps/commerce/types.ts";
 
-export type ProductContextState<T extends Product> = {
+export type ProductContextState<T extends Product = Product, S extends ProductLeaf = ProductLeaf> = {
   productSignal: Signal<T>;
   skuSelectedIDSignal: Signal<string | null>;
-  skuSelectedSignal: Signal<ProductLeaf | null>;
+  skuSelectedSignal: Signal<S | null>;
 };
 
 // deno-lint-ignore no-explicit-any
-export const ProductContext = createContext<ProductContextState<any>>(
+export const ProductContext = createContext<ProductContextState<any, any>>(
   {} as never,
 );
 
-export type ProductContextProps<T extends Product> = {
+export type ProductContextProps<T extends Product = Product> = {
   product: T;
   skuSelectedID?: string | number | null | undefined;
   children: ComponentChildren;
 };
 
-function ProductProvider<T extends Product>({
+function ProductProvider<T extends Product = Product>({
   skuSelectedID: skuSelectedIDProp,
   product: productProp,
   children,
@@ -35,7 +35,7 @@ function ProductProvider<T extends Product>({
     const skuSelectedID = skuSelectedIDSignal.value;
     const product = productSignal.value;
     return product?.isVariantOf?.hasVariant?.find((variant) =>
-      variant.sku === skuSelectedID
+      variant.productID === skuSelectedID
     ) ?? null;
   });
 

@@ -5,28 +5,24 @@ import type { ProductWithColorProperties } from "../../components/product/ColorS
 export const COLOR_FALLBACK_IMG = "/image/thumbnail-error.png";
 
 export interface GetSimilarProductsOptions {
-  showUnavailable?: boolean;
+  hideUnavailable?: boolean;
   bringCurrentColorToFront?: boolean;
   /** @default true */
   orderBySpecification?: boolean;
 }
 
 function getSimilarProducts({
-  seller,
   product,
   colorsSpecification,
   colorThumbnailKey,
   specificColorFieldName,
-  showUnavailable,
   bringCurrentColorToFront,
   orderBySpecification = true,
 }: {
   colorThumbnailKey: string;
   specificColorFieldName: string;
-  seller: string;
   product: Product;
   colorsSpecification: Specification | undefined;
-  showUnavailable?: boolean;
   bringCurrentColorToFront?: boolean;
   orderBySpecification?: boolean;
 }) {
@@ -63,28 +59,17 @@ function getSimilarProducts({
       const position = colorsSpecification.values?.[color]?.Position ??
         999;
 
-      const offer = similar.offers?.offers.find((of) => of.seller === seller);
-      const isAvailable = (offer?.inventoryLevel.value ?? 0) > 0;
-
       return {
         ...similar,
         color,
         specificColor,
-        isAvailable,
         thumbnail,
         position,
       };
     });
 
-  let similarProducts = allSimilarProducts;
-  const extendedProduct = allSimilarProducts[0];
-
-  if (!showUnavailable) {
-    similarProducts = [
-      extendedProduct,
-      ...similarProducts.slice(1).filter(({ isAvailable }) => isAvailable),
-    ];
-  }
+  let similarProducts = allSimilarProducts as Array<ProductWithColorProperties & { position: number }>;
+  const extendedProduct = allSimilarProducts[0] as ProductWithColorProperties & { position: number };
 
   if (orderBySpecification) {
     similarProducts = similarProducts.sort(

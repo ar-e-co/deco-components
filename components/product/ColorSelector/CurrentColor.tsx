@@ -1,19 +1,11 @@
+import { PDPProduct } from "site/sdk/product/types.ts";
 import { useProduct } from "../../../sdk/product/useProduct.ts";
-import { Product } from "apps/commerce/types.ts";
 
-export interface Props {
-  specificColorPropertyLabel: string;
-}
+function CurrentColor() {
+  const { productSignal } = useProduct<PDPProduct>();
+  const product = productSignal.value;
 
-function CurrentColor({ specificColorPropertyLabel }: Props) {
-  const { productSignal } = useProduct();
-  const product: Product = productSignal.value;
-
-  const color = product?.isVariantOf
-    ?.additionalProperty
-    ?.find((prop) => prop.name === specificColorPropertyLabel)?.value;
-
-  return <>{color}</>;
+  return <>{product.specificColor}</>;
 }
 
 export default CurrentColor;
