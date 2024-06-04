@@ -38,7 +38,7 @@ const Image = forwardRef(function Image({
   children,
   ...props
 }: Props, ref: ForwardedRef<HTMLImageElement>) {
-  const aspectRatio = parseFloat((width / height).toFixed(2));
+  const aspectRatio = width / height;
   const paddingTop = `${parseFloat((1 / aspectRatio).toFixed(2)) * 100}%`;
 
   return (
