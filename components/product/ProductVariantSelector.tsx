@@ -1,8 +1,10 @@
 import { JSX } from "preact/jsx-runtime";
-import { useProduct } from "deco-components/sdk/useProduct.ts";
-import { relative } from "deco-components/sdk/url.ts";
+
 import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
-import type { VariantPossibility } from "deco-components/sdk/useVariantPossibilities.ts";
+import { relative } from "deco-components/sdk/url.ts";
+
+import type { VariantPossibility } from "deco-components/sdk/product/useVariantPossibilities.ts";
+import { useProduct } from "deco-components/sdk/product/useProduct.ts";
 
 const anatomy = [
   "container",

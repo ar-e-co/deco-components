@@ -1,7 +1,7 @@
 import { Props as ShippingSimulationProps } from "apps/vtex/actions/cart/simulation.ts";
 import { VTEXContext } from "apps/compat/std/mod.ts";
-import { SelectedDeliveryChannel } from "deco-components/Shipping/sdk/Types.ts";
-import { aggregateSimulationResults } from "deco-components/Shipping/sdk/helpers.tsx";
+import { SelectedDeliveryChannel } from "../components/shipping/sdk/Types.ts";
+import { aggregateSimulationResults } from "../components/shipping/sdk/helpers.tsx";
 
 export interface ShippingSimulationSLA {
   id: string;

@@ -1,13 +1,14 @@
 import { getLatestSla } from "@vtex/estimate-calculator";
 
 import { computePrice } from "./helpers.tsx";
-import type {
+
+import {
   LogisticsInfo,
   PickupSla,
   PickupStoreInfo,
+  SelectedDeliveryChannel,
   ShippingSla,
 } from "./Types.ts";
-import { SelectedDeliveryChannel } from "./Types.ts";
 
 type StoreItem = PickupStoreInfo & {
   pickupPointId: string;

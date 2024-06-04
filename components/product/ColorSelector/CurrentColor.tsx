@@ -1,4 +1,4 @@
-import { useProduct } from "deco-components/sdk/useProduct.ts";
+import { useProduct } from "../../../sdk/product/useProduct.ts";
 import { Product } from "apps/commerce/types.ts";
 
 export interface Props {

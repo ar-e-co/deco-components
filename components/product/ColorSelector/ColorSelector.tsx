@@ -1,9 +1,9 @@
 import type { Product } from "apps/commerce/types.ts";
 import type { AnatomyClasses } from "deco-components/sdk/styles.ts";
 import { handleClasses } from "deco-components/sdk/styles.ts";
-import { useProduct } from "deco-components/sdk/useProduct.ts";
+import { useProduct } from "../../../sdk/product/useProduct.ts";
 
-import { COLOR_FALLBACK_IMG } from "../../../sdk/getSimilarProducts.ts";
+import { COLOR_FALLBACK_IMG } from "../../../sdk/product/getSimilarProducts.ts";
 import type { ProductWithColorProperties } from "./Types.ts";
 import { relative } from "deco-components/sdk/url.ts";
 

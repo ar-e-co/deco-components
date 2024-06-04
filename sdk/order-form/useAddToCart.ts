@@ -1,6 +1,6 @@
 import { useState } from "preact/hooks";
 import { AddToCartParams } from "apps/commerce/types.ts";
-import { sendEvent } from "./analytics.tsx";
+import { sendEvent } from "../analytics.tsx";
 
 export interface Props {
   eventParams: AddToCartParams;

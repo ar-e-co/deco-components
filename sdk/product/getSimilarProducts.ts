@@ -1,6 +1,6 @@
 import type { Product } from "apps/commerce/types.ts";
 import type { Specification } from "deco-components/loaders/storeConfig.ts";
-import type { ProductWithColorProperties } from "../components/product/ColorSelector/Types.ts";
+import type { ProductWithColorProperties } from "../../components/product/ColorSelector/Types.ts";
 
 export const COLOR_FALLBACK_IMG = "/image/thumbnail-error.png";
 

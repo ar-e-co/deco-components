@@ -1,11 +1,8 @@
-import { SimulationSla } from "deco-components/Shipping/sdk/Types.ts";
-import { LogisticsInfo, ShippingSla } from "./Types.ts";
 import { SelectedDeliveryChannel } from "apps/vtex/utils/types.ts";
 import { getCheapestSla, getFastestSla } from "@vtex/estimate-calculator";
-import {
-  CHEAPEST_DELIVERY_NAME,
-  FASTEST_DELIVERY_NAME,
-} from "deco-components/Shipping/sdk/constants.ts";
+
+import type { LogisticsInfo, ShippingSla, SimulationSla } from "./Types.ts";
+import { CHEAPEST_DELIVERY_NAME, FASTEST_DELIVERY_NAME } from "./constants.ts";
 
 const TIME_UNITS_MAP = {
   h: ["hora", "hora"],
