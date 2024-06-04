@@ -3,25 +3,28 @@ import { Signal, useComputed, useSignal } from "@preact/signals";
 import { ComponentChildren, createContext } from "preact";
 import { Product, ProductLeaf } from "apps/commerce/types.ts";
 
-export type ProductContextState = {
-  productSignal: Signal<Product>;
+export type ProductContextState<T extends Product> = {
+  productSignal: Signal<T>;
   skuSelectedIDSignal: Signal<string | null>;
   skuSelectedSignal: Signal<ProductLeaf | null>;
 };
 
-export const ProductContext = createContext<ProductContextState>({} as never);
+// deno-lint-ignore no-explicit-any
+export const ProductContext = createContext<ProductContextState<any>>(
+  {} as never,
+);
 
-export type ProductContextProps = {
-  product: Product;
+export type ProductContextProps<T extends Product> = {
+  product: T;
   skuSelectedID?: string | number | null | undefined;
   children: ComponentChildren;
 };
 
-function ProductProvider({
+function ProductProvider<T extends Product>({
   skuSelectedID: skuSelectedIDProp,
   product: productProp,
   children,
-}: ProductContextProps) {
+}: ProductContextProps<T>) {
   const productSignal = useSignal(productProp);
 
   const skuSelectedIDSignal = useSignal(

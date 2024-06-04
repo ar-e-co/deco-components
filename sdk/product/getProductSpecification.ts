@@ -6,7 +6,7 @@ export const getProductSpecification = (
 ) => {
   const specificationItem = isVariantOf
     ?.additionalProperty
-    .filter((p: PropertyValue) => specification?.includes(p?.name as string));
+    .find((p: PropertyValue) => specification?.includes(p?.name as string));
 
   return specificationItem;
 };

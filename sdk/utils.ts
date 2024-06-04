@@ -1,3 +1,7 @@
+export type ConvertInterfaceToDict<T> = {
+  [K in keyof T]: T[K];
+};
+
 export function pick<
   T extends Record<string, unknown>,
   K extends keyof T = keyof T,
