@@ -26,7 +26,7 @@ export default async function productReviews(
     return null;
   }
 
-  const [reviewsResponse] = (await client.reviews({
+  const reviewsResponse = (await client.reviews({
     productId: config.productsIds, // FIXME: once PR is accepted by Deco, remove this cast
     productIds: config.productsIds, // Once PR is accepted the above line should be removed
     count: config?.count,
@@ -35,5 +35,6 @@ export default async function productReviews(
     // deno-lint-ignore no-explicit-any
   } as any) ?? []) as unknown as Array<Reviews & { stats: number[] }>; // FIXME: once PR is accepted by Deco, remove this cast
 
-  return reviewsResponse?.reviews?.map(toReview) ?? [];
+  const reviews = reviewsResponse?.[0] ?? [];
+  return reviews.reviews?.map(toReview) ?? [];
 }

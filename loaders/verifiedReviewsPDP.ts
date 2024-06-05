@@ -50,7 +50,7 @@ export default function verifiedReviewsPDP(
       ];
     }
 
-    const [reviews] = await client.reviews({
+    const reviewsResponse = await client.reviews({
       productId: productsToGetReviews as unknown as string, // FIXME: once PR is accepted by Deco, remove this cast
       productIds: productsToGetReviews, // Once PR is accepted the above line should be removed
       count: config?.count,
@@ -65,7 +65,8 @@ export default function verifiedReviewsPDP(
 
     const aggregateRating = toRating(ratings);
 
-    const review: ExtendedReview[] = reviews?.reviews?.map(toReview) ?? [];
+    const reviews = reviewsResponse?.[0] ?? [];
+    const review: ExtendedReview[] = reviews?.reviews?.map(toReview);
 
     return {
       ...productDetailsPage,
