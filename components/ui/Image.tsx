@@ -44,7 +44,7 @@ const Image = forwardRef(function Image({
   return (
     <div
       class={clx(
-        "relative group overflow-hidden",
+        "relative group overflow-hidden h-0",
         actionOnClick === "zoom-in-place" && "cursor-zoom",
         classes?.container,
       )}
