@@ -26,7 +26,8 @@ const anatomy = [
 
 export type VideoClasses = AnatomyClasses<typeof anatomy[number]>;
 
-export interface Props extends Omit<DecoVideoProps, "children"> {
+export interface Props extends Omit<DecoVideoProps, "children" | "height"> {
+  height?: number;
   poster: string;
   description: string;
   uploadDate?: string;
@@ -58,8 +59,13 @@ function Video({
 
   const [showVideo, setShowVideo] = useState(false);
 
-  const aspectRatio = parseFloat((width / height).toFixed(2));
-  const paddingTop = `${parseFloat((1 / aspectRatio).toFixed(2)) * 100}%`;
+  let aspectRatio;
+  let paddingTop;
+
+  if (height) {
+    aspectRatio = parseFloat((width / height).toFixed(2));
+    paddingTop = `${parseFloat((1 / aspectRatio).toFixed(2)) * 100}%`;
+  }
 
   // Allow us to use the video player both inside and outside of the component
   useImperativeHandle(forwardedRef, () => playerRef.current!, []);
@@ -135,17 +141,18 @@ function Video({
           actionOnClick === "zoom-in-place" && "cursor-zoom",
         )}
         onClick={handleVideoClick}
-        style={{ paddingTop }}
+        style={paddingTop ? { paddingTop } : undefined}
         {...zoomEnabled && {
           onMouseMove: moveZoom,
         }}
       >
         <DecoVideo
           ref={playerRef}
-          height={height}
+          height={height as unknown as number} // Hack to make typescript happy
           width={width}
           class={clx(
-            "absolute top-0 left-0 block w-full h-full object-cover",
+            "block w-full h-full object-cover",
+            !!aspectRatio && "absolute top-0 left-0",
             classes?.video,
           )}
           type={type ? `video/${type}` : undefined}

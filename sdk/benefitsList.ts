@@ -1,4 +1,4 @@
-import { ImageWidget } from "apps/admin/widgets.ts";
+import { HTMLWidget, ImageWidget } from "apps/admin/widgets.ts";
 
 /**
  * @title Benefício
@@ -12,5 +12,5 @@ export interface Benefit {
   /**
    * @title Texto
    */
-  label: string;
+  label: HTMLWidget;
 }
