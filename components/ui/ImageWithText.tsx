@@ -10,7 +10,7 @@ const anatomy = [
   "image",
   "cardTitle",
   "cardText",
-  "cardAfter"
+  "cardAfter",
 ] as const;
 
 type ImageWithTextClasses = AnatomyClasses<typeof anatomy[number]>;
@@ -29,7 +29,7 @@ function ImageWithText({
   classes,
   cardTitle,
   link,
-  src
+  src,
 }: Props) {
   return (
     <a
@@ -45,8 +45,18 @@ function ImageWithText({
         loading="lazy"
       />
       {cardTitle && (
-        <div class={handleClasses("absolute w-fit ml-4 mb-3.5 bottom-0 left-0 right-0 ", classes?.cardTitle)}>
-          <div class={handleClasses("flex w-auto font-medium leading-tight text-gray-1000 items-center", classes?.cardText)}>
+        <div
+          class={handleClasses(
+            "absolute w-fit ml-4 mb-3.5 bottom-0 left-0 right-0 ",
+            classes?.cardTitle,
+          )}
+        >
+          <div
+            class={handleClasses(
+              "flex w-auto font-medium leading-tight text-gray-1000 items-center",
+              classes?.cardText,
+            )}
+          >
             {cardTitle}
             <Icon
               class="h-auto ml-1.5 transition-all ease-in-out duration-250 group-hover:rotate-45"
@@ -55,7 +65,12 @@ function ImageWithText({
               height={12}
             />
           </div>
-          <div class={handleClasses("after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-0.5 after:bg-gray-1000 after:transition-all after:duration-200 after:ease-in-out group-hover:after:left-0 group-hover:after:w-full", classes?.cardAfter)}>
+          <div
+            class={handleClasses(
+              "after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-0.5 after:bg-gray-1000 after:transition-all after:duration-200 after:ease-in-out group-hover:after:left-0 group-hover:after:w-full",
+              classes?.cardAfter,
+            )}
+          >
           </div>
         </div>
       )}
