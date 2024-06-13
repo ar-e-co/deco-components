@@ -7,6 +7,7 @@ export type AvailableIcons =
   | "AlertInfo"
   | "AlertSuccess"
   | "AlertWarning"
+  | "ArrowPointingOut"
   | "ArrowsPointingOut"
   | "Bars3"
   | "ChevronDown"
