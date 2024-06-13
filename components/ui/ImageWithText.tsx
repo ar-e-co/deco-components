@@ -20,7 +20,6 @@ interface Props extends Omit<ImageProps, "alt"> {
   classes?: ImageWithTextClasses;
   width: number;
   height: number;
-  cardText?: string;
   link?: string;
 }
 
@@ -47,10 +46,10 @@ function ImageWithText({
       />
       {cardTitle && (
         <div class={handleClasses("absolute w-fit ml-4 mb-3.5 bottom-0 left-0 right-0 ", classes?.cardTitle)}>
-          <div class={handleClasses("flex w-auto gap-1.5 font-medium leading-tight text-gray-1000 items-center", classes?.cardText)}>
+          <div class={handleClasses("flex w-auto font-medium leading-tight text-gray-1000 items-center", classes?.cardText)}>
             {cardTitle}
             <Icon
-              class="h-auto transition-all ease-in-out duration-250 group-hover:rotate-45"
+              class="h-auto ml-1.5 transition-all ease-in-out duration-250 group-hover:rotate-45"
               id="ArrowPointingOut"
               width={12}
               height={12}
