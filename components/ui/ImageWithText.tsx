@@ -10,6 +10,7 @@ const anatomy = [
   "image",
   "cardTitle",
   "cardText",
+  "cardAfter"
 ] as const;
 
 type ImageWithTextClasses = AnatomyClasses<typeof anatomy[number]>;
@@ -17,7 +18,10 @@ type ImageWithTextClasses = AnatomyClasses<typeof anatomy[number]>;
 interface Props extends Omit<ImageProps, "alt"> {
   cardTitle: string;
   classes?: ImageWithTextClasses;
+  width: number;
+  height: number;
   cardText?: string;
+  link?: string;
 }
 
 function ImageWithText({
@@ -25,18 +29,16 @@ function ImageWithText({
   height,
   classes,
   cardTitle,
+  link,
+  src
 }: Props) {
-  const aspectRatio = width / height;
-  const paddingTop = `${parseFloat((1 / aspectRatio).toFixed(2)) * 100}%`;
-
   return (
     <a
-      href={classes?.link}
+      href={link}
       class={handleClasses("group relative", classes?.container)}
-      style={{ paddingTop }}
     >
       <DecoImage
-        src={classes?.image as string}
+        src={src}
         width={width}
         height={height}
         alt={cardTitle}
@@ -44,8 +46,8 @@ function ImageWithText({
         loading="lazy"
       />
       {cardTitle && (
-        <div class={handleClasses("absolute w-fit ml-4 mb-3.5 bottom-0 left-0 right-0 ")}>
-          <div class="flex w-auto gap-1.5 font-medium leading-tight text-gray-1000 items-center">
+        <div class={handleClasses("absolute w-fit ml-4 mb-3.5 bottom-0 left-0 right-0 ", classes?.cardTitle)}>
+          <div class={handleClasses("flex w-auto gap-1.5 font-medium leading-tight text-gray-1000 items-center", classes?.cardText)}>
             {cardTitle}
             <Icon
               class="h-auto transition-all ease-in-out duration-250 group-hover:rotate-45"
@@ -54,7 +56,7 @@ function ImageWithText({
               height={12}
             />
           </div>
-          <div class="after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-0.5 after:bg-gray-1000 after:transition-all after:duration-200 after:ease-in-out group-hover:after:left-0 group-hover:after:w-full">
+          <div class={handleClasses("after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-0.5 after:bg-gray-1000 after:transition-all after:duration-200 after:ease-in-out group-hover:after:left-0 group-hover:after:w-full", classes?.cardAfter)}>
           </div>
         </div>
       )}
