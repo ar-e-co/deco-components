@@ -41,7 +41,7 @@ function ImageWithText({
         height={height}
         alt={cardTitle}
         class={handleClasses("w-full h-full object-cover", classes?.image)}
-        loading={"lazy"}
+        loading="lazy"
       />
       {cardTitle && (
         <div class={handleClasses("absolute w-fit ml-4 mb-3.5 bottom-0 left-0 right-0 ")}>
