@@ -37,32 +37,49 @@ function ImageWithText({
     paddingTop = `${parseFloat((1 / aspectRatio).toFixed(2)) * 100}%`;
   }
 
-  return (
-    <a
-      href={href}
-      class={handleClasses("group relative block", classes?.container)}
-      {...paddingTop && { style: { paddingTop, height: 0 } }}
-    >
-      <DecoImage
-        class={handleClasses(
-          "absolute top-0 left-0 block w-full h-full object-cover",
-          classes?.image,
-        )}
-        loading="lazy"
-        height={height}
-        width={width}
-        {...props}
-      />
+  function renderContent() {
+    return (
+      <>
+        <DecoImage
+          class={handleClasses(
+            "absolute top-0 left-0 block w-full h-full object-cover",
+            classes?.image,
+          )}
+          loading="lazy"
+          height={height}
+          width={width}
+          {...props}
+        />
 
-      <div
-        class={handleClasses(
-          "absolute top-0 left-0 w-full h-full font-medium text-gray-1000",
-          classes?.content,
-        )}
-      >
-        {children}
-      </div>
-    </a>
+        <div
+          class={handleClasses(
+            "absolute top-0 left-0 w-full h-full font-medium text-gray-1000",
+            classes?.content,
+          )}
+        >
+          {children}
+        </div>
+      </>
+    );
+  }
+
+  const commonProps = {
+    class: handleClasses("group relative block", classes?.container),
+    ...paddingTop && { style: { paddingTop, height: 0 } },
+  };
+
+  if (href) {
+    return (
+      <a href={href} {...commonProps}>
+        {renderContent()}
+      </a>
+    );
+  }
+
+  return (
+    <div {...commonProps}>
+      {renderContent()}
+    </div>
   );
 }
 
