@@ -64,16 +64,31 @@ function HeaderBar({
     }
   }
 
-  function renderLinkCTA(cta: HeaderBarCTALink) {
+  function renderCTA(cta: HeaderBarCTALink | HeaderBarCTAModal) {
+    if (!ctaIsLink(cta)) {
+      return (
+        <div
+          role="button"
+          class={handleClasses("underline", classes?.cta)}
+          onClick={() => {
+            console.log("clicked");
+          }}
+        >
+          {cta.label}
+        </div>
+      );
+    }
+
     return (
-      <a
-        href={cta.href}
-        class={handleClasses("underline", classes?.cta)}
-      >
+      <a href={cta.href} class={handleClasses("underline", classes?.cta)}>
         {cta.label}
       </a>
     );
   }
+
+  console.log({
+    ctas: currentSlide?.ctas,
+  });
 
   useEffect(() => {
     // startInterval();
@@ -109,18 +124,21 @@ function HeaderBar({
 
           {(slide.ctas?.length ?? 0) > 0 && (
             <div
-              class={handleClasses("ml-1 font-medium", classes?.ctasContainer)}
+              class={handleClasses(
+                "flex gap-1 ml-1 font-medium",
+                classes?.ctasContainer,
+              )}
             >
               {" "}
               {slide.ctas?.map((cta, idx) => (
                 <>
                   {idx > 0 && (
-                    <span class={handleClasses("mx-1", classes?.ctaSeparator)}>
+                    <span class={classes?.ctaSeparator}>
                       {ctaSeparator}
                     </span>
                   )}
-                  {ctaIsLink(cta) && renderLinkCTA(cta)}
-                  <Cta />
+
+                  {renderCTA(cta)}
                 </>
               ))}
             </div>
