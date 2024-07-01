@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef, memo } from "preact/compat";
+import { ForwardedRef, forwardRef, useImperativeHandle } from "preact/compat";
 import { ComponentChildren } from "preact";
 import DecoImage, {
   Props as DecoImageProps,
@@ -25,8 +25,7 @@ export interface Props extends DecoImageProps {
 }
 
 /**
- * Wrapper around Deco optimized Image component with padding-top aspect ratio hack.
- * @description Import as an **island** if you want actions on click. Import directly otherwise
+ * @description If you need some custom action on click, such as zooming in place, import **ImageIsland** instead.
  */
 const Image = forwardRef(function Image({
   width,
@@ -38,22 +37,18 @@ const Image = forwardRef(function Image({
   children,
   ...props
 }: Props, ref: ForwardedRef<HTMLImageElement>) {
-  const aspectRatio = width / height;
-  const paddingTop = `${parseFloat((1 / aspectRatio).toFixed(2)) * 100}%`;
-
   return (
     <div
       class={clx(
-        "relative group overflow-hidden h-0",
+        "relative group overflow-hidden",
         actionOnClick === "zoom-in-place" && "cursor-zoom",
         classes?.container,
       )}
-      style={{ paddingTop }}
     >
       <DecoImage
         ref={ref}
         class={clx(
-          "absolute block top-0 left-0 w-full h-full object-cover",
+          "block relative w-full h-full object-cover",
           classes?.image,
         )}
         width={width}
@@ -82,10 +77,17 @@ const Image = forwardRef(function Image({
   );
 });
 
-export function ImageIsland({ actionOnClick, onClick, ...rest }: Props) {
+export const ImageIsland = forwardRef(function ImageIsland({
+  actionOnClick,
+  onClick,
+  ...rest
+}: Props, forwardedRef: ForwardedRef<HTMLImageElement>) {
   const { ref, toggleZoom, moveZoom, zoomEnabled } = useZoomInPlace<
     HTMLImageElement
   >();
+
+  // Allow us to use the video player both inside and outside of the component
+  useImperativeHandle(forwardedRef, () => ref.current!, []);
 
   function handleImageClick(e: MouseEvent) {
     if (!actionOnClick) return;
@@ -111,6 +113,6 @@ export function ImageIsland({ actionOnClick, onClick, ...rest }: Props) {
       }}
     />
   );
-}
+});
 
-export default memo(Image);
+export default Image;

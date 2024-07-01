@@ -26,8 +26,7 @@ const anatomy = [
 
 export type VideoClasses = AnatomyClasses<typeof anatomy[number]>;
 
-export interface Props extends Omit<DecoVideoProps, "children" | "height"> {
-  height?: number;
+export interface Props extends Omit<DecoVideoProps, "children"> {
   poster: string;
   description: string;
   uploadDate?: string;
@@ -38,8 +37,11 @@ export interface Props extends Omit<DecoVideoProps, "children" | "height"> {
 }
 
 /**
- * Wrapper around Deco optimized Video component with padding-top aspect ratio hack.
- * @description Import as an **island** if you want actions on click. Import directly otherwise
+ * @description Import as an **island**. Use this component IF:
+ * - Your component has some action on click, such as zooming in place.
+ * - It's a **mobile** device. Useful for iOS low battery power mode, where videos
+ *   do not start automatically.
+ *   Use `apps/website/components/Video.tsx` otherwise.
  */
 function Video({
   classes,
@@ -58,14 +60,6 @@ function Video({
   const playerRef = useRef<HTMLVideoElement>(null);
 
   const [showVideo, setShowVideo] = useState(false);
-
-  let aspectRatio;
-  let paddingTop;
-
-  if (height) {
-    aspectRatio = parseFloat((width / height).toFixed(2));
-    paddingTop = `${parseFloat((1 / aspectRatio).toFixed(2)) * 100}%`;
-  }
 
   // Allow us to use the video player both inside and outside of the component
   useImperativeHandle(forwardedRef, () => playerRef.current!, []);
@@ -141,22 +135,17 @@ function Video({
           actionOnClick === "zoom-in-place" && "cursor-zoom",
         )}
         onClick={handleVideoClick}
-        style={paddingTop ? { paddingTop } : undefined}
         {...zoomEnabled && {
           onMouseMove: moveZoom,
         }}
       >
         <DecoVideo
-          ref={playerRef}
-          height={height as unknown as number} // Hack to make typescript happy
-          width={width}
-          class={clx(
-            "block w-full h-full object-cover",
-            !!aspectRatio && "absolute top-0 left-0",
-            classes?.video,
-          )}
-          type={type ? `video/${type}` : undefined}
           {...props}
+          ref={playerRef}
+          height={height} // Hack to make typescript happy
+          width={width}
+          class={clx("block w-full h-full object-cover", classes?.video)}
+          type={type ? `video/${type}` : undefined}
         >
           {videoChildren}
           {renderPoster()}
