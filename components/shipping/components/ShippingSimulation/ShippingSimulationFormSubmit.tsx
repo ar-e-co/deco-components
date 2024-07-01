@@ -8,7 +8,6 @@ export type ShippingSimulationFormSubmitProps = FormSubmitProps;
 
 function ShippingSimulationFormSubmit({
   children = "Enviar",
-  classes,
   ...props
 }: ShippingSimulationFormSubmitProps) {
   const { loadingSignal } = useShippingSimulation();
@@ -18,7 +17,6 @@ function ShippingSimulationFormSubmit({
     <FormSubmit
       {...props}
       isLoading={loading}
-      classes={classes}
       disabled={loading}
     >
       {children}

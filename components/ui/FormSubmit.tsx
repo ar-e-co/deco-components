@@ -13,14 +13,13 @@ export type FormSubmitProps =
   & Partial<JSX.HTMLAttributes<HTMLButtonElement>>
   & {
     children?: ComponentChildren;
-    classes?: FormSubmitStyles;
     isLoading?: boolean;
   };
 
 function FormSubmit({
   children = "Enviar",
-  classes,
   isLoading,
+  class: _class,
   ...props
 }: FormSubmitProps) {
   return (
@@ -29,7 +28,7 @@ function FormSubmit({
       type="submit"
       class={handleClasses(
         "inline-block h-fit py-2 px-6 bg-primary disabled:bg-gray-300",
-        classes?.button,
+        _class as string,
       )}
     >
       {isLoading ? <Spinner size={16} /> : children}
