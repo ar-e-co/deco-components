@@ -3,7 +3,7 @@ import { HTMLWidget } from "apps/admin/widgets.ts";
 
 /** @title CTA - Link */
 export interface ModalCTALink {
-  /** @hide */
+  /** @hide true */
   type: "link";
   /** @title Texto do botão */
   label?: string;
@@ -13,7 +13,7 @@ export interface ModalCTALink {
 
 /** @title Modal CTA - Cupom */
 export interface ModalCTACoupon {
-  /** @hide */
+  /** @hide true */
   type: "coupon";
   /** @title Texto do botão */
   label?: string;
@@ -21,7 +21,7 @@ export interface ModalCTACoupon {
   coupon?: string;
 }
 
-/** @title CTA */
+/** @title {{cta.label}} */
 export interface ModalActionsType {
   /** @title Tipo do CTA */
   cta?: ModalCTACoupon | ModalCTALink;
@@ -29,7 +29,7 @@ export interface ModalActionsType {
 
 /** @title Modal */
 export interface HeaderBarModal extends Partial<MediaProps> {
-  /** @hide */
+  /** @hide true */
   type: "modal";
   /**
    * @title Tagline
@@ -46,8 +46,7 @@ export interface HeaderBarModal extends Partial<MediaProps> {
    */
   legalText?: HTMLWidget;
   /**
-
-   * @maximum 3
+   * @maxItems 3
    */
   ctas?: ModalActionsType[];
 }
@@ -90,7 +89,7 @@ export interface Slide {
   foregroundColor: string;
   /** @title Cluster de usuários */
   cluster?: string;
-  /** @maximum 2 */
+  /** @maxItems 2 */
   ctas?: Array<HeaderBarCTALink | HeaderBarCTAModal>;
 }
 
