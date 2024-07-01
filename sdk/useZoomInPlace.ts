@@ -40,6 +40,7 @@ function useZoomInPlace<T extends HTMLDivElement>() {
         currentTarget: ref.current,
       } as unknown as MouseEvent,
     );
+
     setZoomEnabled(false);
   });
 
