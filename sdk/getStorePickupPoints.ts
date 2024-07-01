@@ -5,7 +5,7 @@ export interface PickupPoint {
   address: Address;
   additionalInfo: string | null;
   id: string;
-  workingDays: WorkingDays[];
+  workingDays?: WorkingDays[];
   businessHours: WorkingDays[];
   __typename: string;
 }
@@ -38,6 +38,10 @@ export interface WorkingDays {
   __typename: string;
 }
 
+export interface PickupPointItemResponse {
+  distance: number, pickupPoint: PickupPoint
+}
+
 
 export default async function getStorePickupPoints(
   accountName: string,
@@ -46,7 +50,7 @@ export default async function getStorePickupPoints(
   const url =
     `https://${accountName}.vtexcommercestable.com.br/api/checkout/pub/pickup-points?postalCode=${postalCode}&countryCode=BRA&pageSize=1`;
   
-  const { items = [] }: any = await fetchAPI(url); // TIPAR
+  const { items = [] }: { items: PickupPointItemResponse[] } = await fetchAPI(url);
   const pickupPoint = items[0]?.pickupPoint;
 
 
