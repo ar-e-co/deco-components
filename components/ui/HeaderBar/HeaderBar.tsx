@@ -8,7 +8,7 @@ import type {
   HeaderBarProps,
 } from "./Types.ts";
 export type { HeaderBarProps as CMSHeaderBarProps } from "./Types.ts";
-import Cta from './HeaderBarModal.tsx'
+import Cta from "./HeaderBarModal.tsx";
 
 const anatomy = [
   "container",
