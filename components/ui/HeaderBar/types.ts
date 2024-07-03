@@ -64,7 +64,7 @@ export interface HeaderBarCTAModal {
   /** @title Texto */
   label: string;
   /** @title Configurações */
-  modal?: HeaderBarModal;
+  modal: HeaderBarModal;
 }
 
 /** @title {{__title}} */
@@ -91,14 +91,4 @@ export interface Slide {
   cluster?: string;
   /** @maxItems 2 */
   ctas?: Array<HeaderBarCTALink | HeaderBarCTAModal>;
-}
-
-/** @title Header Bar */
-export interface HeaderBarProps {
-  /**
-   * @title Intervalo entre slides (ms)
-   * @default 7000
-   */
-  interval: number;
-  slides: Slide[];
 }

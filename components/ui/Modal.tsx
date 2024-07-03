@@ -49,8 +49,8 @@ function Modal(props: Props) {
       />
 
       <dialog class="modal box-border overflow-hidden">
-        <div 
-          class="z-0 bg-black opacity-50 absolute top-0 left-0 right-0 bottom-0" 
+        <div
+          class="z-0 bg-black opacity-50 absolute top-0 left-0 right-0 bottom-0"
           onClick={onClose}
         />
 
