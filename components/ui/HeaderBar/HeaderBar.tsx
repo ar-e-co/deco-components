@@ -1,14 +1,17 @@
+import { FunctionComponent } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
+import { useModal } from "deco-components/sdk/ui/useModal.ts";
 
 import type {
   HeaderBarCTALink,
   HeaderBarCTAModal,
   HeaderBarModal,
-  HeaderBarProps,
-} from "./Types.ts";
-export type { HeaderBarProps as CMSHeaderBarProps } from "./Types.ts";
-import Cta from "./HeaderBarModal.tsx";
+} from "./types.ts";
+
+import type { HeaderBarProps } from "./cms.ts";
+
+export type { HeaderBarProps as CMSHeaderBarProps };
 
 const anatomy = [
   "container",
@@ -26,6 +29,7 @@ export interface Props extends HeaderBarProps {
   ctaSeparator?: string;
   colorTransition?: string;
   fadeTransition?: string;
+  Modal?: FunctionComponent<HeaderBarModal>;
 }
 
 function ctaIsLink(
@@ -42,10 +46,22 @@ function HeaderBar({
   colorTransition =
     "color .7s cubic-bezier(.02,.01,0,.95), background-color .7s cubic-bezier(.02,.01,0,.95)",
   ctaSeparator = "|",
+  Modal,
 }: Props) {
+  console.log({ Modal });
   const intervalId = useRef<number | null>(null);
   const [currentSlideIdx, setCurrentSlideIdx] = useState<number>(0);
   const currentSlide = slides?.[currentSlideIdx];
+  const { openModal } = useModal();
+
+  function toggleModal(cta: HeaderBarModal) {
+    if (!Modal) {
+      throw new Error("Modal is not defined");
+    }
+
+    const content = <Modal {...cta} />;
+    openModal(content);
+  }
 
   function startInterval() {
     if (intervalId.current) {
@@ -71,7 +87,7 @@ function HeaderBar({
           role="button"
           class={handleClasses("underline", classes?.cta)}
           onClick={() => {
-            console.log("clicked");
+            toggleModal(cta.modal);
           }}
         >
           {cta.label}
