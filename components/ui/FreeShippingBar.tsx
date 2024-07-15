@@ -55,7 +55,7 @@ function FreeShippingProgressBar({
 
       <div
         class={handleClasses(
-          "flex justify-center items-center text-primary mt-1",
+          "flex justify-center items-center text-primary",
           classes?.content,
         )}
       >
