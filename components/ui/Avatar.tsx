@@ -42,7 +42,8 @@ function Avatar({ variant = "none", classes, children }: Props) {
 
   return (
     <div class={clx(containerClasses, variantClasses)}>
-      <div class="relative transition-all text-base-content ring-1 ring-base-200 hover:ring-base-content  rounded-full flex items-center justify-center w-13 lg:w-12 h-8 lg:h-7 hidden"></div>
+      <div class="relative transition-all text-base-content ring-1 ring-base-200 hover:ring-base-content  rounded-full flex items-center justify-center w-13 lg:w-12 h-8 lg:h-7 hidden">
+      </div>
       <span class={classes?.text}>
         {children}
       </span>

@@ -36,7 +36,7 @@ function FreeShippingProgressBar({
   icon = false,
   iconProps,
   classes,
-  message = "Faltam {{remaining}} para ganhar frete grátis!",
+  message = "Faltam {{remaining}} para o frete grátis!",
   freeShippingMessage = "Você ganhou frete grátis!",
 }: Props) {
   const remaining = target - current;
