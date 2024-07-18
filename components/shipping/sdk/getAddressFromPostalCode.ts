@@ -47,7 +47,7 @@ async function sendPostalCodeAttachment(postalCode: string) {
     LOCAL_STORAGE_ADDITIONAL_SHIPPING_DATA_VALUE,
   );
 
-  const toba = await sendAttachment({
+  await sendAttachment({
     attachment: "shippingData",
     body: {
       selectedAddresses: [{ ...address, addressType: "residential" }],
@@ -62,8 +62,6 @@ async function sendPostalCodeAttachment(postalCode: string) {
       })),
     },
   });
-
-  console.log({ toba });
 }
 
 export default sendPostalCodeAttachment;
