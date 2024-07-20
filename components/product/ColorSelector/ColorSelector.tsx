@@ -6,6 +6,8 @@ import { useProduct } from "../../../sdk/product/useProduct.ts";
 import { COLOR_FALLBACK_IMG } from "../../../sdk/product/getSimilarProducts.ts";
 import type { ProductWithColorProperties } from "./Types.ts";
 import { relative } from "deco-components/sdk/url.ts";
+import { sendEvent, mapProductToAnalyticsItem } from "deco-components/sdk/analytics.tsx";
+import { useOffer } from "deco-components/sdk/order-form/useOffer.ts";
 
 const anatomy = [
   "container",
@@ -41,6 +43,19 @@ function ColorSelector(
     productSignal.value = newProduct;
     const obj = { Title: newProduct?.name!, Url: newProduct.isVariantOf?.url };
     history.pushState(obj, obj.Title, obj.Url);
+    const item = mapProductToAnalyticsItem({
+      product: productSignal.value,
+      ...(useOffer(productSignal.value?.offers)),
+    });
+
+    // select_item or view_item?
+    sendEvent({
+      name: "select_item",
+      item_list_name: "Color Selector",
+      params: {
+        items: [item]
+      }
+    });
   }
 
   return (
