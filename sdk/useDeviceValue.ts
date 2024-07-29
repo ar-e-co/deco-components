@@ -17,7 +17,6 @@ export function useDeviceValue<T>(
   fallback: "mobile" | "desktop" = "mobile",
 ): T {
   const device = useDevice();
-  console.log("device", device);
 
   if (valueIsRecord(value)) {
     return value[device] ?? value[fallback];

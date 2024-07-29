@@ -11,7 +11,8 @@ const anatomy = [
   "message",
   "message--remaining",
   "freeShippingMessage",
-  "progress",
+  "progress--background",
+  "progress--bar",
 ] as const;
 
 type FreeShippingStyles = AnatomyClasses<typeof anatomy[number]>;
@@ -44,14 +45,21 @@ function FreeShippingProgressBar({
 
   return (
     <div class={handleClasses("flex flex-col w-full", classes?.container)}>
-      <progress
+      <div
         class={handleClasses(
-          "bg-white w-full h-1 [&::-webkit-progress-bar]:rounded-lg [&::-webkit-progress-value]:rounded-lg [&::-webkit-progress-bar]:bg-white [&::-webkit-progress-value]:bg-green [&::-moz-progress-bar]:bg-green",
-          classes?.progress,
+          "relative bg-white w-full h-1",
+          classes?.["progress--background"],
         )}
-        value={percent}
-        max={100}
-      />
+      >
+        <div
+          class={handleClasses(
+            "absolute top-0 left-0 h-full bg-green rounded-lg transition-all duration-1000",
+            classes?.["progress--bar"],
+          )}
+          style={{ width: `${percent}%` }}
+        >
+        </div>
+      </div>
 
       <div
         class={handleClasses(

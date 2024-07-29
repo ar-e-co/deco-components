@@ -22,12 +22,16 @@ export type ColorSelectorStyles = AnatomyClasses<typeof anatomy[number]>;
 export interface Props {
   options?: ProductWithColorProperties[];
   classes?: ColorSelectorStyles;
+  onProductSelect?: (product: Product) => void;
+  changeURLOnSelect?: boolean;
 }
 
 function ColorSelector(
   {
     classes,
     options = [],
+    onProductSelect,
+    changeURLOnSelect,
   }: Props,
 ) {
   const { productSignal } = useProduct();
@@ -37,10 +41,16 @@ function ColorSelector(
     return null;
   }
 
-  function onSelectProduct(newProduct: Product) {
+  function handleSelect(newProduct: Product) {
     productSignal.value = newProduct;
-    const obj = { Title: newProduct?.name!, Url: newProduct.isVariantOf?.url };
-    history.pushState(obj, obj.Title, obj.Url);
+    onProductSelect?.(newProduct);
+    if (changeURLOnSelect) {
+      const obj = {
+        Title: newProduct?.name!,
+        Url: newProduct.isVariantOf?.url,
+      };
+      history.pushState(obj, obj.Title, obj.Url);
+    }
   }
 
   return (
@@ -62,7 +72,7 @@ function ColorSelector(
               data-tip={specificColor}
               onClick={(e) => {
                 e.preventDefault();
-                onSelectProduct(similar);
+                handleSelect(similar);
               }}
             >
               <img
