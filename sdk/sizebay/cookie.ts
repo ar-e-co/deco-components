@@ -1,5 +1,7 @@
-export function getCookieSzb(cname: string) {
-  const cookie = `; ${document.cookie}`.match(`;\\s*${cname}=([^;]+)`);
+export function getCookieSzb(cname: string, cookies?: string) {
+  const cookie = `; ${cookies ?? document.cookie}`.match(
+    `;\\s*${cname}=([^;]+)`,
+  );
   return cookie ? cookie[1] : "";
 }
 
