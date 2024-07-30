@@ -47,7 +47,7 @@ function ColorSelector(
 
   function handleSelect(newProduct: Product) {
     productSignal.value = newProduct;
-    console.log("signalTeste", productSignal.value.name)
+    console.log("signalTeste", productSignal.value.name);
     onProductSelect?.(newProduct);
     if (changeURLOnSelect) {
       const obj = {
@@ -61,13 +61,21 @@ function ColorSelector(
   return (
     <div
       id={rootId}
-      class={handleClasses("w-full flex gap-2 relative overflow-x-scroll no-scrollbar leading-null", classes?.container)}
+      class={handleClasses(
+        "w-full flex gap-2 relative overflow-x-scroll no-scrollbar leading-null",
+        classes?.container,
+      )}
     >
       <div class="hidden relative top-1/2 -translate-y-1/2 left-4 mr-2 md:block z-10">
         <Slider.PrevButton />
       </div>
 
-      <Slider class={handleClasses("carousel max-w-36 flex-1 gap-1 items-center relative", classes?.optionsContainer)}>
+      <Slider
+        class={handleClasses(
+          "carousel max-w-36 flex-1 gap-1 items-center relative",
+          classes?.optionsContainer,
+        )}
+      >
         {options.map((similar, index) => {
           const { specificColor, thumbnail } = similar;
 

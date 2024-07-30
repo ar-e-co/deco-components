@@ -43,7 +43,7 @@ function ColorSelector(
 
   function handleSelect(newProduct: Product) {
     productSignal.value = newProduct;
-    console.log("signalTeste", productSignal.value.name)
+    console.log("signalTeste", productSignal.value.name);
     onProductSelect?.(newProduct);
     if (changeURLOnSelect) {
       const obj = {

@@ -1,6 +1,8 @@
 import type { ComponentChildren, JSX } from "preact";
 import { handleClasses } from "deco-components/sdk/styles.ts";
-import Icon, { Props as IconProps } from "deco-components/components/ui/Icon.tsx";
+import Icon, {
+  Props as IconProps,
+} from "deco-components/components/ui/Icon.tsx";
 
 function Dot({ index, children }: {
   index: number;
