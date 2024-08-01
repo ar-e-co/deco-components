@@ -1,10 +1,11 @@
-import type { AnalyticsEvent } from "apps/commerce/types.ts";
 import type {
-  AnalyticsItem,
-  BreadcrumbList,
-  Product,
+  AnalyticsEvent,
+  Offer,
+  ProductLeaf,
 } from "apps/commerce/types.ts";
+import type { AnalyticsItem, Product } from "apps/commerce/types.ts";
 import { OrderForm, OrderFormItem } from "apps/vtex/utils/types.ts";
+import { getAdditionalProperty } from "deco-components/sdk/product/utils.ts";
 
 export const sendEvent = <E extends AnalyticsEvent>(event: E) => {
   console.log(JSON.stringify(event, null, 2));
@@ -40,72 +41,50 @@ export type CustomAnalyticsItem = AnalyticsItem & {
   dimension4?: string;
 };
 
-export const mapProductToAnalyticsItem = (
-  {
-    product,
-    breadcrumbList,
-    index = 0,
-    quantity = 1,
-    coupon = "",
-    availability = "",
-    price = 0,
-    listPrice = 0,
-  }: {
-    product: Product;
-    breadcrumbList?: BreadcrumbList;
-    index?: number;
-    quantity?: number;
-    coupon?: string;
-    availability?: string;
-    price?: number;
-    listPrice?: number;
-  },
-): CustomAnalyticsItem => {
-  const {
-    name,
-    productID,
-    inProductGroupWithID,
-    isVariantOf,
-    url,
-    additionalProperty,
-  } = product;
-  const { model: productRefId } = isVariantOf ?? {};
+export function mapProductToAnalyticsItem({
+  product,
+  sku,
+  quantity = 1,
+  price,
+  availability,
+  ...rest
+}: Partial<AnalyticsItem> & {
+  product: Product;
+  sku: ProductLeaf | null;
+  price: number | undefined;
+  availability?: Offer["availability"];
+  quantity?: number;
+}): CustomAnalyticsItem | null | undefined {
+  if (!sku) {
+    return undefined;
+  }
 
-  const categories = breadcrumbList?.itemListElement
-    ? mapCategoriesToAnalyticsCategories(
-      breadcrumbList?.itemListElement.map(({ name: _name }) => _name ?? "")
-        .filter(Boolean) ??
-        [],
-    )
-    : mapProductCategoryToAnalyticsCategories(product.category ?? "");
+  const categories = mapProductCategoryToAnalyticsCategories(
+    product.category ?? "",
+  );
 
-  const skuRefId =
-    additionalProperty?.find((property) => property.name === "RefId")?.value ||
-    "";
-
-  const analyticsItem = {
-    item_id: productID,
-    item_group_id: inProductGroupWithID,
-    quantity,
-    coupon,
-    price,
-    index,
-    discount: Number((price && listPrice ? listPrice - price : 0).toFixed(2)),
-    item_name: isVariantOf?.name ?? name ?? "",
-    item_variant: name,
+  const analyticsItem: CustomAnalyticsItem = {
+    dimension1: product.isVariantOf?.model ?? "",
+    dimension2:
+      getAdditionalProperty("RefId", sku?.additionalProperty)?.value ?? "",
+    dimension3: sku?.name,
+    ...!!availability && {
+      dimension4: availability === "https://schema.org/InStock"
+        ? "available"
+        : "unavailable",
+    },
     item_brand: product.brand?.name ?? "",
-    item_url: url,
     ...categories,
-    dimension1: productRefId,
-    dimension2: skuRefId,
-    dimension3: name,
-    dimension4: availability === "https://schema.org/InStock"
-      ? "available"
-      : "unavailable",
+    item_id: product.inProductGroupWithID,
+    item_name: product.isVariantOf?.name ?? product.name ?? "",
+    item_variant: sku?.productID,
+    price,
+    quantity,
+    ...rest,
   };
 
   return analyticsItem;
-};
+}
 
 export const mapItemCategoriesToAnalyticsCategories = (
   item: OrderFormItem,

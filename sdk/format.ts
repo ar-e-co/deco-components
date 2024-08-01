@@ -31,7 +31,7 @@ export function formatPrice({
   price,
   currency = "BRL",
   locale = "pt-BR",
-  maximumFractionDigits = 2,
+  maximumFractionDigits = 0,
 }: {
   price: number | undefined;
   currency?: string;

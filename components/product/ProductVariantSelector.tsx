@@ -65,7 +65,7 @@ function VariantSelector({
 
   return (
     <ul class={handleClasses("flex flex-row", classes?.container)}>
-      {variants.map(([skuID, { url: link, value, isAvailable }]) => {
+      {variants.map(([skuID, { url: link, isAvailable, ...rest }]) => {
         const relativeLink = relative(link);
         const isActive = skuID === skuSelectedID;
 
@@ -82,7 +82,7 @@ function VariantSelector({
                   isAvailable,
                 })}
             >
-              {children({ isActive, skuID, value, isAvailable, url: link })}
+              {children({ isActive, skuID, isAvailable, url: link, ...rest })}
             </a>
           </li>
         );

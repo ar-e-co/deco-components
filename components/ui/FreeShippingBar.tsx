@@ -74,7 +74,9 @@ function FreeShippingProgressBar({
             <span class={handleClasses(classes?.message)}>
               {formatMessage(message, {
                 "{{remaining}}": {
-                  value: String(formatPrice(remaining, currency, locale)),
+                  value: String(
+                    formatPrice({ price: remaining, currency, locale }),
+                  ),
                   classes: classes?.["message--remaining"] ?? "",
                 },
               })}

@@ -1,9 +1,11 @@
-import type { ProductLeaf, PropertyValue } from "apps/commerce/types.ts";
+import type { Offer, ProductLeaf, PropertyValue } from "apps/commerce/types.ts";
 
 export type VariantPossibility = {
   value: string;
   isAvailable: boolean;
   url: string;
+  offer: Offer | null;
+  original: ProductLeaf;
 };
 
 export type Possibilities = {
@@ -27,11 +29,11 @@ export const useVariantPossibilities = (
     const { url, additionalProperty = [], productID } = variant;
     const isSelected = productID === selected.productID;
     const specs = additionalProperty.filter(({ name }) => !omit.has(name!));
-    const isAvailable = variant.offers
+    const offer = variant.offers
       ?.offers
-      ?.some(({ availability }) =>
+      ?.find(({ availability }) =>
         availability === "https://schema.org/InStock"
-      ) ?? false;
+      ) ?? null;
 
     for (let it = 0; it < specs.length; it++) {
       const name = specs[it].name!;
@@ -49,7 +51,9 @@ export const useVariantPossibilities = (
 
       possibilities[name][productID] = {
         value,
-        isAvailable,
+        offer,
+        isAvailable: !!offer,
+        original: variant,
         url: (isSelected
           ? url
           : isSelectable
