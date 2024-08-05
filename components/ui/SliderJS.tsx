@@ -138,20 +138,32 @@ const setup = ({ rootId, scroll, interval, infinite }: Props) => {
           dot?.removeAttribute("disabled");
         }
 
-        if (!infinite) {
-          if (index === 0) {
-            if (item.isIntersecting) {
+        // First page
+        if (index === 0) {
+          // Nasty piece of code m8
+          if (item.isIntersecting) {
+            prev?.classList.add("first");
+
+            if (!infinite) {
               prev?.setAttribute("disabled", "");
-            } else {
-              prev?.removeAttribute("disabled");
             }
+          } else {
+            prev?.classList.remove("first");
+            prev?.removeAttribute("disabled");
           }
-          if (index === items.length - 1) {
-            if (item.isIntersecting) {
+        }
+
+        // Last page
+        if (index === items.length - 1) {
+          if (item.isIntersecting) {
+            next?.classList.add("last");
+
+            if (!infinite) {
               next?.setAttribute("disabled", "");
-            } else {
-              next?.removeAttribute("disabled");
             }
+          } else {
+            next?.classList.remove("last");
+            next?.removeAttribute("disabled");
           }
         }
       }),

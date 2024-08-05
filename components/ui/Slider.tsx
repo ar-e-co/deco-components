@@ -30,7 +30,7 @@ function Item({
   return <li data-slider-item={index} {...props} />;
 }
 
-type SlideButtonProps = JSX.IntrinsicElements["button"] & {
+export type SlideButtonProps = JSX.IntrinsicElements["button"] & {
   iconProps?: IconProps;
 };
 
