@@ -48,7 +48,7 @@ function HeaderBar({
   ctaSeparator = "|",
   Modal,
 }: Props) {
-  console.log({ Modal });
+  // console.log({ Modal });
   const intervalId = useRef<number | null>(null);
   const [currentSlideIdx, setCurrentSlideIdx] = useState<number>(0);
   const currentSlide = slides?.[currentSlideIdx];
@@ -102,12 +102,12 @@ function HeaderBar({
     );
   }
 
-  console.log({
-    ctas: currentSlide?.ctas,
-  });
+  // console.log({
+  //   ctas: currentSlide?.ctas,
+  // });
 
   useEffect(() => {
-    // startInterval();
+    startInterval();
   }, []);
 
   if (!slides?.length || !currentSlide) {
