@@ -159,6 +159,7 @@ async function storeConfig(
       },
     };
   } catch (e) {
+    console.log("TOBAA", e);
     return e;
   }
 }

@@ -8,9 +8,8 @@ import {
   useState,
 } from "preact/hooks";
 
-import DecoVideo, {
-  Props as DecoVideoProps,
-} from "apps/website/components/Video.tsx";
+import DecoVideo from "apps/website/components/Video.tsx";
+import type { Props as DecoVideoProps } from "apps/website/components/Video.tsx";
 import Image from "apps/website/components/Image.tsx";
 
 import type { AnatomyClasses } from "deco-components/sdk/styles.ts";
@@ -35,6 +34,8 @@ export interface Props extends Omit<DecoVideoProps, "children"> {
   videoChildren?: DecoVideoProps["children"];
   actionOnClick?: "zoom-in-place" | "custom";
 }
+
+export { DecoVideo, DecoVideoProps };
 
 /**
  * @description Import as an **island**. Use this component IF:

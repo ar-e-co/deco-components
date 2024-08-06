@@ -10,10 +10,7 @@ export interface Props {
 export function useAddToCart({ eventParams, onAddItem }: Props) {
   const [isLoading, setLoading] = useState(false);
 
-  async function onClick(e: MouseEvent) {
-    e.preventDefault();
-    e.stopPropagation();
-
+  async function onClick() {
     try {
       setLoading(true);
       await onAddItem();

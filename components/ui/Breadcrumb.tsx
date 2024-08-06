@@ -14,7 +14,7 @@ type BreadcrumbStyle = AnatomyClasses<typeof anatomy[number]>;
 interface BreadcrumbProps {
   separator?: ComponentChildren;
   classes?: BreadcrumbStyle;
-  items: BreadcrumbList["itemListElement"];
+  items?: BreadcrumbList["itemListElement"];
 }
 
 function Breadcrumb({
