@@ -24,13 +24,15 @@ export interface ModalCTACoupon {
 /** @title {{cta.label}} */
 export interface ModalActionsType {
   /** @title Tipo do CTA */
-  cta?: ModalCTACoupon | ModalCTALink;
+  cta: ModalCTACoupon | ModalCTALink;
 }
 
 /** @title Modal */
-export interface HeaderBarModal extends Partial<MediaProps> {
+export interface HeaderBarModal {
   /** @hide true */
   type: "modal";
+  /** @title Mídia */
+  media?: MediaProps;
   /**
    * @title Tagline
    * @description Texto de destaque, cima do título

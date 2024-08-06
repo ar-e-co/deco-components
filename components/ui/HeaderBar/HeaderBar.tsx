@@ -30,8 +30,8 @@ export interface Props extends HeaderBarProps {
   ctaSeparator?: string;
   colorTransition?: string;
   fadeTransition?: string;
-  Modal?: FunctionComponent<HeaderBarModal>;
-  device: Device;
+  Modal?: FunctionComponent<HeaderBarModal & { device?: Device }>;
+  device?: Device;
 }
 
 function ctaIsLink(
@@ -49,6 +49,7 @@ function HeaderBar({
     "color .7s cubic-bezier(.02,.01,0,.95), background-color .7s cubic-bezier(.02,.01,0,.95)",
   ctaSeparator = "|",
   Modal,
+  device = "desktop",
 }: Props) {
   const intervalId = useRef<number | null>(null);
   const [currentSlideIdx, setCurrentSlideIdx] = useState<number>(0);
@@ -60,7 +61,7 @@ function HeaderBar({
       throw new Error("Modal is not defined");
     }
 
-    const content = <Modal {...cta} />;
+    const content = <Modal device={device} {...cta} />;
     openModal(content);
   }
 
