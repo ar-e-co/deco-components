@@ -13,6 +13,8 @@ export interface ModalCTALink {
 
 /** @title Modal CTA - Cupom */
 export interface ModalCTACoupon {
+  cta(coupon: string | undefined): void;
+  [x: string]: string;
   /** @hide true */
   type: "coupon";
   /** @title Texto do botão */

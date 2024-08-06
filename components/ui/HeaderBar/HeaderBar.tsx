@@ -2,6 +2,7 @@ import { FunctionComponent } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
 import { useModal } from "deco-components/sdk/ui/useModal.ts";
+import { Device } from "deco/utils/userAgent.ts";
 
 import type {
   HeaderBarCTALink,
@@ -30,6 +31,7 @@ export interface Props extends HeaderBarProps {
   colorTransition?: string;
   fadeTransition?: string;
   Modal?: FunctionComponent<HeaderBarModal>;
+  //device: Device
 }
 
 function ctaIsLink(
@@ -48,7 +50,6 @@ function HeaderBar({
   ctaSeparator = "|",
   Modal,
 }: Props) {
-  // console.log({ Modal });
   const intervalId = useRef<number | null>(null);
   const [currentSlideIdx, setCurrentSlideIdx] = useState<number>(0);
   const currentSlide = slides?.[currentSlideIdx];
@@ -58,7 +59,6 @@ function HeaderBar({
     if (!Modal) {
       throw new Error("Modal is not defined");
     }
-
     const content = <Modal {...cta} />;
     openModal(content);
   }
@@ -121,6 +121,8 @@ function HeaderBar({
         backgroundColor: currentSlide.backgroundColor ?? "#000",
         transition: colorTransition,
       }}
+      onMouseEnter={() => stopInterval()}
+      onMouseLeave={() => startInterval()}
     >
       {slides?.map((slide, idx) => (
         <div
