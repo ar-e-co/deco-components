@@ -54,7 +54,7 @@ function Modal(props: Props) {
           onClick={onClose}
         />
 
-        <div class="z-1">
+        <div class="z-10 lg:fixed mt-auto lg:mt-none">
           {!lazy.value && children}
         </div>
       </dialog>
