@@ -23,7 +23,7 @@ function ShippingOptionPrice({
 
   return (
     <p class={handleClasses("m-0", classes?.value)}>
-      {formatPrice(option.price) ?? (
+      {formatPrice({ price: option.price }) ?? (
         <span class={classes?.freeValue ?? ""}>
           {freeMessage}
         </span>

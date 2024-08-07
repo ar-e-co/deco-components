@@ -1,5 +1,5 @@
 export function pick<
-  T extends Record<string, unknown>,
+  T extends object,
   K extends keyof T = keyof T,
 >(
   keys: K[],
@@ -14,7 +14,7 @@ export function pick<
   return Object.fromEntries(entries);
 }
 
-export function omit<T extends Record<string, unknown>, K extends keyof T>(
+export function omit<T extends object, K extends keyof T>(
   keys: K[],
   obj: T | null | undefined,
 ): Omit<T, K> {

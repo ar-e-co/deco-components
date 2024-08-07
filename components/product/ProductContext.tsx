@@ -1,12 +1,13 @@
 // ISLAND
 import { Signal, useComputed, useSignal } from "@preact/signals";
 import { ComponentChildren, createContext } from "preact";
-import { Product, ProductLeaf } from "apps/commerce/types.ts";
+import { BreadcrumbList, Product, ProductLeaf } from "apps/commerce/types.ts";
 
 export type ProductContextState = {
   productSignal: Signal<Product>;
   skuSelectedIDSignal: Signal<string | null>;
   skuSelectedSignal: Signal<ProductLeaf | null>;
+  breadcrumbList?: BreadcrumbList | null;
 };
 
 export const ProductContext = createContext<ProductContextState>({} as never);
@@ -15,12 +16,14 @@ export type ProductContextProps = {
   product: Product;
   skuSelectedID?: string | number | null | undefined;
   children: ComponentChildren;
+  breadcrumbList?: BreadcrumbList | null;
 };
 
 function ProductProvider({
   skuSelectedID: skuSelectedIDProp,
   product: productProp,
   children,
+  breadcrumbList,
 }: ProductContextProps) {
   const productSignal = useSignal(productProp);
 
@@ -42,6 +45,7 @@ function ProductProvider({
         productSignal,
         skuSelectedIDSignal,
         skuSelectedSignal,
+        breadcrumbList,
       }}
     >
       {children}

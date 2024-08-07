@@ -35,7 +35,7 @@ function SelectedShippingPrice({
       );
     }
 
-    return formatPrice(price);
+    return formatPrice({ price });
   }
 
   return (
