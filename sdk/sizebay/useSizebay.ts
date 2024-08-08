@@ -5,15 +5,8 @@ import {
   SZB_COOKIE_NAME,
 } from "deco-components/sdk/sizebay/fetcher.ts";
 
-const visible = signal<boolean>(false);
-
-function showSizebay() {
-  visible.value = true;
-}
-
-function hideSizebay() {
-  visible.value = false;
-}
+const recommendedSize = signal<string | null>(null);
+const sid = signal<string | null>(null);
 
 async function initSZB() {
   const SID = getCookieSzb(SZB_COOKIE_NAME)
@@ -25,9 +18,8 @@ async function initSZB() {
 
 export function useSizebay() {
   return {
-    visible,
-    showSizebay,
-    hideSizebay,
     initSZB,
+    recommendedSize,
+    sid,
   };
 }
