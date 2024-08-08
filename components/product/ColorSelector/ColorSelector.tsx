@@ -131,7 +131,12 @@ function ColorSelector(
 
   if (mode === "default") {
     return (
-      <ul class={handleClasses("flex gap-1 items-center", classes?.container)}>
+      <ul
+        class={handleClasses(
+          "flex flex-wrap gap-1 items-center",
+          classes?.container,
+        )}
+      >
         {renderOptions()}
       </ul>
     );
