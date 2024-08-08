@@ -2,15 +2,18 @@ import { ForwardedRef, forwardRef, useImperativeHandle } from "preact/compat";
 import Image, { Props as ImageProps } from "apps/website/components/Image.tsx";
 
 import useZoomInPlace from "deco-components/sdk/useZoomInPlace.ts";
+import { clx } from "deco-components/sdk/clx.ts";
 
-export interface Props extends ImageProps {
+export type Props = ImageProps & {
   height: number;
   actionOnClick?: "zoom-in-place" | "modal" | "custom";
-}
+};
 
 function ZoomableImage({
   actionOnClick,
   onClick,
+  class: _class,
+  className,
   ...rest
 }: Props, forwardedRef: ForwardedRef<HTMLImageElement>) {
   const { ref, toggleZoom, moveZoom, zoomEnabled } = useZoomInPlace<
@@ -37,6 +40,7 @@ function ZoomableImage({
     <Image
       ref={ref}
       onClick={handleImageClick}
+      class={clx("cursor-zoom", _class as string, className as string)}
       {...rest}
       {...zoomEnabled && {
         onMouseMove: moveZoom,
