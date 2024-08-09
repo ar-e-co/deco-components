@@ -64,6 +64,8 @@ function ColorSelector(
     return null;
   }
 
+  const size = options.length;
+
   function handleSelect(newProduct: Product) {
     productSignal.value = newProduct;
     onProductSelect?.(newProduct);
@@ -129,7 +131,12 @@ function ColorSelector(
 
   if (mode === "default") {
     return (
-      <ul class={handleClasses("flex gap-1 items-center", classes?.container)}>
+      <ul
+        class={handleClasses(
+          "flex flex-wrap gap-1 items-center",
+          classes?.container,
+        )}
+      >
         {renderOptions()}
       </ul>
     );
@@ -143,38 +150,43 @@ function ColorSelector(
         classes?.container,
       )}
     >
-      <div
-        class={clx(
-          "relative left-4 mr-2 z-10",
-          classes?.["sliderButton"],
-          classes?.["sliderButton--prev"],
-        )}
-      >
-        <Slider.PrevButton {...sliderButtonProps} {...prevButtonProps} />
-      </div>
+      {(size > 6 &&
+        <div
+          class={clx(
+            "relative left-2 mr-2 z-10",
+            classes?.["sliderButton"],
+            classes?.["sliderButton--prev"],
+          )}
+        >
+          <Slider.PrevButton {...sliderButtonProps} {...prevButtonProps} />
+        </div>
+      )}
 
       <Slider
         class={handleClasses(
-          "carousel max-w-36 flex-1 gap-1 items-center relative",
+          "carousel carousel-end max-w-[8.7rem] flex-1 gap-1 items-center relative",
           classes?.slider,
         )}
       >
         {renderOptions()}
       </Slider>
 
-      <div
-        class={clx(
-          "relative right-4 ml-2 z-10",
-          classes?.["sliderButton"],
-          classes?.["sliderButton--next"],
-        )}
-      >
-        <Slider.NextButton {...sliderButtonProps} {...nextButtonProps} />
-      </div>
+      {(size > 6 &&
+        <div
+          class={clx(
+            "relative right-2 ml-2 z-10",
+            classes?.["sliderButton"],
+            classes?.["sliderButton--next"],
+          )}
+        >
+          <Slider.NextButton {...sliderButtonProps} {...nextButtonProps} />
+        </div>
+      )}
 
       <SliderJS
         {...sliderProps}
         rootId={rootId}
+        infinite
       />
     </div>
   );

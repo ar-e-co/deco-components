@@ -97,9 +97,10 @@ const setup = ({ rootId, scroll, interval, infinite }: Props) => {
 
     slider.scrollTo({
       top: 0,
-      behavior: scroll,
-      left: item.offsetLeft - root.offsetLeft,
-    });
+      behavior: 'smooth',
+      left: item.offsetLeft - root.offsetLeft, 
+    }
+  );
   };
 
   const onClickPrev = () => {
