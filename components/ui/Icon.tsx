@@ -14,9 +14,9 @@ export type AvailableIcons =
   | "ArrowLeft"
   | "ArrowPointingOut"
   | "ArrowRight"
-  | "ArrowRightColor"
   | "ArrowRightLight"
   | "ArrowRightWhite"
+  | "ArrowsOrder"
   | "ArrowsPointingOut"
   | "Bars3"
   | "CartBag"
@@ -73,7 +73,6 @@ export type AvailableIcons =
   | "XMark"
   | "Zoom"
   | "share";
-
 export interface Props extends JSX.SVGAttributes<SVGSVGElement> {
   /**
    * Symbol id from element to render. Take a look at `/static/icons.svg`.
