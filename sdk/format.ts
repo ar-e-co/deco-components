@@ -32,15 +32,22 @@ export function formatPrice({
   currency = "BRL",
   locale = "pt-BR",
   maximumFractionDigits = 0,
+  removeWhitespace = true,
 }: {
   price: number | undefined;
   currency?: string;
   locale?: string;
   maximumFractionDigits?: number;
+  removeWhitespace?: boolean;
 }) {
-  return price
-    ? formatter({ currency, locale, maximumFractionDigits }).format(price)
-    : null;
+  if (!price) {
+    return null;
+  }
+
+  const formattedPrice = formatter({ currency, locale, maximumFractionDigits })
+    .format(price);
+
+  return removeWhitespace ? formattedPrice.replace(/\s/g, "") : formattedPrice;
 }
 
 export function formatPercent({

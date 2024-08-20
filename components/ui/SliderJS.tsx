@@ -46,7 +46,7 @@ const isHTMLElement = (x: Element): x is HTMLElement =>
   // deno-lint-ignore no-explicit-any
   typeof (x as any).offsetLeft === "number";
 
-const setup = ({ rootId, scroll, interval, infinite }: Props) => {
+const setup = ({ rootId, interval, infinite }: Props) => {
   const root = document.getElementById(rootId);
   const slider = root?.querySelector(`[${ATTRIBUTES["data-slider"]}]`);
   const items = root?.querySelectorAll(`[${ATTRIBUTES["data-slider-item"]}]`);
@@ -97,7 +97,7 @@ const setup = ({ rootId, scroll, interval, infinite }: Props) => {
 
     slider.scrollTo({
       top: 0,
-      behavior: scroll,
+      behavior: "smooth",
       left: item.offsetLeft - root.offsetLeft,
     });
   };
