@@ -3,7 +3,7 @@ import type {
   Offer,
   ProductLeaf,
 } from "apps/commerce/types.ts";
-import type { AnalyticsItem, Product, IEvent } from "apps/commerce/types.ts";
+import type { AnalyticsItem, IEvent, Product } from "apps/commerce/types.ts";
 import { OrderForm, OrderFormItem } from "apps/vtex/utils/types.ts";
 import { getAdditionalProperty } from "deco-components/sdk/product/utils.ts";
 
@@ -18,7 +18,6 @@ interface SubscribeNewsletterEvent extends IEvent<SubscribeNewsletterParams> {
 type ExtendedEvents =
   | SubscribeNewsletterEvent
   | AnalyticsEvent;
-
 
 export const sendEvent = <E extends ExtendedEvents>(event: E) => {
   console.log(JSON.stringify(event, null, 2));
