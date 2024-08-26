@@ -17,6 +17,7 @@ export type AvailableIcons =
   | "ArrowRightColor"
   | "ArrowRightLight"
   | "ArrowRightWhite"
+  | "ArrowsOrder"
   | "ArrowsPointingOut"
   | "Bars3"
   | "Bars3Simples"
@@ -83,6 +84,7 @@ export type AvailableIcons =
   | "XMark"
   | "XSimples"
   | "Zoom"
+  | "arrowTop"
   | "glassSimples2"
   | "share";
 
