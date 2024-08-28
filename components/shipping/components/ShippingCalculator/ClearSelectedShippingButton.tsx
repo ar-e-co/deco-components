@@ -58,9 +58,9 @@ function ClearSelectedShippingButton({
       {children ?? (
         <Icon
           id="XMark"
-          width={16}
-          height={16}
-          strokeWidth={2}
+          width={14}
+          height={14}
+          strokeWidth={1}
           {...iconProps}
         />
       )}

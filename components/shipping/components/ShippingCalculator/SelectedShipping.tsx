@@ -111,7 +111,7 @@ function SelectedShipping({
   return (
     <p
       class={handleClasses(
-        "m-0",
+        "m-0 mr-1.5",
         selectedSla ? classes?.defaultMessage : classes?.message,
       )}
     >
