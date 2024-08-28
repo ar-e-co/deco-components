@@ -79,3 +79,39 @@ export function isVideoMedia(
 ): media is VideoMediaProps {
   return media && ("video" in media);
 }
+
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
+export const commonVideoFormats = {
+  avi: {
+    extension: ".avi",
+    mime: "video/x-msvideo",
+  },
+  mp4: {
+    extension: ".mp4",
+    mime: "video/mp4",
+  },
+  mpeg: {
+    extension: ".mpeg",
+    mime: "video/mpeg",
+  },
+  ogv: {
+    extension: ".ogv",
+    mime: "video/ogg",
+  },
+  webm: {
+    extension: ".webm",
+    mime: "video/webm",
+  },
+  ts: {
+    extension: ".ts",
+    mime: "video/mp2t",
+  },
+  "3gp": {
+    extension: ".3gp",
+    mime: "video/3gpp",
+  },
+  "3g2": {
+    extension: ".3g2",
+    mime: "video/3gpp2",
+  },
+};

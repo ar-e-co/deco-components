@@ -1,3 +1,5 @@
+import { Section } from "deco/blocks/section.ts";
+
 export function pick<
   T extends object,
   K extends keyof T = keyof T,
@@ -35,4 +37,12 @@ export function _get(path: string, obj = self, separator = ".") {
   return properties.reduce((prev, curr) => prev?.[curr], obj);
 }
 
-export default _get;
+export function renderSection(section: Section) {
+  if (!section) {
+    return <></>;
+  }
+
+  const { Component, props } = section;
+
+  return <Component {...props} />;
+}
