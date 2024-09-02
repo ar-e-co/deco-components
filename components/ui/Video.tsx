@@ -147,6 +147,7 @@ function Video({
           width={width}
           class={clx("block w-full h-full object-cover", classes?.video)}
           type={type ? `video/${type}` : undefined}
+          poster={poster}
         >
           {videoChildren}
           {renderPoster()}

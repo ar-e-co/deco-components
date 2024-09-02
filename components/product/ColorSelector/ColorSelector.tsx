@@ -150,17 +150,18 @@ function ColorSelector(
         classes?.container,
       )}
     >
-      {(size > 6 &&
-        <div
-          class={clx(
-            "relative left-2 mr-2 z-10",
-            classes?.["sliderButton"],
-            classes?.["sliderButton--prev"],
-          )}
-        >
-          <Slider.PrevButton {...sliderButtonProps} {...prevButtonProps} />
-        </div>
-      )}
+      {size > 6 &&
+        (
+          <div
+            class={clx(
+              "relative left-2 mr-2 z-10",
+              classes?.["sliderButton"],
+              classes?.["sliderButton--prev"],
+            )}
+          >
+            <Slider.PrevButton {...sliderButtonProps} {...prevButtonProps} />
+          </div>
+        )}
 
       <Slider
         class={handleClasses(
@@ -171,17 +172,18 @@ function ColorSelector(
         {renderOptions()}
       </Slider>
 
-      {(size > 6 &&
-        <div
-          class={clx(
-            "relative right-2 ml-2 z-10",
-            classes?.["sliderButton"],
-            classes?.["sliderButton--next"],
-          )}
-        >
-          <Slider.NextButton {...sliderButtonProps} {...nextButtonProps} />
-        </div>
-      )}
+      {size > 6 &&
+        (
+          <div
+            class={clx(
+              "relative right-2 ml-2 z-10",
+              classes?.["sliderButton"],
+              classes?.["sliderButton--next"],
+            )}
+          >
+            <Slider.NextButton {...sliderButtonProps} {...nextButtonProps} />
+          </div>
+        )}
 
       <SliderJS
         {...sliderProps}
