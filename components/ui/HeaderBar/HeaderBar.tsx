@@ -1,7 +1,7 @@
 import { FunctionComponent } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
-import { useModal } from "deco-components/sdk/ui/useModal.ts";
+import { useModalUI } from "deco-components/sdk/ui/useModal.ts";
 import { Device } from "deco/utils/userAgent.ts";
 
 import type {
@@ -54,7 +54,7 @@ function HeaderBar({
   const intervalId = useRef<number | null>(null);
   const [currentSlideIdx, setCurrentSlideIdx] = useState<number>(0);
   const currentSlide = slides?.[currentSlideIdx];
-  const { openModal } = useModal();
+  const { openModal } = useModalUI();
 
   function toggleModal(cta: HeaderBarModal) {
     if (!Modal) {
@@ -138,7 +138,7 @@ function HeaderBar({
             dangerouslySetInnerHTML={{ __html: slide.text }}
           />
 
-          {(slide.ctas?.length ?? 0) > 0 && (
+          {!!slide.ctas?.length && (
             <div
               class={handleClasses(
                 "flex gap-1 ml-1 font-medium",
@@ -146,17 +146,19 @@ function HeaderBar({
               )}
             >
               {" "}
-              {slide.ctas?.map((cta, idx) => (
-                <>
-                  {idx > 0 && (
-                    <span class={classes?.ctaSeparator}>
-                      {ctaSeparator}
-                    </span>
-                  )}
+              {slide.ctas
+                .filter(ctaIsLink) // TODO: Remove this filter when modal cta is reviewd
+                .map((cta, idx) => (
+                  <>
+                    {idx > 0 && (
+                      <span class={classes?.ctaSeparator}>
+                        {ctaSeparator}
+                      </span>
+                    )}
 
-                  {renderCTA(cta)}
-                </>
-              ))}
+                    {renderCTA(cta)}
+                  </>
+                ))}
             </div>
           )}
         </div>

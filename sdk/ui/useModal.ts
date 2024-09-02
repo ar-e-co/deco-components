@@ -30,7 +30,7 @@ function closeModal() {
   });
 }
 
-export function useModal() {
+export function useModalUI() {
   return {
     displayModal,
     openModal,

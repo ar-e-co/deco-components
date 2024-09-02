@@ -1,5 +1,5 @@
-import { batch, Signal, signal } from "@preact/signals";
 import { ComponentChildren } from "preact";
+import { batch, Signal, signal } from "@preact/signals";
 
 type ToastUI = {
   message: Signal<ComponentChildren>;
@@ -20,6 +20,8 @@ function hideToast() {
 
 function showToast(message: ComponentChildren, timeout = 5000) {
   batch(() => {
+    hideToast();
+
     displayToast.open.value = true;
     displayToast.message.value = message;
 
@@ -29,7 +31,7 @@ function showToast(message: ComponentChildren, timeout = 5000) {
   });
 }
 
-export function useToast() {
+export function useToastUI() {
   return {
     displayToast,
     showToast,

@@ -1,10 +1,10 @@
 import ModalUI, { Props } from "deco-components/components/ui/Modal.tsx";
-import { useModal } from "deco-components/sdk/ui/useModal.ts";
+import { useModalUI } from "deco-components/sdk/ui/useModal.ts";
 
 export type { Props };
 
 function Modal(props: Props) {
-  const { displayModal, closeModal } = useModal();
+  const { displayModal, closeModal } = useModalUI();
 
   const isModalOpen = displayModal.open.value;
   const modalContent = displayModal.children.value;
