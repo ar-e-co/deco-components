@@ -99,7 +99,7 @@ function HeaderBar({
 
     return (
       <a href={cta.href} class={handleClasses("underline", classes?.cta)}>
-        {cta.label}
+        {cta.text}
       </a>
     );
   }
@@ -122,47 +122,60 @@ function HeaderBar({
       onMouseEnter={() => stopInterval()}
       onMouseLeave={() => startInterval()}
     >
-      {slides?.map((slide, idx) => (
-        <div
-          class={handleClasses(
-            "absolute top-0 left-0 w-full h-full justify-center items-center",
-            classes?.body,
-            currentSlideIdx === idx ? "flex" : "hidden",
-          )}
-          style={{
-            color: currentSlide.foregroundColor ?? "#fff",
-          }}
-        >
-          <span
-            class={classes?.text}
-            dangerouslySetInnerHTML={{ __html: slide.text }}
-          />
+      {slides?.map((slide, idx) => {
+        const globalCTA = slide.ctas?.length === 1 ? slide.ctas[0] : null;
 
-          {!!slide.ctas?.length && (
-            <div
-              class={handleClasses(
-                "flex gap-1 ml-1 font-medium",
-                classes?.ctasContainer,
-              )}
-            >
-              {" "}
-              {slide.ctas
-                .filter(ctaIsLink) // TODO: Remove this filter when modal cta is reviewd
-                .map((cta, idx) => (
-                  <>
-                    {idx > 0 && (
-                      <span class={classes?.ctaSeparator}>
-                        {ctaSeparator}
-                      </span>
-                    )}
+        const globalCTAIsLink = globalCTA && ctaIsLink(globalCTA);
+        const globalCTAIsModal = globalCTA && !globalCTAIsLink;
 
-                    {renderCTA(cta)}
-                  </>
-                ))}
-            </div>
-          )}
-        </div>
-      ))}
+        const Tag = globalCTAIsLink ? "a" : "div";
+
+        return (
+          <Tag
+            class={handleClasses(
+              "absolute top-0 left-0 w-full h-full justify-center items-center",
+              classes?.body,
+              currentSlideIdx === idx ? "flex" : "hidden",
+              globalCTA && "cursor-pointer",
+            )}
+            style={{
+              color: currentSlide.foregroundColor ?? "#fff",
+            }}
+            {...(globalCTAIsLink && { href: globalCTA.href })}
+            {...(globalCTAIsModal && {
+              onClick: () => toggleModal(globalCTA.modal),
+            })}
+          >
+            <span
+              class={classes?.text}
+              dangerouslySetInnerHTML={{ __html: slide.text }}
+            />
+
+            {!!slide.ctas?.length && (
+              <div
+                class={handleClasses(
+                  "flex gap-1 ml-1 font-medium",
+                  classes?.ctasContainer,
+                )}
+              >
+                {" "}
+                {slide.ctas
+                  .map((cta, idx) => (
+                    <>
+                      {idx > 0 && (
+                        <span class={classes?.ctaSeparator}>
+                          {ctaSeparator}
+                        </span>
+                      )}
+
+                      {renderCTA(cta)}
+                    </>
+                  ))}
+              </div>
+            )}
+          </Tag>
+        );
+      })}
     </div>
   );
 }

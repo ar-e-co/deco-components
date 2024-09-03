@@ -55,10 +55,10 @@ export interface HeaderBarModal {
 
 /** @title Link CTA */
 export interface HeaderBarCTALink {
-  /** @title Texto */
-  label: string;
   /** @title Link */
   href?: string;
+  /** @title Texto */
+  text: string;
 }
 
 /** @title Modal CTA */
@@ -92,5 +92,5 @@ export interface Slide {
   /** @title Cluster de usuários */
   cluster?: string;
   /** @maxItems 2 */
-  ctas?: Array<HeaderBarCTALink | HeaderBarCTAModal>;
+  ctas?: Array<HeaderBarCTAModal | HeaderBarCTALink>;
 }
