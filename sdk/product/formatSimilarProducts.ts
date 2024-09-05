@@ -4,16 +4,17 @@ import type { ProductWithColorProperties } from "../../components/product/ColorS
 
 export const COLOR_FALLBACK_IMG = "/image/thumbnail-error.png";
 
-export interface GetSimilarProductsOptions {
+export interface FormatSimilarProductsOptions {
   showUnavailable?: boolean;
   bringCurrentColorToFront?: boolean;
   /** @default true */
   orderBySpecification?: boolean;
 }
 
-function getSimilarProducts({
+function formatSimilarProducts({
   seller,
   product,
+  similars,
   colorsSpecification,
   colorThumbnailKey,
   specificColorFieldName,
@@ -29,6 +30,7 @@ function getSimilarProducts({
   showUnavailable?: boolean;
   bringCurrentColorToFront?: boolean;
   orderBySpecification?: boolean;
+  similars?: Product[] | null;
 }) {
   if (!product || !colorsSpecification || !specificColorFieldName) {
     return {
@@ -40,7 +42,7 @@ function getSimilarProducts({
   // Extract required properties to object root
   const allSimilarProducts: ProductWithColorProperties[] = [
     product,
-    ...product.isSimilarTo ?? [],
+    ...similars ?? product.isSimilarTo ?? [],
   ]
     .map((similar) => {
       const properties = similar.isVariantOf?.additionalProperty ?? [];
@@ -116,4 +118,4 @@ function getSimilarProducts({
   };
 }
 
-export default getSimilarProducts;
+export default formatSimilarProducts;
