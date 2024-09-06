@@ -49,13 +49,16 @@ function Modal(props: Props) {
       />
 
       <dialog class="modal box-border overflow-hidden">
-        <div
-          class="z-0 bg-black opacity-50 absolute top-0 left-0 right-0 bottom-0"
-          onClick={onClose}
-        />
-
-        <div class="z-10 lg:fixed mt-auto lg:mt-none">
-          {!lazy.value && children}
+        <div class="lg:fixed w-full h-full">
+          <div class="relative w-full h-full flex justify-center items-center">
+            <div
+              class="z-0 bg-black opacity-50 absolute top-0 left-0 right-0 bottom-0"
+              onClick={onClose}
+            />
+            <div class="z-10">
+              {!lazy.value && children}
+            </div>
+          </div>
         </div>
       </dialog>
     </>

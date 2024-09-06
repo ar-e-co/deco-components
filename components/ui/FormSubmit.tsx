@@ -12,7 +12,6 @@ export type FormSubmitProps =
 function FormSubmit({
   children = "Enviar",
   isLoading,
-  class: _class,
   ...props
 }: FormSubmitProps) {
   return (
