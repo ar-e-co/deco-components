@@ -1,4 +1,4 @@
-// import { MediaProps } from "deco-components/sdk/media.ts";
+import { MediaProps } from "deco-components/sdk/media.ts";
 import { HTMLWidget } from "apps/admin/widgets.ts";
 
 /** @title CTA - Link */
@@ -28,11 +28,9 @@ export interface ModalActionsType {
 }
 
 /** @title Modal */
-export interface HeaderBarModal {
+export interface HeaderBarModal extends Partial<MediaProps> {
   /** @hide true */
   type: "modal";
-  /** @title Mídia */
-  // media?: MediaProps;
   /**
    * @title Tagline
    * @description Texto de destaque, cima do título
