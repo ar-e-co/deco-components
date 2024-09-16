@@ -37,6 +37,13 @@ export function _get(path: string, obj = self, separator = ".") {
   return properties.reduce((prev, curr) => prev?.[curr], obj);
 }
 
+export function chunk<T>(array: T[], size: number): T[][] {
+  return Array.from(
+    { length: Math.ceil(array.length / size) },
+    (_, index) => array.slice(index * size, index * size + size),
+  );
+}
+
 export function renderSection(section: Section) {
   if (!section) {
     return <></>;

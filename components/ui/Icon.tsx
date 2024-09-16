@@ -14,7 +14,6 @@ export type AvailableIcons =
   | "ArrowLeft"
   | "ArrowPointingOut"
   | "ArrowRight"
-  | "ArrowRightColor"
   | "ArrowRightLight"
   | "ArrowRightWhite"
   | "ArrowsOrder"
@@ -27,6 +26,7 @@ export type AvailableIcons =
   | "ChevronLeft"
   | "ChevronRight"
   | "ChevronUp"
+  | "Clipboard"
   | "Close"
   | "CreditCards"
   | "Deco"
@@ -83,8 +83,10 @@ export type AvailableIcons =
   | "WhatsApp"
   | "XMark"
   | "XSimples"
+  | "XSimplesmini"
   | "Zoom"
   | "arrowTop"
+  | "arrowTopRight"
   | "glassSimples2"
   | "share";
 

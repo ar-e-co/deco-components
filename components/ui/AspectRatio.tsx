@@ -21,10 +21,9 @@ type ChildrenProps = {
 
 export type Props = JSX.IntrinsicElements["div"] & {
   children: ComponentChildren | ((props: ChildrenProps) => JSX.Element);
-  aspectRatio?: AvailableAspectRatios;
+  aspectRatio: AvailableAspectRatios;
   aspectRatioPaddingTop?: string;
   width: number;
-  height?: number;
 };
 
 function AspectRatio({
@@ -32,22 +31,19 @@ function AspectRatio({
   aspectRatio,
   aspectRatioPaddingTop,
   width,
-  height: heightProps,
   class: _class,
   className,
 }: Props) {
   let paddingTop = aspectRatioPaddingTop;
-  let height = heightProps; // Hack to avoid TS error
+  let height;
 
   if (aspectRatio) {
     const [widthRatio, heightRatio] = aspectRatio.split(":").map(Number);
     const ratio = heightRatio / widthRatio;
+    height = Number((ratio * width).toPrecision(2));
 
     if (!paddingTop) {
       paddingTop = `${(ratio * 100).toPrecision(2)}%`;
-    }
-    if (!height) {
-      height = Number((ratio * width).toPrecision(2));
     }
   }
 
