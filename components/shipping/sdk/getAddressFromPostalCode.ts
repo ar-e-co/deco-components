@@ -16,7 +16,8 @@ async function sendPostalCodeAttachment(postalCode: string) {
   const { cart, sendAttachment } = useCart();
   const availableAddresses = cart.value?.shippingData?.availableAddresses ?? [];
 
-  if (postalCode?.length !== 8) {
+  // remove all non-numeric characters
+  if (postalCode?.replace(/\D/g, "").length < 8) {
     throw new Error("CEP inválido");
   }
 
@@ -25,10 +26,6 @@ async function sendPostalCodeAttachment(postalCode: string) {
       postalCode,
       availableAddresses,
     });
-
-  if (!address?.city) {
-    throw new Error("CEP não encontrado");
-  }
 
   // Everytime we change the address, it chooses the cheapest delivery option
   // by default, hence we need to reset the localStorage values
