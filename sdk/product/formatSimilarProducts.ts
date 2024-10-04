@@ -91,8 +91,8 @@ function formatSimilarProducts({
   if (orderBySpecification) {
     similarProducts = similarProducts.sort(
       (
-        { productID: currentId, position: currentPosition },
-        { productID: nextId, position: nextPosition },
+        { inProductGroupWithID: currentId, position: currentPosition },
+        { inProductGroupWithID: nextId, position: nextPosition },
       ) => {
         // Order by position first, then by productID
         if (currentPosition > nextPosition) return 1;
