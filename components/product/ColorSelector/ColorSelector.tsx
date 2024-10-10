@@ -14,6 +14,7 @@ import SliderJS, {
 } from "deco-components/components/ui/SliderJS.tsx";
 import { useId } from "deco-components/sdk/useId.ts";
 import { clx } from "deco-components/sdk/clx.ts";
+import Image from "apps/website/components/Image.tsx";
 
 const anatomy = [
   "container",
@@ -98,11 +99,14 @@ function ColorSelector(
           handleSelect(option);
         }}
       >
-        <img
+        <Image
+          decoding="async"
           class={classes?.optionImage ?? ""}
           src={thumbnail ?? COLOR_FALLBACK_IMG} // Won't happen but just in case
           loading="lazy"
           alt={specificColor}
+          width={16}
+          height={16}
         />
       </a>
     );
