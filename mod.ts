@@ -1,6 +1,11 @@
+import commerce from "apps/commerce/mod.ts";
 import type { App as A, AppContext as AC } from "deco/mod.ts";
 import type { Secret } from "apps/website/loaders/secret.ts";
+import { InvocationProxy } from "deco/utils/invoke.types.ts";
+import type { Manifest as ManifestVTEX } from "apps/vtex/manifest.gen.ts";
+
 import manifest, { Manifest } from "./manifest.gen.ts";
+import { InvocationFunc } from "deco/clients/withManifest.ts";
 
 export interface ConfigVerifiedReviews {
   idWebsite: string;
@@ -9,6 +14,7 @@ export interface ConfigVerifiedReviews {
 }
 
 export interface Props {
+  account: string;
   configVerifiedReviews: ConfigVerifiedReviews;
 }
 
@@ -19,9 +25,16 @@ export interface Props {
  */
 export default function MyApp(state: Props): A<
   Manifest,
-  Props
+  Props,
+  [ReturnType<typeof commerce>]
 > {
   return { state, manifest };
 }
 
-export type AppContext = AC<ReturnType<typeof MyApp>>;
+type InvocationManifest = Manifest & ManifestVTEX;
+
+export type AppContext = AC<ReturnType<typeof MyApp>> & {
+  invoke:
+    & InvocationProxy<InvocationManifest>
+    & InvocationFunc<InvocationManifest>;
+};

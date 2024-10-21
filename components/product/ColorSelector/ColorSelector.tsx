@@ -87,6 +87,7 @@ function ColorSelector(
 
     return (
       <a
+        title={specificColor}
         href={relative(option.isVariantOf?.url)}
         class={handleClasses(
           "flex justify-center items-center cursor-pointer tooltip tooltip-primary transition-colors ease-in-out duration-125",

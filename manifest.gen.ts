@@ -4,19 +4,21 @@
 
 import * as $$$$$$$$$0 from "./actions/getAddressFromPostalCode.ts";
 import * as $$$$$$$$$1 from "./actions/simulateShipping.ts";
-import * as $$$0 from "./loaders/sanity.ts";
-import * as $$$1 from "./loaders/sanityConfig.ts";
-import * as $$$2 from "./loaders/storeConfig.ts";
-import * as $$$3 from "./loaders/verifiedReviews.ts";
-import * as $$$4 from "./loaders/verifiedReviewsPDP.ts";
+import * as $$$0 from "./loaders/bulkRelatedProducts.ts";
+import * as $$$1 from "./loaders/sanity.ts";
+import * as $$$2 from "./loaders/sanityConfig.ts";
+import * as $$$3 from "./loaders/storeConfig.ts";
+import * as $$$4 from "./loaders/verifiedReviews.ts";
+import * as $$$5 from "./loaders/verifiedReviewsPDP.ts";
 
 const manifest = {
   "loaders": {
-    "deco-components/loaders/sanity.ts": $$$0,
-    "deco-components/loaders/sanityConfig.ts": $$$1,
-    "deco-components/loaders/storeConfig.ts": $$$2,
-    "deco-components/loaders/verifiedReviews.ts": $$$3,
-    "deco-components/loaders/verifiedReviewsPDP.ts": $$$4,
+    "deco-components/loaders/bulkRelatedProducts.ts": $$$0,
+    "deco-components/loaders/sanity.ts": $$$1,
+    "deco-components/loaders/sanityConfig.ts": $$$2,
+    "deco-components/loaders/storeConfig.ts": $$$3,
+    "deco-components/loaders/verifiedReviews.ts": $$$4,
+    "deco-components/loaders/verifiedReviewsPDP.ts": $$$5,
   },
   "actions": {
     "deco-components/actions/getAddressFromPostalCode.ts": $$$$$$$$$0,
