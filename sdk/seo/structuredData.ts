@@ -15,7 +15,7 @@ export function formatListItem(
 }
 
 // Default object is way too big to be sent to the client
-export function formatPLPProduct(product: Product) {
+export function formatProduct(product: Product) {
   return {
     "@type": "Product" as const,
     "@id": product.url,

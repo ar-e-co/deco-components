@@ -10,6 +10,7 @@ import * as $$$2 from "./loaders/sanityConfig.ts";
 import * as $$$3 from "./loaders/storeConfig.ts";
 import * as $$$4 from "./loaders/verifiedReviews.ts";
 import * as $$$5 from "./loaders/verifiedReviewsPDP.ts";
+import * as $$$$$$0 from "./sections/SEO/ReducedPDPSEO.tsx";
 
 const manifest = {
   "loaders": {
@@ -19,6 +20,9 @@ const manifest = {
     "deco-components/loaders/storeConfig.ts": $$$3,
     "deco-components/loaders/verifiedReviews.ts": $$$4,
     "deco-components/loaders/verifiedReviewsPDP.ts": $$$5,
+  },
+  "sections": {
+    "deco-components/sections/SEO/ReducedPDPSEO.tsx": $$$$$$0,
   },
   "actions": {
     "deco-components/actions/getAddressFromPostalCode.ts": $$$$$$$$$0,
