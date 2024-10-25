@@ -7,6 +7,7 @@ import { invoke } from "deco-components/runtime.ts";
 import { AnatomyClasses, handleClasses } from "deco-components/sdk/styles.ts";
 
 import { useShippingSimulation } from "../../sdk/useShippingSimulation.ts";
+import { stripNonNumericCharacters } from "deco-components/components/shipping/sdk/helpers.tsx";
 
 const anatomy = ["container"] as const;
 
@@ -35,7 +36,9 @@ function FormSimulation({
   async function handleSubmit(event: Event) {
     event?.preventDefault();
 
-    if (postalCodeSignal.value?.length !== 8) {
+    const postalCode = stripNonNumericCharacters(postalCodeSignal.value ?? "");
+
+    if (postalCode.length < 8) {
       return;
     }
 
@@ -44,8 +47,8 @@ function FormSimulation({
 
       simulationResultSignal.value = await invoke["deco-components"].actions
         .simulateShipping({
-          items: items,
-          postalCode: postalCodeSignal.value,
+          postalCode,
+          items,
           country: cart.value?.storePreferencesData.countryCode || "BRA",
         });
     } catch (err) {

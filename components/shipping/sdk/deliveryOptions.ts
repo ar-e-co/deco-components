@@ -36,7 +36,10 @@ function calculateCheapestAndFastestDeliveryOptions(
           option.slas.find((d) => d.id === option.selectedSla) ?? null,
       }));
 
-  if (!cheapestOptions.length || !fastestOptions.length) {
+  if (
+    !cheapestOptions.some((opt) => opt.slas.length) ||
+    !fastestOptions.some((opt) => opt.slas.length)
+  ) {
     return {
       cheapestDeliveryOption: null,
       fastestDeliveryOption: null,

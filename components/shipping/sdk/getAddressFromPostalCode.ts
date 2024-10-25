@@ -11,13 +11,14 @@ import {
   LOCAL_STORAGE_ADDITIONAL_SHIPPING_DATA_KEY,
   LOCAL_STORAGE_ADDITIONAL_SHIPPING_DATA_VALUE,
 } from "./constants.ts";
+import { stripNonNumericCharacters } from "deco-components/components/shipping/sdk/helpers.tsx";
 
 async function sendPostalCodeAttachment(postalCode: string) {
   const { cart, sendAttachment } = useCart();
   const availableAddresses = cart.value?.shippingData?.availableAddresses ?? [];
 
   // remove all non-numeric characters
-  if (postalCode?.replace(/\D/g, "").length < 8) {
+  if (stripNonNumericCharacters(postalCode).length !== 8) {
     throw new Error("CEP inválido");
   }
 

@@ -16,6 +16,7 @@ import {
   LOCAL_STORAGE_ACTIVE_DELIVERY_CHANNEL_KEY,
   LOCAL_STORAGE_ACTIVE_DELIVERY_OPTION_KEY,
 } from "./constants.ts";
+import { stripNonNumericCharacters } from "deco-components/components/shipping/sdk/helpers.tsx";
 
 export type ShippingCalculatorContextState = {
   // Computed
@@ -37,17 +38,22 @@ export type ShippingCalculatorContextState = {
   loadingSignal: Signal<boolean>;
 };
 
+// One cart to rule them all
+const { cart } = storeState;
+
 // Mutable signals must be declared outside the hook
 const postalCodeSignal = signal<PostalCode | null>(null);
 const errorSignal = signal<string | null>(null);
 const loadingSignal = signal<boolean>(false);
 
-const { cart } = storeState;
-
 const hasSelectedAddressSignal = computed(() => {
   const shippingData = cart.value?.shippingData;
+  const postalCode = stripNonNumericCharacters(
+    shippingData?.address?.postalCode ?? "",
+  );
+  const isValid = postalCode.length === 8;
 
-  return Boolean(shippingData?.address?.postalCode);
+  return isValid;
 });
 
 const pickupOptionsSignal = computed(() => {
