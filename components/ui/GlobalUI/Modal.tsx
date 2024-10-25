@@ -15,6 +15,7 @@ function Modal(props: Props) {
       open={isModalOpen}
       onClose={closeModal}
       {...props}
+      {...displayModal.props}
     >
       {modalContent}
     </ModalUI>
