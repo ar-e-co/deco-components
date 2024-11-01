@@ -13,13 +13,13 @@ export interface ImageMediaProps {
 
 export interface ResponsiveImageMediaProps {
   /**
-   * @title Imagem Mobile
-   */
-  mobile: ImageMediaProps;
-  /**
    * @title Imagem Desktop
    */
   desktop: ImageMediaProps;
+  /**
+   * @title Imagem Mobile
+   */
+  mobile: ImageMediaProps;
 }
 
 /**
@@ -27,25 +27,25 @@ export interface ResponsiveImageMediaProps {
  */
 export interface VideoMediaProps {
   /**
+   * @title Poster do vídeo
+   */
+  poster: ImageWidget;
+  /**
    * @title Vídeo
    * @description Selecione do banco de vídeos ou faça upload de um novo
    */
   video: VideoWidget;
-  /**
-   * @title Poster do vídeo
-   */
-  poster: ImageWidget;
 }
 
 export interface ResponsiveVideoMediaProps {
   /**
-   * @title Vídeo Mobile
-   */
-  mobile: VideoMediaProps;
-  /**
    * @title Vídeo Desktop
    */
   desktop: VideoMediaProps;
+  /**
+   * @title Vídeo Mobile
+   */
+  mobile: VideoMediaProps;
 }
 
 export type Media = ImageMediaProps | VideoMediaProps;

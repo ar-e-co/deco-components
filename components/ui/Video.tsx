@@ -49,7 +49,8 @@ function Video({
   width,
   height,
   description,
-  poster,
+  poster =
+    "https://deco-sites-assets.s3.sa-east-1.amazonaws.com/simples/ec6cd5c9-3363-4b46-b68a-d0d0af5b7ff7/general-video.png",
   type,
   children,
   videoChildren,
@@ -105,6 +106,10 @@ function Video({
   }, []);
 
   function renderPoster(extraClasses?: string) {
+    if (!poster) {
+      return null;
+    }
+
     return (
       <Image
         class={clx(
