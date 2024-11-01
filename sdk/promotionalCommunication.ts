@@ -1,5 +1,5 @@
 import { ResponsiveMediaProps } from "deco-components/sdk/media.ts";
-import { HTMLWidget } from "apps/admin/widgets.ts";
+import { RichText } from "apps/admin/widgets.ts";
 
 /** @title CTA - Link */
 export interface PromotionalBannerCTALink {
@@ -40,14 +40,14 @@ export interface PromotionalBanner extends ResponsiveMediaProps {
    */
   tagline?: string;
   /** @title Título */
-  title?: HTMLWidget;
+  title?: RichText;
   /** @title Conteúdo */
-  body?: HTMLWidget;
+  body?: RichText;
   /**
    * @title Texto jurídico
    * @description Texto curto que aparece no rodapé sobre as condições da promoção
    */
-  legalText?: HTMLWidget;
+  legalText?: RichText;
   /**
    * @maxItems 3
    */
