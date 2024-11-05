@@ -81,3 +81,5 @@ export default function verifiedReviewsPDP(
     };
   };
 }
+
+export const cache = "no-cache";
