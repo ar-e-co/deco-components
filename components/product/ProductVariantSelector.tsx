@@ -70,7 +70,10 @@ function VariantSelector({
         const isActive = skuID === skuSelectedID;
 
         return (
-          <li class={classes?.item}>
+          <li
+            key={rest.value}
+            class={classes?.item}
+          >
             <a
               class={classes?.link}
               href={relativeLink}
