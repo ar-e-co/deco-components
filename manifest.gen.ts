@@ -4,6 +4,7 @@
 
 import * as $$$$$$$$$0 from "./actions/getAddressFromPostalCode.ts";
 import * as $$$$$$$$$1 from "./actions/simulateShipping.ts";
+import * as $$$$$$$$$2 from "./actions/subscribeNewsletter.ts";
 import * as $$$0 from "./loaders/bulkRelatedProducts.ts";
 import * as $$$1 from "./loaders/sanity.ts";
 import * as $$$2 from "./loaders/sanityConfig.ts";
@@ -27,6 +28,7 @@ const manifest = {
   "actions": {
     "deco-components/actions/getAddressFromPostalCode.ts": $$$$$$$$$0,
     "deco-components/actions/simulateShipping.ts": $$$$$$$$$1,
+    "deco-components/actions/subscribeNewsletter.ts": $$$$$$$$$2,
   },
   "name": "deco-components",
   "baseUrl": import.meta.url,
