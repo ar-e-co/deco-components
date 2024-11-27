@@ -1,3 +1,4 @@
+import { logger } from "deco/observability/otel/config.ts";
 import { fetchAPI } from "deco/utils/fetchAPI.ts";
 import type { Context } from "apps/vtex/hooks/context.ts";
 import { Address } from "apps/vtex/utils/types.ts";
@@ -47,11 +48,8 @@ export const getAddressFromPostalCode = async (
       };
     }
 
-    // N~ao se sabe se essa rota esta proxyada
-    // Trocar essa URL para outro endpoint
-    // Olhar app exemplo de my account (vtex commerce stable)
     const url =
-      `https://www.simplesreserva.com/api/checkout/pub/postal-code/BRA/${postalCode}`;
+      `https://portal.vtexcommercestable.com.br/api/checkout/pub/postal-code/BRA/${postalCode}`;
 
     const newAddress = await fetchAPI<Address>(
       url,
@@ -64,6 +62,11 @@ export const getAddressFromPostalCode = async (
       },
     );
 
+    // if the address is not found, we should throw an error
+    if (!newAddress.state) {
+      throw new Error("CEP não encontrado");
+    }
+
     // reuse the first addressId that was not created by the user or generate a new one
     const addressId = availableAddresses.find((d) =>
       !d.receiverName && Boolean(d.addressId)
@@ -75,8 +78,9 @@ export const getAddressFromPostalCode = async (
       isDisposable: false, // Create new address if customer finish the checkout
       addressId,
     };
-  } catch (e) {
-    return e;
+  } catch (error) {
+    logger.error(JSON.stringify(error));
+    throw error;
   }
 };
 
